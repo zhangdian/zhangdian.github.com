@@ -10,7 +10,7 @@ categories: 环境配置&软件安装
 
 ##1.1 安装git
 
-    apt-get install apt
+    apt-get install git
 
 ##1.2安装ruby
 

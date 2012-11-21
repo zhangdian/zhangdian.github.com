@@ -1,0 +1,7 @@
+---
+layout: post
+title: "test-rsyc"
+date: 2012-11-21 10:13
+comments: true
+categories: 
+---

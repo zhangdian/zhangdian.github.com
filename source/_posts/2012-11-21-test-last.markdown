@@ -1,0 +1,9 @@
+---
+layout: post
+title: "test last"
+date: 2012-11-21 14:06
+comments: true
+categories: 
+---
+ To start using RVM you need to run `source /home/bd17kaka/.rvm/scripts/rvm`
+    in all your open shell windows, in rare cases you need to reopen all shell windows.

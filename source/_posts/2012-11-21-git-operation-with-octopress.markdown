@@ -35,3 +35,7 @@ categories: octopress
     rake deploy
 
 此外，以后每次编辑博客之前，最好首先将远程的代码pull下来，然后编辑，编辑完之后最后马上push，这样可以防止冲突的产生。
+
+5. 参考
+----------------
+* [两台计算机同步octopress](http://note.softrayn.com/blog/2012/07/two-pc-sync-octopress/)

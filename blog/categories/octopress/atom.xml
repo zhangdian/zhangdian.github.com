@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: octopress | My Octopress Blog]]></title>
+  <link href="http://zhangdian.github.com/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://zhangdian.github.com/"/>
+  <updated>2012-11-23T18:24:22+08:00</updated>
+  <id>http://zhangdian.github.com/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用git使用Octopress]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/21/git-operation-with-octopress/"/>
+    <updated>2012-11-21T15:34:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/21/git-operation-with-octopress</id>
+    <content type="html"><![CDATA[<h2>1. 建立dev分支</h2>
+
+<p>默认情况下，octopress在本地只有一个source分支。我另外建立一个dev分支，开始的时候，设置dev分支和source分支一致，在source分支，执行命令(1)就可以新建一个和source内容一样的分支，并且自动checkout到dev分支；</p>
+
+<pre><code>git checkout source -b dev (1)
+</code></pre>
+
+<h2>2. 编辑文件，commit</h2>
+
+<p>以后在编辑博客的时候，在dev分支编辑，编辑完之后在source文件夹中，执行命令(2)就可以将该表提交；</p>
+
+<pre><code>git add *
+git commit -m'msg' (2)
+</code></pre>
+
+<h2>3. 合并代码，push</h2>
+
+<p>然后切换到source分支，pull远程的代码下来，然后merge dev分支的代码，然后将source的代码push上去就完成代码的更新了；</p>
+
+<pre><code>git checkout source
+git pull origin source
+git merge dev
+git push origin source
+</code></pre>
+
+<h2>4. 生成、部署</h2>
+
+<p>最后生成，部署新的博客内容就ok了；</p>
+
+<pre><code>rake generate
+rake deploy
+</code></pre>
+
+<p>此外，以后每次编辑博客之前，最好首先将远程的代码pull下来，然后编辑，编辑完之后最后马上push，这样可以防止冲突的产生。</p>
+
+<h2>5. 参考</h2>
+
+<ul>
+<li><a href="http://note.softrayn.com/blog/2012/07/two-pc-sync-octopress/">两台计算机同步octopress</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

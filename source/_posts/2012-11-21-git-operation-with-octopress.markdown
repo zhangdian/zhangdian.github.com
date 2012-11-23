@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "使用git使用Octopress"
+title: "使用git操作Octopress"
 date: 2012-11-21 15:34
 comments: true
 categories: octopress

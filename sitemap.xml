@@ -2,7 +2,7 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://zhangdian.github.com/blog/2012/11/20/setup-octopress/</loc>
-        <lastmod>2012-11-27T13:49:20+08:00</lastmod>
+        <lastmod>2012-11-27T13:54:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2012/11/21/test-rsyc/</loc>
@@ -13,8 +13,8 @@
         <lastmod>2012-11-23T18:23:59+08:00</lastmod>
     </url>
     <url>
-        <loc>http://zhangdian.github.com/blog/2012/11/21/test-last/</loc>
-        <lastmod>2012-11-23T18:23:59+08:00</lastmod>
+        <loc>http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/</loc>
+        <lastmod>2012-11-27T13:54:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2012/11/21/git-operation-with-octopress/</loc>
@@ -22,14 +22,14 @@
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu/</loc>
-        <lastmod>2012-11-23T18:23:59+08:00</lastmod>
+        <lastmod>2012-11-27T13:54:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/archives/</loc>
-        <lastmod>2012-11-27T13:49:20+08:00</lastmod>
+        <lastmod>2012-11-27T13:54:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/</loc>
-        <lastmod>2012-11-27T13:49:20+08:00</lastmod>
+        <lastmod>2012-11-27T13:54:02+08:00</lastmod>
     </url>
 </urlset>

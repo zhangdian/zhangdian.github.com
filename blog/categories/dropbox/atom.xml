@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: dropbox | bd17kaka's blog]]></title>
+  <link href="http://zhangdian.github.com/blog/categories/dropbox/atom.xml" rel="self"/>
+  <link href="http://zhangdian.github.com/"/>
+  <updated>2012-11-27T13:56:39+08:00</updated>
+  <id>http://zhangdian.github.com/</id>
+  <author>
+    <name><![CDATA[bd17kaka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Dropbox的安装(Ubuntu12.04)]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu/"/>
+    <updated>2012-11-23T16:19:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>Dropbox是一款资料同步软件，只要把资料存在云端，就可以无处不在的访问到这些资料。今天在Ubuntu12.04下安装了Dropbox，把安装过程和遇到的问题写下来。</p>
+
+<h3>1. 安装过程</h3>
+
+<p>访问<a href="https://www.dropbox.com/install?os=linux">Dropbox for Linux</a>，可以下载deb文件，也可以下载源码编译安装，也可以从命令行安装。我选择从命令行安装。</p>
+
+<p>根据系统版本的不同，输入不同的命令进行安装就行：</p>
+
+<pre><code># 32位
+cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf - 
+# 64位
+cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+</code></pre>
+
+<p>安装完之后，运行</p>
+
+<pre><code>~/.dropbox-dist/dropboxd
+</code></pre>
+
+<p>就可以运行dropbox了。</p>
+
+<h3>2. 自动启动Dropbox</h3>
+
+<p>在/etc/init.d/文件夹中添加一个文件auto_dropbox.sh，添加以下代码：</p>
+
+<pre><code>~/.dropbox-dist/dropboxd &amp;
+</code></pre>
+
+<p>保存退出到shell，输入以下命令：</p>
+
+<pre><code>sudo chmod +x /etc/init.d/auto_dropbox.sh # 设置script的执行权限
+sudo update-rc.d auto_dropbox.sh defaults # 设置script在系统启动时执行
+</code></pre>
+
+<p>这样，就可以在系统启动的时候自动启动dropbox，可以使用命令：</p>
+
+<pre><code>dropbox status
+</code></pre>
+
+<p>来查询dropbox的状态。但是，每次启动都不能自动运行，不知道为什么。还是在启动之后，运行命令在后台运行吧。</p>
+
+<h3>3. 相关链接</h3>
+
+<ul>
+<li><a href="https://www.dropbox.com/install?os=linux">dropbox for linux download</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

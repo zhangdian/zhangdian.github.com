@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-11-27T19:04:00+08:00</updated>
+  <updated>2012-11-27T19:13:34+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[git配置]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/27/git-config/"/>
+    <updated>2012-11-27T19:08:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/27/git-config</id>
+    <content type="html"><![CDATA[<p>使用git进行版本管理，经常需要敲各种命令，比如</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout
+</span><span class='line'>git status
+</span><span class='line'>git commit
+</span><span class='line'>git branch</span></code></pre></td></tr></table></div></figure>
+
+
+<p>等等，可以在git中进行全局配置，让这些命令更加短一些：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global alias.co chekcout
+</span><span class='line'>git config --global alias.st status
+</span><span class='line'>git config --global alias.ci commit
+</span><span class='line'>git config --global alias.br branch</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样，以后就可以敲比较短的命令了。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Dropbox的安装(Ubuntu12.04)]]></title>

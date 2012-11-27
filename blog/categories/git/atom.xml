@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: git | bd17kaka's blog]]></title>
+  <link href="http://zhangdian.github.com/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://zhangdian.github.com/"/>
+  <updated>2012-11-27T19:13:34+08:00</updated>
+  <id>http://zhangdian.github.com/</id>
+  <author>
+    <name><![CDATA[bd17kaka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[git配置]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/27/git-config/"/>
+    <updated>2012-11-27T19:08:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/27/git-config</id>
+    <content type="html"><![CDATA[<p>使用git进行版本管理，经常需要敲各种命令，比如
+<code>  
+git checkout
+git status
+git commit
+git branch
+</code>
+等等，可以在git中进行全局配置，让这些命令更加短一些：
+<code>
+git config --global alias.co chekcout
+git config --global alias.st status
+git config --global alias.ci commit
+git config --global alias.br branch
+</code>
+这样，以后就可以敲比较短的命令了。</p>
+]]></content>
+  </entry>
+  
+</feed>

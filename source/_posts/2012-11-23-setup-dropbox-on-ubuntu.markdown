@@ -3,7 +3,7 @@ layout: post
 title: "Dropbox的安装(Ubuntu12.04)"
 date: 2012-11-23 16:19
 comments: true
-categories: 
+categories: [dropbox, 环境配置&软件安装]
 ---
 Dropbox是一款资料同步软件，只要把资料存在云端，就可以无处不在的访问到这些资料。今天在Ubuntu12.04下安装了Dropbox，把安装过程和遇到的问题写下来。
 

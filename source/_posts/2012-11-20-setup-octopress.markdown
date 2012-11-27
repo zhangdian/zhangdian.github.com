@@ -3,7 +3,7 @@ layout: post
 title: "setup_octopress"
 date: 2012-11-20 16:15
 comments: true
-categories: [环境配置&软件安装, Octopress]
+categories: [环境配置&软件安装, octopress]
 ---
 
 1.Octopress安装

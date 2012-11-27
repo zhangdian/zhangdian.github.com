@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "setup_octopress"
+title: "Octopress的安装与配置(Windows 7)"
 date: 2012-11-20 16:15
 comments: true
 categories: [环境配置&软件安装, octopress]
@@ -15,6 +15,7 @@ categories: [环境配置&软件安装, octopress]
 * ruby的版本问题，Octopress必须要ruby1.9.3，如果版本不对的话，文档中提供了rbenv和rvm两种方法来安装合适的版本。我直接使用[http://www.douban.com/group/topic/29077892/](http://www.douban.com/group/topic/29077892/)中讲到的办法，也就是直接安装Ruby Installer和development kit就行了，在ruby的官网上下载就行
 * 另外在执行rake的命令的时候，提示Octopress需要0.9.2.2版本，但是我的版本是10.0.1，最后查到可以在前面加上“bundle exec”，就可以通过执行
 
+<!--more-->
 1.2 博客部署
 ----------------
     rake setup_github_pages

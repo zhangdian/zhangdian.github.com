@@ -6,6 +6,7 @@ comments: true
 categories: [环境配置&软件安装, octopress]
 ---
 之前安装了在Windows7下面安装了Octopress，现在也把在Ubuntu12.04下安装过程中遇到的问题记录一下。
+<!--more-->
 #1. 环境搭建
 
 ##1.1 安装git

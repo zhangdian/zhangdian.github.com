@@ -11,6 +11,7 @@ categories: octopress
 
     git checkout source -b dev (1)
 
+<!--more-->
 2. 编辑文件，commit
 ----------------
 以后在编辑博客的时候，在dev分支编辑，编辑完之后在source文件夹中，执行命令(2)就可以将该表提交；

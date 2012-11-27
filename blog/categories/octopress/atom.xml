@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-11-27T16:07:11+08:00</updated>
+  <updated>2012-11-27T19:04:00+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -24,6 +24,9 @@
 
 <pre><code>git checkout source -b dev (1)
 </code></pre>
+
+<!--more-->
+
 
 <h2>2. 编辑文件，commit</h2>
 
@@ -68,6 +71,9 @@ rake deploy
     <updated>2012-11-21T14:06:00+08:00</updated>
     <id>http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu</id>
     <content type="html"><![CDATA[<p>之前安装了在Windows7下面安装了Octopress，现在也把在Ubuntu12.04下安装过程中遇到的问题记录一下。</p>
+
+<!--more-->
+
 
 <h1>1. 环境搭建</h1>
 
@@ -154,7 +160,7 @@ bundle install
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[setup_octopress]]></title>
+    <title type="html"><![CDATA[Octopress的安装与配置(Windows 7)]]></title>
     <link href="http://zhangdian.github.com/blog/2012/11/20/setup-octopress/"/>
     <updated>2012-11-20T16:15:00+08:00</updated>
     <id>http://zhangdian.github.com/blog/2012/11/20/setup-octopress</id>
@@ -168,6 +174,9 @@ bundle install
 <li>ruby的版本问题，Octopress必须要ruby1.9.3，如果版本不对的话，文档中提供了rbenv和rvm两种方法来安装合适的版本。我直接使用<a href="http://www.douban.com/group/topic/29077892/">http://www.douban.com/group/topic/29077892/</a>中讲到的办法，也就是直接安装Ruby Installer和development kit就行了，在ruby的官网上下载就行</li>
 <li>另外在执行rake的命令的时候，提示Octopress需要0.9.2.2版本，但是我的版本是10.0.1，最后查到可以在前面加上“bundle exec”，就可以通过执行</li>
 </ul>
+
+
+<!--more-->
 
 
 <h2>1.2 博客部署</h2>

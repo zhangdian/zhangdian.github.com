@@ -4,7 +4,7 @@
   <title><![CDATA[Category: dropbox | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/dropbox/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-11-27T16:07:11+08:00</updated>
+  <updated>2012-11-27T19:04:00+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -19,6 +19,9 @@
     <updated>2012-11-23T16:19:00+08:00</updated>
     <id>http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu</id>
     <content type="html"><![CDATA[<p>Dropbox是一款资料同步软件，只要把资料存在云端，就可以无处不在的访问到这些资料。今天在Ubuntu12.04下安装了Dropbox，把安装过程和遇到的问题写下来。</p>
+
+<!--more-->
+
 
 <h3>1. 安装过程</h3>
 

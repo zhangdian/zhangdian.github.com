@@ -5,14 +5,6 @@
         <lastmod>2012-11-27T13:54:02+08:00</lastmod>
     </url>
     <url>
-        <loc>http://zhangdian.github.com/blog/2012/11/21/test-rsyc/</loc>
-        <lastmod>2012-11-23T18:23:59+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://zhangdian.github.com/blog/2012/11/21/test-again/</loc>
-        <lastmod>2012-11-27T14:15:10+08:00</lastmod>
-    </url>
-    <url>
         <loc>http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/</loc>
         <lastmod>2012-11-27T13:54:02+08:00</lastmod>
     </url>
@@ -25,11 +17,15 @@
         <lastmod>2012-11-27T13:54:02+08:00</lastmod>
     </url>
     <url>
+        <loc>http://zhangdian.github.com/blog/2012/11/27/test-source/</loc>
+        <lastmod>2012-11-27T14:32:32+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://zhangdian.github.com/blog/archives/</loc>
-        <lastmod>2012-11-27T14:15:10+08:00</lastmod>
+        <lastmod>2012-11-27T14:32:32+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/</loc>
-        <lastmod>2012-11-27T14:15:10+08:00</lastmod>
+        <lastmod>2012-11-27T14:32:32+08:00</lastmod>
     </url>
 </urlset>

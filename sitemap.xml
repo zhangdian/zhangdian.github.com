@@ -2,7 +2,7 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://zhangdian.github.com/blog/2012/11/20/setup-octopress/</loc>
-        <lastmod>2012-11-27T19:03:09+08:00</lastmod>
+        <lastmod>2012-11-28T00:59:59+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/</loc>
@@ -22,10 +22,10 @@
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/archives/</loc>
-        <lastmod>2012-11-27T19:12:49+08:00</lastmod>
+        <lastmod>2012-11-28T00:59:59+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/</loc>
-        <lastmod>2012-11-27T19:12:49+08:00</lastmod>
+        <lastmod>2012-11-28T00:59:59+08:00</lastmod>
     </url>
 </urlset>

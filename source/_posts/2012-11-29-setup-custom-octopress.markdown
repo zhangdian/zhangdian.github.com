@@ -24,7 +24,7 @@ categories: [octopress]
 要想在边框栏设置sina分享，要修改三个地方的内容：
 
 * 添加文件/source/_includes/custom/asides/sina_weibo_sharing.html文件，其中内容如下：
-{% include_code sina_weibo_sharing.html %}
+{% include_code ruby sina_weibo_sharing.html %}
 * 修改_config.yml，在最后添加下面的代码：
 ```
 # Weibo 

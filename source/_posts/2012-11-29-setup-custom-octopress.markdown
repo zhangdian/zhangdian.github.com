@@ -27,8 +27,7 @@ categories: [octopress]
 {% include_code sina_weibo_sharing.html %}
 * 修改_config.yml，在最后添加下面的代码：
 ```
-# Weibo
-# Please refer to http://weibo.com/tool/weiboshow to get your uid and verifier. 
+# Weibo 
 weibo_uid: 1930318973
 weibo_fansline: 0   # How many lines for the fan list
 weibo_show: true    # Whether you want your weibo content to be shown
@@ -42,7 +41,8 @@ custom/asides/sina_weibo_sharing.html
 ```
 
 ####2.2 sina关注
-要想在边框栏设置sina分享，要修改两个地方的内容：
+要想在边框栏设置sina关注，要修改两个地方的内容：
+
 * 添加文件/source/_includes/custom/asides/sina_weibo_follow.html文件，其中内容如下：
 {% include_code sina_weibo_follow.html %}
 * 修改_config.yml，在defaule_asides数组中添加一项：
@@ -52,8 +52,8 @@ custom/asides/sina_weibo_follow.html
 
 ###3. About.html
 可以添加关于自己的介绍页面，同样，需要修改两个地方的数据：
-* 添加文件/source/_includes/custom/asides/about.html文件，其中内容如下：
-{% include_code sina_weibo_follow.html %}
+
+* 添加文件/source/_includes/custom/asides/about.html的内容
 * 修改_config.yml，在defaule_asides数组中添加一项：
 ```
 custom/asides/about.html

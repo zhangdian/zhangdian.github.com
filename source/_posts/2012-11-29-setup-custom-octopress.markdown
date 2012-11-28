@@ -19,6 +19,8 @@ categories: [octopress]
 那么，设置自己个性化的页面，主要修改的是source/_incledes/中的内容。
 此外，修改了文件内容之后，还需要修改_config.yml中的部分内容才能生效，具体见后面的设置。
 
+<!-- more -->
+
 ###2. sina相关
 ####2.1 sina分享
 要想在边框栏设置sina分享，要修改三个地方的内容：
@@ -58,3 +60,6 @@ custom/asides/sina_weibo_follow.html
 ```
 custom/asides/about.html
 ```
+
+###4. 遇到的问题
+* 无法正确显示以显示文件形式的code；解决办法是首先安装python，然后bundle update；

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-11-29T12:30:47+08:00</updated>
+  <updated>2012-11-29T14:06:10+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -52,12 +52,26 @@ code snippet
 
 <h4>3.1 语法</h4>
 
-<pre><code>File e:/octopress/source/downloads/code/path/to/file could not be found
+<pre><code>{{ "{% include_code [title] [lang:language] path/to/file" }} %}
 </code></pre>
 
 <p>其中title是标题；lang是你的代码的语言，可以提供高亮的功能；</p>
 
 <p>文件路径的默认根目录在_config.yml中的变量code_dir中，而其默认值是source/downloads/code，只需要把要include的代码放到这个文件夹里就行了。</p>
+
+<h4>问题：</h4>
+
+<ul>
+<li>要想以文本形式显示上述语法文本，需要转义一下，如果直接使用“{% include_code ......”这样来显示文本的话，默认会被解析为“Backtick Code Blocks”形式的代码引入，所以需要使用链接1的方式进行转义一下。</li>
+</ul>
+
+
+<h3>参考链接</h3>
+
+<ol>
+<li><a href="https://github.com/imathis/octopress/blob/site/source/docs/plugins/include-code/index.markdown">文本形式显示include_code语法</a></li>
+</ol>
+
 ]]></content>
   </entry>
   
@@ -92,32 +106,7 @@ code snippet
 
 <ul>
 <li>添加文件/source/_includes/custom/asides/sina_weibo_sharing.html文件，其中内容如下：
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ruby (sina_weibo_sharing.html)</span> <a href='/downloads/code/sina_weibo_sharing.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>{% if site.weibo_share %}
-</span><span class='line'>  <span class="nt">&lt;span&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;iframe</span>
-</span><span class='line'>    <span class="na">width=</span><span class="s">&quot;86&quot;</span>
-</span><span class='line'>    <span class="na">scrolling=</span><span class="s">&quot;no&quot;</span>
-</span><span class='line'>    <span class="na">height=</span><span class="s">&quot;16&quot;</span>
-</span><span class='line'>    <span class="na">frameborder=</span><span class="s">&quot;0&quot;</span>
-</span><span class='line'>    <span class="na">src=</span>
-</span><span class='line'>      &quot;http://hits.sinajs.cn/A1/weiboshare.html?url={{ site.url }}{{ page.url }}<span class="ni">&amp;amp;</span>type=6<span class="ni">&amp;amp;</span>{% if site.weibo_uid %}ralateUid={{ site.weibo_uid }}<span class="ni">&amp;amp;</span>{% endif %}language=zh_cn&quot; allowtransparency=&quot;true&quot;&gt;
-</span><span class='line'>  <span class="nt">&lt;/iframe&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/span&gt;</span>
-</span><span class='line'>{% endif %}
-</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+{% include_code ruby sina_weibo_sharing.html %}</li>
 <li>修改_config.yml，在最后添加下面的代码：
 ```
 
@@ -143,24 +132,7 @@ custom/asides/sina_weibo_sharing.html
 
 <ul>
 <li>添加文件/source/_includes/custom/asides/sina_weibo_follow.html文件，其中内容如下：
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (sina_weibo_follow.html)</span> <a href='/downloads/code/sina_weibo_follow.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html</span> <span class="na">xmlns:wb=</span><span class="s">“http://open.weibo.com/wb”</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nt">&lt;head&gt;</span>
-</span><span class='line'>	<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://tjs.sjs.sinajs.cn/open/api/js/wb.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class='line'><span class="nt">&lt;/head&gt;</span>
-</span><span class='line'><span class="nt">&lt;body&gt;</span>
-</span><span class='line'><span class="nt">&lt;wb:follow</span><span class="na">-button</span> <span class="na">uid=</span><span class="s">&quot;1930318973&quot;</span> <span class="na">type=</span><span class="s">&quot;red_4&quot;</span> <span class="na">width=</span><span class="s">&quot;100%&quot;</span> <span class="na">height=</span><span class="s">&quot;64&quot;</span> <span class="nt">&gt;</span>
-</span><span class='line'><span class="err">&lt;</span>/wb:follow-button&gt;
-</span><span class='line'><span class="nt">&lt;/body&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+{% include_code sina_weibo_follow.html %}</li>
 <li>修改_config.yml，在defaule_asides数组中添加一项：
 <code>
 custom/asides/sina_weibo_follow.html
@@ -183,9 +155,14 @@ custom/asides/about.html
 
 <h3>4. 遇到的问题</h3>
 
-<ul>
-<li>无法正确显示以显示文件形式的code；解决办法是首先安装python，然后bundle update；</li>
-</ul>
+<h4>4.1 undefined method `Py_IsInitialized' for RubyPython::Python:Module</h4>
+
+<p>在使用插件功能给博客添加边框栏项目的时候，提示上述错误，原因是没有安装python，解决办法是首先安装python，然后bundle update更新一下，就ok了。参考网站：</p>
+
+<ol>
+<li><a href="https://github.com/github/gollum/issues/225">Py_IsInitialized error</a></li>
+<li><a href="https://github.com/imathis/octopress/issues/262">Exception on generate codeblock with "lang:" on Windows</a></li>
+</ol>
 
 ]]></content>
   </entry>

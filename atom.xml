@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-11-29T12:30:47+08:00</updated>
+  <updated>2012-11-29T14:06:10+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -52,12 +52,26 @@ code snippet
 
 <h4>3.1 语法</h4>
 
-<pre><code>File e:/octopress/source/downloads/code/path/to/file could not be found
+<pre><code>{{ "{% include_code [title] [lang:language] path/to/file" }} %}
 </code></pre>
 
 <p>其中title是标题；lang是你的代码的语言，可以提供高亮的功能；</p>
 
 <p>文件路径的默认根目录在_config.yml中的变量code_dir中，而其默认值是source/downloads/code，只需要把要include的代码放到这个文件夹里就行了。</p>
+
+<h4>问题：</h4>
+
+<ul>
+<li>要想以文本形式显示上述语法文本，需要转义一下，如果直接使用“{% include_code &#8230;&#8230;”这样来显示文本的话，默认会被解析为“Backtick Code Blocks”形式的代码引入，所以需要使用链接1的方式进行转义一下。</li>
+</ul>
+
+
+<h3>参考链接</h3>
+
+<ol>
+<li><a href="https://github.com/imathis/octopress/blob/site/source/docs/plugins/include-code/index.markdown">文本形式显示include_code语法</a></li>
+</ol>
+
 ]]></content>
   </entry>
   
@@ -213,9 +227,14 @@ code snippet
 
 <h3>4. 遇到的问题</h3>
 
-<ul>
-<li>无法正确显示以显示文件形式的code；解决办法是首先安装python，然后bundle update；</li>
-</ul>
+<h4>4.1 undefined method `Py_IsInitialized&#8217; for RubyPython::Python:Module</h4>
+
+<p>在使用插件功能给博客添加边框栏项目的时候，提示上述错误，原因是没有安装python，解决办法是首先安装python，然后bundle update更新一下，就ok了。参考网站：</p>
+
+<ol>
+<li><a href="https://github.com/github/gollum/issues/225">Py_IsInitialized error</a></li>
+<li><a href="https://github.com/imathis/octopress/issues/262">Exception on generate codeblock with &#8220;lang:&#8221; on Windows</a></li>
+</ol>
 
 ]]></content>
   </entry>

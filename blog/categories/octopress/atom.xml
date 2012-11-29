@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-11-29T12:15:50+08:00</updated>
+  <updated>2012-11-29T12:30:47+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -52,9 +52,7 @@ code snippet
 
 <h4>3.1 语法</h4>
 
-<pre><code>```
-File e:/octopress/source/downloads/code/path/to/file could not be found
-```
+<pre><code>File e:/octopress/source/downloads/code/path/to/file could not be found
 </code></pre>
 
 <p>其中title是标题；lang是你的代码的语言，可以提供高亮的功能；</p>

@@ -22,6 +22,11 @@ categories: [octopress]
 <!-- more -->
 
 ###2. sina相关
+sina的开放平台上提供了很多可以作为插件到octopress中的元素，包括分享按钮、关注按钮等等，见链接：
+
+1. [sina开放平台](http://open.weibo.com/)
+2. [sina分享按钮界面](http://open.weibo.com/sharebutton)
+
 ####2.1 sina分享
 要想在边框栏设置sina分享，要修改三个地方的内容：
 

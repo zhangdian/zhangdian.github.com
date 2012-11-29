@@ -62,4 +62,8 @@ custom/asides/about.html
 ```
 
 ###4. 遇到的问题
-* 无法正确显示以显示文件形式的code；解决办法是首先安装python，然后bundle update；
+####4.1 undefined method `Py_IsInitialized' for RubyPython::Python:Module
+在使用插件功能给博客添加边框栏项目的时候，提示上述错误，原因是没有安装python，解决办法是首先安装python，然后bundle update更新一下，就ok了。参考网站：
+
+1. [Py_IsInitialized error](https://github.com/github/gollum/issues/225)
+2. [Exception on generate codeblock with "lang:" on Windows](https://github.com/imathis/octopress/issues/262)

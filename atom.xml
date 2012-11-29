@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-11-29T09:54:21+08:00</updated>
+  <updated>2012-11-29T12:08:55+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[octopress代码片段分享]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/"/>
+    <updated>2012-11-29T10:44:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets</id>
+    <content type="html"><![CDATA[<h3>1.介绍</h3>
+
+<p>octopress文档中提供了很多种的代码分享高亮方法，其中我用的最多的就是两种：</p>
+
+<ul>
+<li>Backtick Code Blocks</li>
+<li>Include Code Snippets</li>
+</ul>
+
+
+<h3>2. Backtick Code Blocks</h3>
+
+<p>这种方式可以用于代码片段的分享，其格式如下</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>``` [language] [title] [url] [link text]
+</span><span class='line'>code snippet</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>其中带‘[]’的都是可选项。
+</span><span class='line'>#### 问题:
+</span><span class='line'>
+</span><span class='line'>* 我把可选项都带上，但是不能正确显示，在后台一直提示“favicon.ico无法找到”。
+</span><span class='line'>
+</span><span class='line'>###3. Include Code Snippets
+</span><span class='line'>这种方式可以将文件系统中的任何文件导入到博客的任何位置，并且还提供高亮和代码下载。
+</span><span class='line'>####3.1 语法</span></code></pre></td></tr></table></div></figure>
+
+
+<p>File e:/octopress/source/downloads/code/path/to/file could not be found
+&#8220;`
+其中title是标题；lang是你的代码的语言，可以提供高亮的功能；</p>
+
+<p>文件路径的默认根目录在_config.yml中的变量code_dir中，而其默认值是source/downloads/code，只需要把要include的代码放到这个文件夹里就行了。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[个性化octopress设置]]></title>

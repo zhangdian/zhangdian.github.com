@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-11-29T14:06:10+08:00</updated>
+  <updated>2012-11-29T14:09:33+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -99,6 +99,14 @@ code snippet
 
 
 <h3>2. sina相关</h3>
+
+<p>sina的开放平台上提供了很多可以作为插件到octopress中的元素，包括分享按钮、关注按钮等等，见链接：</p>
+
+<ol>
+<li><a href="http://open.weibo.com/">sina开放平台</a></li>
+<li><a href="http://open.weibo.com/sharebutton">sina分享按钮界面</a></li>
+</ol>
+
 
 <h4>2.1 sina分享</h4>
 

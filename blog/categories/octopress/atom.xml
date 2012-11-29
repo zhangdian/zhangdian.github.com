@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-11-29T12:12:08+08:00</updated>
+  <updated>2012-11-29T12:15:50+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -30,13 +30,14 @@
 
 <h3>2. Backtick Code Blocks</h3>
 
-<p>这种方式可以用于代码片段的分享，其格式如下
-<code>
-</code> [language] [title] [url] [link text]
+<p>这种方式可以用于代码片段的分享，其格式如下</p>
+
+<pre><code>``` [language] [title] [url] [link text]
 code snippet
-<code>
-</code>
-其中带‘[]’的都是可选项。</p>
+```
+</code></pre>
+
+<p>其中带‘[]’的都是可选项。</p>
 
 <h4>问题:</h4>
 
@@ -51,10 +52,12 @@ code snippet
 
 <h4>3.1 语法</h4>
 
-<p><code>
+<pre><code>```
 File e:/octopress/source/downloads/code/path/to/file could not be found
-</code>
-其中title是标题；lang是你的代码的语言，可以提供高亮的功能；</p>
+```
+</code></pre>
+
+<p>其中title是标题；lang是你的代码的语言，可以提供高亮的功能；</p>
 
 <p>文件路径的默认根目录在_config.yml中的变量code_dir中，而其默认值是source/downloads/code，只需要把要include的代码放到这个文件夹里就行了。</p>
 ]]></content>

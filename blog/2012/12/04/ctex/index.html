@@ -5,22 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>git配置 - bd17kaka's blog</title>
+  <title>CTeX - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="使用git进行版本管理，经常需要敲各种命令，比如 1
-2
-3
-4
-git checkout
-git status
-git commit
-git branch 等等，可以在git中进行全局配置，让这些命令更加短一些： 1
-2
-3
-4
-git config --global alias.co &hellip;">
+  <meta name="description" content="1. tex相关概念 1.1 tex TEX就是一种优秀的电子排版系统。TEX提供了一套功能强大并且十分灵活的排版语言，它多达900 多条指令，并且TEX 有宏功能，用户可以不断地定义自己适用的新命令来扩展TEX 系统的功能。许多人利用TEX 提供的宏定义功能对TEX 进行了二次开发。 1.2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -29,7 +18,7 @@ git config --global alias.co &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/11/27/git-config/">
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/04/ctex/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -78,7 +67,7 @@ git config --global alias.co &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Git配置</h1>
+      <h1 class="entry-title">CTeX</h1>
     
     
       <p class="meta">
@@ -94,38 +83,69 @@ git config --global alias.co &hellip;">
   
 
 
-<time datetime="2012-11-27T19:08:00+08:00" pubdate data-updated="true">Nov 27<span>th</span>, 2012</time>
+<time datetime="2012-12-04T18:08:00+08:00" pubdate data-updated="true">Dec 4<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>使用git进行版本管理，经常需要敲各种命令，比如</p>
+<div class="entry-content"><h3>1. tex相关概念</h3>
+
+<h4>1.1 tex</h4>
+
+<p>TEX就是一种优秀的电子排版系统。TEX提供了一套功能强大并且十分灵活的排版语言，它多达900 多条指令，并且TEX 有宏功能，用户可以不断地定义自己适用的新命令来扩展TEX 系统的功能。许多人利用TEX 提供的宏定义功能对TEX 进行了二次开发。</p>
+
+<h4>1.2 什么是latex</h4>
+
+<p>LATEX是当今世界上最流行和使用最为广泛的TEX宏集。它构筑在Plain TEX 的基础之上，并加进了很多的功能以使得使用者可以更为方便的利用TEX 的强大功能。使用LATEX基本上不需要使用者自己设计命令和宏等，因为LATEX已经替你做好了。因此，即使使用者并不是很了解TEX，也可以在短短的时间内生成高质量的文档。对于生成复杂的数学公式，LATEX表现的更为出色。</p>
+
+<h4>1.3 tex和latex的关系</h4>
+
+<p>LATEX是TEX中的一种格式(format)，是建立在TEX基础上的宏语言，也就是说，每一个LATEX命令实际上最后都会被转换解释成几个甚至上百个TEX命令。</p>
+
+<h4>1.4 MiKTEX、fpTEX、teTEX、CTEX的关系</h4>
+
+<p>TEX在不同的硬件和操作系统上有不同的实现版本。这就像C语言，在不同的操作系统中有不同的编译系统，例如Linux下的gcc，Windows下的Visual C++等。有时，一种操作系统里也会有好几种的TEX系统。目前常见的Unix/Linux下的TEX系统是teTEX，Windows下则有MiKTEX和fpTEX。CTEX 指的是CTEX中文套装的简称，是把MiKTEX和一些常用的相关工具，如GSview，WinEdt等包装在一起制作的一个简易安装程序，并对其中的中文支持部分进行了配置，使得安装后马上就可以使用中文。</p>
+
+<h3>2. ctex实践</h3>
+
+<h4>2.1 头部</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout
-</span><span class='line'>git status
-</span><span class='line'>git commit
-</span><span class='line'>git branch</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\documentclass[16pt,oneside,a4paper,UTF8]{ctexart}
+</span><span class='line'>\usepackage{CJKutf8}
+</span><span class='line'>\usepackage[unicode=true]{hyperref}
+</span><span class='line'>\usepackage{graphicx}
+</span><span class='line'>%\usepackage{makeidx}
+</span><span class='line'>\begin{document}
+</span><span class='line'>\title{title}
+</span><span class='line'>\author{author}
+</span><span class='line'>\date{\today}
+</span><span class='line'>\maketitle</span></code></pre></td></tr></table></div></figure>
 
 
-<p>等等，可以在git中进行全局配置，让这些命令更加短一些：</p>
+<h4>continue&#8230;</h4>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global alias.co chekcout
-</span><span class='line'>git config --global alias.st status
-</span><span class='line'>git config --global alias.ci commit
-</span><span class='line'>git config --global alias.br branch</span></code></pre></td></tr></table></div></figure>
+<h3>3. 参考资料</h3>
 
+<ul>
+<li><a href="http://www.ctex.org/TeX">ctex介绍</a></li>
+<li><a href="http://www.ctex.org/CTeXFAQ">ctex FAQ PDF文档下载</a></li>
+<li><a href="http://bbs.ctex.org/forum.php">ctex论坛</a></li>
+<li><a href="http://www.ctex.org/CTeXDownload">ctex下载</a></li>
+<li><a href="https://www.dropbox.com/s/xtiqy6g15ixnruk/LaTeX.pdf?m">latex英文文档</a></li>
+</ul>
 
-<p>这样，以后就可以敲比较短的命令了。</p>
 </div>
 
 
@@ -148,12 +168,12 @@ git config --global alias.co &hellip;">
   
 
 
-<time datetime="2012-11-27T19:08:00+08:00" pubdate data-updated="true">Nov 27<span>th</span>, 2012</time>
+<time datetime="2012-12-04T18:08:00+08:00" pubdate data-updated="true">Dec 4<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/git/'>git</a>
+    <a class='category' href='/blog/categories/ctex/'>ctex</a>
   
 </span>
 
@@ -162,7 +182,7 @@ git config --global alias.co &hellip;">
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zhangdian.github.com/blog/2012/11/27/git-config/" data-via="" data-counturl="http://zhangdian.github.com/blog/2012/11/27/git-config/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zhangdian.github.com/blog/2012/12/04/ctex/" data-via="" data-counturl="http://zhangdian.github.com/blog/2012/12/04/ctex/" >Tweet</a>
   
   
   
@@ -171,10 +191,8 @@ git config --global alias.co &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/11/23/setup-dropbox-on-ubuntu/" title="Previous Post: Dropbox的安装(Ubuntu12.04)">&laquo; Dropbox的安装(Ubuntu12.04)</a>
+        <a class="basic-alignment left" href="/blog/2012/11/29/octopress-sharing-code-snippets/" title="Previous Post: octopress代码片段分享">&laquo; octopress代码片段分享</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/11/29/setup-custom-octopress/" title="Next Post: 个性化octopress设置">个性化octopress设置 &raquo;</a>
       
     </p>
   </footer>
@@ -222,7 +240,7 @@ git config --global alias.co &hellip;">
     height="16" 
     frameborder="0" 
     src=
-      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/11/27/git-config/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/04/ctex/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
   </iframe>
   </span>
 <html xmlns:wb=“http://open.weibo.com/wb”>

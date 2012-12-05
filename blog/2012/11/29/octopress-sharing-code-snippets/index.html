@@ -86,6 +86,8 @@ Include Code Snippets 2. Backtick Code Blocks 这种方式可以用于代码片�
 
 <time datetime="2012-11-29T10:44:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2012</time>
         
+         | <a href="#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -181,12 +183,34 @@ code snippet
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/" data-via="" data-counturl="http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/" >Tweet</a>
+  
+  <div class="g-plusone" data-size="medium"></div>
   
   
+
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'1930318973', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
   
 </div>
-
     
     <p class="meta">
       
@@ -198,6 +222,12 @@ code snippet
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -229,6 +259,18 @@ code snippet
     
       <li class="post">
         <a href="/blog/2012/11/23/setup-dropbox-on-ubuntu/">Dropbox的安装(Ubuntu12.04)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/21/git-operation-with-octopress/">使用git操作Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/21/setup-octopress-on-ubuntu/">Octopress安装与配置（Ubuntu12.04）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/20/setup-octopress/">Octopress的安装与配置(Windows 7)</a>
       </li>
     
   </ul>
@@ -269,11 +311,35 @@ code snippet
 </p>
 
 </footer>
-  
+  ﻿
+
+<script type="text/javascript">
+      var disqus_shortname = 'bd17kakablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
 
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
 
 
 

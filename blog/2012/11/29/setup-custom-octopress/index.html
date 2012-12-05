@@ -90,6 +90,8 @@
 
 <time datetime="2012-11-29T00:08:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2012</time>
         
+         | <a href="#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -134,39 +136,8 @@
 <p>要想在边框栏设置sina分享，要修改三个地方的内容：</p>
 
 <ul>
-<li>添加文件/source/_includes/custom/asides/sina_weibo_sharing.html文件，其中内容如下：</li>
-</ul>
-
-
-<figure class='code'><figcaption><span>ruby (sina_weibo_sharing.html)</span> <a href='/downloads/code/sina_weibo_sharing.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>{% if site.weibo_share %}
-</span><span class='line'>  <span class="nt">&lt;span&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;iframe</span>
-</span><span class='line'>    <span class="na">width=</span><span class="s">&quot;86&quot;</span>
-</span><span class='line'>    <span class="na">scrolling=</span><span class="s">&quot;no&quot;</span>
-</span><span class='line'>    <span class="na">height=</span><span class="s">&quot;16&quot;</span>
-</span><span class='line'>    <span class="na">frameborder=</span><span class="s">&quot;0&quot;</span>
-</span><span class='line'>    <span class="na">src=</span>
-</span><span class='line'>      &quot;http://hits.sinajs.cn/A1/weiboshare.html?url={{ site.url }}{{ page.url }}<span class="ni">&amp;amp;</span>type=6<span class="ni">&amp;amp;</span>{% if site.weibo_uid %}ralateUid={{ site.weibo_uid }}<span class="ni">&amp;amp;</span>{% endif %}language=zh_cn&quot; allowtransparency=&quot;true&quot;&gt;
-</span><span class='line'>  <span class="nt">&lt;/iframe&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/span&gt;</span>
-</span><span class='line'>{% endif %}
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
+<li>添加文件/source/_includes/custom/asides/sina_weibo_sharing.html文件，其中内容如下：
+{% include_code ruby sina_weibo_sharing.html %}</li>
 <li>修改_config.yml，在最后添加下面的代码：</li>
 </ul>
 
@@ -201,12 +172,21 @@
 <p>要想在边框栏设置sina关注，要修改两个地方的内容：</p>
 
 <ul>
-<li>添加文件/source/_includes/custom/asides/sina_weibo_follow.html文件，其中内容如下：</li>
+<li>添加文件/source/_includes/custom/asides/sina_weibo_follow.html文件，其中内容如下：
+{% include_code sina_weibo_follow.html %}</li>
+<li>修改_config.yml，在defaule_asides数组中添加一项：</li>
 </ul>
 
 
-<figure class='code'><figcaption><span> (sina_weibo_follow.html)</span> <a href='/downloads/code/sina_weibo_follow.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>custom/asides/sina_weibo_follow.html</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>2.3 将新浪分享添加到每个博客页面下方</h4>
+
+<p>在_include/post/sharing.html添加如下代码即可：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -214,24 +194,44 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html</span> <span class="na">xmlns:wb=</span><span class="s">“http://open.weibo.com/wb”</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nt">&lt;head&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://tjs.sjs.sinajs.cn/open/api/js/wb.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class='line'><span class="nt">&lt;/head&gt;</span>
-</span><span class='line'><span class="nt">&lt;body&gt;</span>
-</span><span class='line'><span class="nt">&lt;wb:follow</span><span class="na">-button</span> <span class="na">uid=</span><span class="s">&quot;1930318973&quot;</span> <span class="na">type=</span><span class="s">&quot;red_4&quot;</span> <span class="na">width=</span><span class="s">&quot;100%&quot;</span> <span class="na">height=</span><span class="s">&quot;64&quot;</span> <span class="nt">&gt;</span>
-</span><span class='line'><span class="err">&lt;</span>/wb:follow-button&gt;
-</span><span class='line'><span class="nt">&lt;/body&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>修改_config.yml，在defaule_asides数组中添加一项：</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>custom/asides/sina_weibo_follow.html</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% if site.weibo_share %}
+</span><span class='line'>&lt;script type="text/javascript" charset="utf-8"&gt;
+</span><span class='line'>(function(){
+</span><span class='line'>  var _w = 72 , _h = 16;
+</span><span class='line'>  var param = {
+</span><span class='line'>    url:'{{ site.url }}{{ page.url }}',
+</span><span class='line'>    type:'3',
+</span><span class='line'>    count:'1', /**是否显示分享数，1显示(可选)*/
+</span><span class='line'>    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+</span><span class='line'>    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+</span><span class='line'>    pic:'', /**分享图片的路径(可选)*/
+</span><span class='line'>    ralateUid:'', /**关联用户的UID，分享微博会@该用户(可选)*/
+</span><span class='line'>  language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+</span><span class='line'>    rnd:new Date().valueOf()
+</span><span class='line'>  }
+</span><span class='line'>  var temp = [];
+</span><span class='line'>  for( var p in param ){
+</span><span class='line'>    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+</span><span class='line'>  }
+</span><span class='line'>  document.write('&lt;iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"&gt;&lt;/iframe&gt;')
+</span><span class='line'>})()
+</span><span class='line'>&lt;/script&gt;
+</span><span class='line'>  {% endif %}</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>3. About.html</h3>
@@ -248,9 +248,92 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>custom/asides/about.html</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>4. 遇到的问题</h3>
+<h3>4. 添加评论</h3>
 
-<h4>4.1 undefined method `Py_IsInitialized&#8217; for RubyPython::Python:Module</h4>
+<p>Octopress使用的是<a href="http://www.disqus.com/">disqus</a>插件来展示文章的评论。</p>
+
+<h4>4.1 disqus</h4>
+
+<p>在<a href="http://www.disqus.com/">disqus官网</a>注册一个账号，然后按提示设置shortname，Website name以及Website URL即可。这里的Website必须填写你要使用该插件的网址，也就是你的blog地址，对于我则是http://zhangdian.github.com。这里的shortname是要在octopress设置中填写的值。</p>
+
+<h4>4.2 octopress配置</h4>
+
+<p>需要再_config.yml中填写disqus_short_name的值，也就是在注册disqus时的shortname的值，那么这行设置最后的形式就是“disqus_short_name: value”。注意，冒号后面一定要有一个空格，不然会报错。</p>
+
+<h4>4.3 文章设置</h4>
+
+<p>在文章头部，有一个选项是“comments”，把他设置成true。</p>
+
+<h4>4.4 使用到的文件</h4>
+
+<p>在octopress结构中，实际上是在source/_includes/after_footer.html中引入了评论页面：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{{ "{% include disqus.html" }} %}
+</span><span class='line'>{{ "{% include facebook_like.html" }} %}
+</span><span class='line'>{{ "{% include google_plus_one.html" }} %}
+</span><span class='line'>{{ "{% include twitter_sharing.html" }} %}
+</span><span class='line'>{{ "{% include custom/after_footer.html" }} %}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中第一个就是。后面三个分别是facebook、google+、twitter的一些东西，最后一项是引入个性化的设置。在disqus.html中：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{{ "{% if site.disqus_short_name and page.comments != false" }} %}
+</span><span class='line'>&lt;script type="text/javascript"&gt;
+</span><span class='line'>      var disqus_shortname = '{{ site.disqus_short_name }}';
+</span><span class='line'>      {% if page.comments == true %}
+</span><span class='line'>        {% comment %} `page.comments` can be only be set to true on pages/posts, so we embed the comments here. {% endcomment %}
+</span><span class='line'>        // var disqus_developer = 1;
+</span><span class='line'>        var disqus_identifier = '{{ site.url }}{{ page.url }}';
+</span><span class='line'>        var disqus_url = '{{ site.url }}{{ page.url }}';
+</span><span class='line'>        var disqus_script = 'embed.js';
+</span><span class='line'>      {% else %}
+</span><span class='line'>        {% comment %} As `page.comments` is empty, we must be on the index page. {% endcomment %}
+</span><span class='line'>        var disqus_script = 'count.js';
+</span><span class='line'>      {% endif %}
+</span><span class='line'>    (function () {
+</span><span class='line'>      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+</span><span class='line'>      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+</span><span class='line'>      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+</span><span class='line'>    }());
+</span><span class='line'>&lt;/script&gt;
+</span><span class='line'>{% endif %}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>只有在全局变量disqus_short_name和页面变量comments同时为true的时候，才会加载评论页面。</p>
+
+<h4>4.5 关于source/_includes/post/sharing.html页面</h4>
+
+<p>这个页面里面包含的内容紧跟着文章内容下面显示，而我们上述讨论的评论页面是在这下面显示的。</p>
+
+<h3>5. 遇到的问题</h3>
+
+<h4>5.1 undefined method `Py_IsInitialized&#8217; for RubyPython::Python:Module</h4>
 
 <p>在使用插件功能给博客添加边框栏项目的时候，提示上述错误，原因是没有安装python，解决办法是首先安装python，然后bundle update更新一下，就ok了。参考网站：</p>
 
@@ -295,12 +378,34 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zhangdian.github.com/blog/2012/11/29/setup-custom-octopress/" data-via="" data-counturl="http://zhangdian.github.com/blog/2012/11/29/setup-custom-octopress/" >Tweet</a>
+  
+  <div class="g-plusone" data-size="medium"></div>
   
   
+
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'http://zhangdian.github.com/blog/2012/11/29/setup-custom-octopress/',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'1930318973', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
   
 </div>
-
     
     <p class="meta">
       
@@ -312,6 +417,12 @@
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -343,6 +454,18 @@
     
       <li class="post">
         <a href="/blog/2012/11/23/setup-dropbox-on-ubuntu/">Dropbox的安装(Ubuntu12.04)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/21/git-operation-with-octopress/">使用git操作Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/21/setup-octopress-on-ubuntu/">Octopress安装与配置（Ubuntu12.04）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/20/setup-octopress/">Octopress的安装与配置(Windows 7)</a>
       </li>
     
   </ul>
@@ -383,11 +506,35 @@
 </p>
 
 </footer>
-  
+  ﻿
+
+<script type="text/javascript">
+      var disqus_shortname = 'bd17kakablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/11/29/setup-custom-octopress/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2012/11/29/setup-custom-octopress/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
 
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
 
 
 

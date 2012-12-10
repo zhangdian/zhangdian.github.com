@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>借助几个例子加深对js的理解 - bd17kaka's blog</title>
+  <meta name="author" content="bd17kaka">
+
+  
+  <meta name="description" content="最近在weibo上看到一个关于js的帖子So, you think you know JavaScript?，正好在这里看到了关于这几个题目的参考，看完之后总结如下。 题目1 1
+2
+3
+4
+if (!("a" in window)) { var a = 1;
+}
+alert(a); 题目的意思是 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/07/js-basic-concept-with-example/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="bd17kaka's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">bd17kaka's blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zhangdian.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">分类</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">借助几个例子加深对js的理解</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T11:13:00+08:00" pubdate data-updated="true">Dec 7<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>最近在weibo上看到一个关于js的帖子<a href="http://dmitry.baranovskiy.com/post/91403200">So, you think you know JavaScript?</a>，正好在<a href="http://julying.com/blog/so-you-think-you-know-javascript/">这里</a>看到了关于这几个题目的参考，看完之后总结如下。</p>
+
+<!-- more -->
+
+
+<h4>题目1</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if (!("a" in window)) {
+</span><span class='line'>    var a = 1;
+</span><span class='line'>}
+</span><span class='line'>alert(a);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>题目的意思是：如果a在window里面的话，将a赋值为1，然后输出a。首先需要明确几个概念：</p>
+
+<ul>
+<li>所有的全局变量都属于window，那么语句var a=1；等价于window.a=1；</li>
+<li>所有变量声明都在范围作用域的顶部；</li>
+</ul>
+
+
+<p>对于如下代码：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alert("a" in window);
+</span><span class='line'>var a;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>虽然a的声明在后面，但是js引擎会扫描所有变量，然后将这些变量的声明移动到顶部，那么最终的代码会变成下面这个样子：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var a;
+</span><span class='line'>alert("a" in window);</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>js引擎只会将变量声明提前，而不会将变量赋值提前。因为将变量赋值提前可能会使代码的执行出现意想不到的结果；</li>
+</ul>
+
+
+<p>所以题目中的代码最终演化为：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var a;
+</span><span class='line'>if (!("a" in window)) {
+</span><span class='line'>  a = 1;
+</span><span class='line'>}
+</span><span class='line'>alert(a);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以最终的输出结果会是undefined。这里的“提前”可以理解为“预编译”。</p>
+
+<h4>题目2</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var a = 1,
+</span><span class='line'>    b = function a(x) {
+</span><span class='line'>        x && a(--x);
+</span><span class='line'>    };
+</span><span class='line'>alert(a);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于这个题目，首先要知道下面几个概念：</p>
+
+<ul>
+<li>函数声明和函数表达式（相当于变量赋值）的区别；</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 函数声明
+</span><span class='line'>function functionName(arg1, arg2){
+</span><span class='line'>    //函数体
+</span><span class='line'>}
+</span><span class='line'>// 函数表达式，赋值
+</span><span class='line'>var functionName = function(arg1, arg2){
+</span><span class='line'>    //函数体
+</span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>函数声明也是会提前的，和变量声明一样。而函数表达式是不会提前的，和变量赋值一样；</li>
+<li>函数声明会覆盖变量声明，但是不会覆盖变量赋值；为了解释这个，下面列举了两个简单例子：</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 函数声明和变量声明，名字相同
+</span><span class='line'>// 尽管变量声明在函数声明后面，但是变量声明还是被函数声明覆盖了
+</span><span class='line'>// 输出为function
+</span><span class='line'>function value(){
+</span><span class='line'>    return 1;
+</span><span class='line'>}
+</span><span class='line'>var value;
+</span><span class='line'>alert(typeof value);    //"function"
+</span><span class='line'>
+</span><span class='line'>// 函数声明和变量赋值，名字相同
+</span><span class='line'>// 由于变量声明时进行了赋值，所有函数的声明不能覆盖变量的声明
+</span><span class='line'>// 所以最终输出为number
+</span><span class='line'>function value(){
+</span><span class='line'>    return 1;
+</span><span class='line'>}
+</span><span class='line'>var value = 1;
+</span><span class='line'>alert(typeof value);    //"number"    </span></code></pre></td></tr></table></div></figure>
+
+
+<p>在我们上面的题目中，首先是变量声明加赋值，然后是一个函数表达式，变量赋值覆盖了函数声明，故而最终的输出为1。此外，如果调用b(2)，在IE下会报错，但是在其他浏览器会返回undefined。</p>
+
+<h4>题目3</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function a() {
+</span><span class='line'>    return 1；
+</span><span class='line'>}
+</span><span class='line'>var a;
+</span><span class='line'>alert(a);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有了前面的知识之后，这题很简单了，函数声明会覆盖变量声明，故而输出是函数a()的定义，如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function a() {
+</span><span class='line'>    return 1；
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>题目4</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function b(x, y, a) {
+</span><span class='line'>    arguments[2] = 10;
+</span><span class='line'>    alert(a);
+</span><span class='line'>}
+</span><span class='line'>b(1, 2, 3);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于arguments，可以参见<a href="http://www.w3school.com.cn/js/pro_js_functions_arguments_object.asp">ECMAScript arguments 对象</a>。活动对象是在进入函数上下文时刻被创建的，它通过函数的arguments属性初始化。arguments属性的值是Arguments对象。在函数代码中，使用特殊对象arguments，开发者无需明确指出参数名，就能访问它们。故而输出是10。</p>
+
+<h4>题目5</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function a() {
+</span><span class='line'>    alert(this);
+</span><span class='line'>}
+</span><span class='line'>a.call(null);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>理解这个题目，必须要理解this的用法，可以参见<a href="http://julying.com/blog/javascript-this/">this</a>。关于 a.call(null)；根据ECMAScript262规范规定：如果第一个参数传入的对象调用者是null或者undefined的话，call方法将把全局对象（也就是window）作为this的值。所以，不管你什么时候传入null，其this都是全局对象window，所以题目的输出就是：“[object Window]”。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">bd17kaka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T11:13:00+08:00" pubdate data-updated="true">Dec 7<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/js/'>js</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'http://zhangdian.github.com/blog/2012/12/07/js-basic-concept-with-example/',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'1930318973', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/12/06/freemind-docs/" title="Previous Post: freemind 思维导图制作工具">&laquo; freemind 思维导图制作工具</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    ﻿<section>
+  <h1>About Me</h1>
+  <p>屌丝一枚，技术新人，服务于互联网，忠诚于AC米兰</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/07/js-basic-concept-with-example/">借助几个例子加深对js的理解</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/06/freemind-docs/">freemind 思维导图制作工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/04/ctex/">CTeX</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/29/octopress-sharing-code-snippets/">octopress代码片段分享</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/29/setup-custom-octopress/">个性化octopress设置</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/27/git-config/">git配置</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/23/setup-dropbox-on-ubuntu/">Dropbox的安装(Ubuntu12.04)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/21/git-operation-with-octopress/">使用git操作Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/21/setup-octopress-on-ubuntu/">Octopress安装与配置（Ubuntu12.04）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/20/setup-octopress/">Octopress的安装与配置(Windows 7)</a>
+      </li>
+    
+  </ul>
+</section>
+
+  <span>
+  <iframe 
+    width="86" 
+    scrolling="no" 
+    height="16" 
+    frameborder="0" 
+    src=
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/07/js-basic-concept-with-example/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+  </iframe>
+  </span>
+<html xmlns:wb=“http://open.weibo.com/wb”>
+<head>
+	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<wb:follow-button uid="1930318973" type="red_4" width="100%" height="64" >
+</wb:follow-button>
+</body>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - bd17kaka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  ﻿
+
+<script type="text/javascript">
+      var disqus_shortname = 'bd17kakablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/12/07/js-basic-concept-with-example/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2012/12/07/js-basic-concept-with-example/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

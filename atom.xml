@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-12-11T10:01:09+08:00</updated>
+  <updated>2012-12-11T10:28:24+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[设置个性化域名]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/11/setup-custom-domain/"/>
+    <updated>2012-12-11T10:05:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/11/setup-custom-domain</id>
+    <content type="html"><![CDATA[<p>假设你拥有自己的域名，而且又不想使用github的域名，那么可以使用github的custom domain功能，设置自己的域名。</p>
+
+<h4>1. 在自己的代码库中进行设置</h4>
+
+<p>在source分支中，进入source文件夹，添加一个文件“CNAME”，然后再文件中填入你的域名：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>youdomain.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>比如我的是：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>blog.bd17kaka.net</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后commit，push到代码库即可。</p>
+
+<h4>2. 设置DNS</h4>
+
+<p>这里分为两种情况，也就是顶级域名（Top-level domain）和子域名（SubDomain）。</p>
+
+<h5>2.1 顶级域名</h5>
+
+<p>对于一个顶级域名，设置一个A记录到地址204.232.175.78。这里不要使用CNAME记录，因为这样会影响你的顶级域名上的其他服务，比如邮件服务等。</p>
+
+<h5>2.2 子域名</h5>
+
+<p>使用子域名的话，设置一个CNAME记录到，比如我的记录是：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>blog.bd17kaka.net   zhangdian.bd17kaka.net</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>3. 等待</h4>
+
+<p>dns设置和github的设置需要一段时间的等待。</p>
+
+<h4>4. 参考</h4>
+
+<ul>
+<li><a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">官网资料：Setting up a custom domain with Pages</a></li>
+<li><a href="http://robdodson.me/blog/2012/04/30/custom-domain-with-octopress-and-github-pages/">Custom Domain With Octopress and Github Pages</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[借助几个例子加深对js的理解]]></title>

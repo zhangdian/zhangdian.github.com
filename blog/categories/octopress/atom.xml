@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-12-11T10:01:09+08:00</updated>
+  <updated>2012-12-11T10:28:24+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[设置个性化域名]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/11/setup-custom-domain/"/>
+    <updated>2012-12-11T10:05:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/11/setup-custom-domain</id>
+    <content type="html"><![CDATA[<p>假设你拥有自己的域名，而且又不想使用github的域名，那么可以使用github的custom domain功能，设置自己的域名。</p>
+
+<h4>1. 在自己的代码库中进行设置</h4>
+
+<p>在source分支中，进入source文件夹，添加一个文件“CNAME”，然后再文件中填入你的域名：</p>
+
+<p><code>
+youdomain.com
+</code></p>
+
+<p>比如我的是：</p>
+
+<p><code>
+blog.bd17kaka.net
+</code></p>
+
+<p>然后commit，push到代码库即可。</p>
+
+<h4>2. 设置DNS</h4>
+
+<p>这里分为两种情况，也就是顶级域名（Top-level domain）和子域名（SubDomain）。</p>
+
+<h5>2.1 顶级域名</h5>
+
+<p>对于一个顶级域名，设置一个A记录到地址204.232.175.78。这里不要使用CNAME记录，因为这样会影响你的顶级域名上的其他服务，比如邮件服务等。</p>
+
+<h5>2.2 子域名</h5>
+
+<p>使用子域名的话，设置一个CNAME记录到，比如我的记录是：</p>
+
+<p><code>
+blog.bd17kaka.net   zhangdian.bd17kaka.net
+</code></p>
+
+<h4>3. 等待</h4>
+
+<p>dns设置和github的设置需要一段时间的等待。</p>
+
+<h4>4. 参考</h4>
+
+<ul>
+<li><a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">官网资料：Setting up a custom domain with Pages</a></li>
+<li><a href="http://robdodson.me/blog/2012/04/30/custom-domain-with-octopress-and-github-pages/">Custom Domain With Octopress and Github Pages</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[octopress代码片段分享]]></title>
@@ -409,62 +462,6 @@ bundle install
 <li><a href="http://octopress.org/docs/setup/">Octopress Setup</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopress的安装与配置(Windows 7)]]></title>
-    <link href="http://zhangdian.github.com/blog/2012/11/20/setup-octopress/"/>
-    <updated>2012-11-20T16:15:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2012/11/20/setup-octopress</id>
-    <content type="html"><![CDATA[<h1>1.Octopress安装</h1>
-
-<h2>1.1 环境配置</h2>
-
-<p>我是在windows 7上安装的Octopress，Octopress的安装基本上按照<a href="http://octopress.org/docs/setup/">Octopress安装文档</a>安装就行。我遇到的问题主要有以下几点：</p>
-
-<ul>
-<li>ruby的版本问题，Octopress必须要ruby1.9.3，如果版本不对的话，文档中提供了rbenv和rvm两种方法来安装合适的版本。我直接使用<a href="http://www.douban.com/group/topic/29077892/">http://www.douban.com/group/topic/29077892/</a>中讲到的办法，也就是直接安装Ruby Installer和development kit就行了，在ruby的官网上下载就行</li>
-<li>另外在执行rake的命令的时候，提示Octopress需要0.9.2.2版本，但是我的版本是10.0.1，最后查到可以在前面加上“bundle exec”，就可以通过执行</li>
-</ul>
-
-
-<!--more-->
-
-
-<h2>1.2 博客部署</h2>
-
-<pre><code>rake setup_github_pages
-rake generate
-rake deploy
-</code></pre>
-
-<p>当然，这里需要再每个rake签名加上bundle exec。</p>
-
-<h2>1.3 编写博客</h2>
-
-<pre><code>rake new_post["title"]
-</code></pre>
-
-<p>使用上述命令添加一个博客页面，具体的信息见<a href="http://octopress.org/docs/blogging/">http://octopress.org/docs/blogging/</a>。生成的博客文件都在“/source/_post/”中。
-由于编码的原因，我直接在MINGW32里面编写博客文件后，在部署的时候会出问题，所以我使用了<a href="http://markdownpad.com/">MarkDownPad</a>来编写生成的博客文件，然后再进行部署就不会出编码问题。</p>
-
-<h2>1.4 其他</h2>
-
-<p>这里只是Octopress最基本的功能，还有很多功能有待研究。。。</p>
-
-<h2>1.5 参考资料</h2>
-
-<ul>
-<li><a href="http://sinosmond.github.com/blog/2012/03/12/install-and-deploy-octopress-to-github-on-windows7-from-scratch/">在 Windows7 下从头开始安装部署 Octopress</a></li>
-</ul>
-
-
-<h1>2.github博客配置</h1>
-
-<h2>2.1 博客名称</h2>
-
-<p>如果是想使用个人博客的话，可以将reposotory的名称设置为yourname.github.com，这里的yourname必须是你登陆github的用户名，那么最后的博客地址就是yourname.github.com；</p>
 ]]></content>
   </entry>
   

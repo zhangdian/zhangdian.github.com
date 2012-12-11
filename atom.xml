@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-12-11T15:26:24+08:00</updated>
+  <updated>2012-12-11T15:58:45+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[一个关于sql语句的问题]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/11/a-sql-question/"/>
+    <updated>2012-12-11T15:29:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/11/a-sql-question</id>
+    <content type="html"><![CDATA[<p>看到一个问题，据说很多大牛都搞不出来，看了看，问题虽然不是很难，但是一句sql确实包含了很多的sql知识的，mark下来，回忆一下丢失已久的sql知识。</p>
+
+<!-- more -->
+
+
+<h4>问题</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>数据表结构
+</span><span class='line'>user_name product_id
+</span><span class='line'>1            A
+</span><span class='line'>2            B
+</span><span class='line'>1            B
+</span><span class='line'>3            C
+</span><span class='line'>4            C
+</span><span class='line'>1            C
+</span><span class='line'>需求：哪些用户同时购买了 A，C，D？（或者说，同时购买A，C，D的用户都是那些？）
+</span><span class='line'>A,C,D是用户临时输入的，每次都确定、但不固定。</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>解答</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SELECT user_name
+</span><span class='line'>FROM product_buy
+</span><span class='line'>WHERE product_id in( A, C, D )
+</span><span class='line'>GROUP BY user_name
+</span><span class='line'>HAVING COUNT( DISTINCT product_id ) = 3 ;</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>参考</h4>
+
+<ul>
+<li>问题来源：<a href="http://julying.com/blog/mysql-and-problem-sets/">一个 MYSQL 并集 的问题</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[java spring的一些best practice]]></title>

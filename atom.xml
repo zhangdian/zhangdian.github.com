@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2012-12-11T10:28:24+08:00</updated>
+  <updated>2012-12-11T14:53:46+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,141 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[js代码约定]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/11/js-code-conventions/"/>
+    <updated>2012-12-11T11:17:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/11/js-code-conventions</id>
+    <content type="html"><![CDATA[<p>下面从注释、变量声明等各个方面总结js中的代码约定。</p>
+
+<!-- more -->
+
+
+<h4>1. 长度</h4>
+
+<p>每行长度不能多于80个字符，如果超过了80个字符的话，就回车换行，新的一行缩进8个字符；</p>
+
+<h4>2. 注释</h4>
+
+<p>注释要有意义，不要写一眼就可以看出来的注释，应该写那种不能马上明白过来的注释；</p>
+
+<h4>3. 变量声明</h4>
+
+<p>所有变量使用之前应该声明，比较好的做法是一个变量一行，后面加上他们的注释，然后以字符顺序排序；</p>
+
+<p>注意：js没有块作用域，只有函数作用域，在函数中任何地方定义的变量，在函数的任何位置都可以使用，所以应该将所有变量定义在函数开头处；</p>
+
+<h4>4. 函数</h4>
+
+<ul>
+<li>所有函数使用前都应该声明，内部函数需要用var声明；</li>
+<li>在函数名称和‘（’之间不能有空格，在‘）’和‘{’之间要有一个空格；</li>
+<li>‘}’单独一行，和函数开头对齐；</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function fun1() { 
+</span><span class='line'>    // 函数体
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>如果函数式匿名的，那么在‘function’和‘（’之间应该有一个空格，如果忽略了这个空格，那么有可能把这个函数的函数名误认为‘function’；</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var fun1 = function () {
+</span><span class='line'>    return 1;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>尽量不要使用全局函数；</li>
+<li>如果函数定义的时候立即被调用，那么整个表达式需要被包裹在‘（）’中间，来表明结果是函数的返回值而不是函数本身；</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var fun1 = (function () {
+</span><span class='line'>    return 1;
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>5. 变量名称</h4>
+
+<ul>
+<li>使用A-Z，a-z，是个数字以及下划线做成名字；</li>
+<li>不要使用”_“作为名字的第一个字符，因为这一般表示private变量，但是js实际上没有提供private；</li>
+<li>使new实例化的对象必须使用一个大写字符作为开头；</li>
+<li>全局变量应该全部是大写的；</li>
+</ul>
+
+
+<h4>6. 语句</h4>
+
+<h5>6.1 单行语句</h5>
+
+<ul>
+<li>每一行末尾都应该有一个‘；’；</li>
+</ul>
+
+
+<h5>6.2 符合语句</h5>
+
+<p>复合语句是包含在{}之间的语句列表。</p>
+
+<ul>
+<li>被包含在内部的语句需要缩进四个空格；</li>
+<li>‘{’应该出现在开始这个compound statement的末尾；</li>
+<li>‘}’应该单独一行，和这个compound statement开始处对齐；</li>
+<li>即使只有一行语句，也应该包含在‘{}’里面；</li>
+</ul>
+
+
+<h4>7. 返回值</h4>
+
+<p>返回值不应该被‘（）’包括起来；</p>
+
+<h4>8. switch</h4>
+
+<ul>
+<li>每一个case都应该和switch对齐；</li>
+<li>每一个case，都应该以break、return或者throw结束，不能落空；</li>
+</ul>
+
+
+<h4>9. 哪里使用空格</h4>
+
+<ul>
+<li>一个关键字后面紧跟一个‘（’；</li>
+<li>每一个‘，’后面都应该跟一个空格；</li>
+<li>for循环条件语句中的每一个‘；’后面都应该跟一个空格；</li>
+<li>对于一元运算符，在运算符和他的操作数之间不应该添加空格，除了typeof；</li>
+<li>所有二元运算符，除了&#8217;.&#8217; , &#8216;(&#8217; , &#8216;[&#8217; 应该使用一个空格来和他的操作数隔开；</li>
+</ul>
+
+
+<h4>10. 额外建议</h4>
+
+<ul>
+<li>用{}代替new Object();</li>
+<li>用[]代替 new Array();</li>
+<li>当数组成员序号是连续的时候，使用数组new Array();</li>
+<li>当对象名称是任意的时候，使用object；</li>
+<li>尽量使用===和!==，==和!=执行类型检查；</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[设置个性化域名]]></title>

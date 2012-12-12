@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>使用51.la统计网站流量 - bd17kaka's blog</title>
+  <title>设置VPN - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="进行网站流量统计的工具有很多，比如Google Analytics。这里，我就使用国产工具51.la免费统计工具，来对我的博客流量进行统计，具体操作步骤如下： 1. 添加统计ID 添加你要进行流量监测的网站，填入网站名称和网站地址。 2. 获取统计代码 统计代码就是一个js引用或者图片引用， &hellip;">
+  <meta name="description" content="查找了半天的资料，终于在vps上设置好了vpn，在ubuntu中，ssh到服务器，在本地做一个代理，别的客户端就可以通过设置代理到这台机器翻墙了。 1. 在vps上设置，以允许vpn 1.1 开启TUN-TAP 首先确认你的vps的TUN-TAP是否开启，通过以下命令验证： 1
+cat /dev/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/11/add-51-stat/">
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/12/add-setup-vpn-server-and-client/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">使用51.la统计网站流量</h1>
+      <h1 class="entry-title">设置VPN</h1>
     
     
       <p class="meta">
@@ -83,7 +84,7 @@
   
 
 
-<time datetime="2012-12-11T16:32:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+<time datetime="2012-12-12T16:58:00+08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -92,95 +93,145 @@
   </header>
 
 
-<div class="entry-content"><p>进行网站流量统计的工具有很多，比如Google Analytics。这里，我就使用国产工具<a href="http://www.51.la/">51.la免费统计工具</a>，来对我的博客流量进行统计，具体操作步骤如下：</p>
+<div class="entry-content"><p>查找了半天的资料，终于在vps上设置好了vpn，在ubuntu中，ssh到服务器，在本地做一个代理，别的客户端就可以通过设置代理到这台机器翻墙了。</p>
 
-<!-- more -->
+<h4>1. 在vps上设置，以允许vpn</h4>
 
+<h5>1.1 开启TUN-TAP</h5>
 
-<h4>1. 添加统计ID</h4>
-
-<p>添加你要进行流量监测的网站，填入网站名称和网站地址。</p>
-
-<h4>2. 获取统计代码</h4>
-
-<p>统计代码就是一个js引用或者图片引用，如果网页被访问，这段JS代码就会运行并调用51.la某一台服务器上的一个程序，从而让程序感知到网站被访问了。有的用户使用了不支持javascript的浏览器，那么该浏览器会尝试读取嵌入代码中引用的图片，这个图片也位于51.La的服务器上，51统计服务器也会因为这个图片被引用而感知到您的网站被访问。统计代码是如下的代码，当然，每个用户的每个应用的统计代码是不一样的。</p>
+<p>首先确认你的vps的TUN-TAP是否开启，通过以下命令验证：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script language="javascript" type="text/javascript" src="http://js.users.51.la/id.js"&gt;&lt;/script&gt;
-</span><span class='line'>&lt;noscript&gt;&lt;a href="http://www.51.la/?id" target="_blank"&gt;&lt;img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/id.asp" style="border:none" /&gt;&lt;/a&gt;&lt;/noscript&gt;</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat /dev/net/tun</span></code></pre></td></tr></table></div></figure>
 
 
-<h4>3. 将统计代码嵌入到网页中</h4>
+<p>如果输出显示如下，那么说明你的是启用的。我的是没有启动的，然后去我的vps后台去enabled就好了。</p>
 
-<p>由于我的博客是用octopress搭建的，那么下面讲一下在octopress中创建51.la流量统计的方法。</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat: /dev/net/tun: File descriptor in bad state</span></code></pre></td></tr></table></div></figure>
 
-<ul>
-<li>在source/_includes/custom 中创建文件51_stat.html，在文件中贴入以下代码。代码的意思就是：判断全局变量51_stat是否设置为true，如果是的话，就添加后面的js代码，这里的js代码实际上就是上面获取的统计代码；</li>
-</ul>
 
+<h5>1.2 升级系统，安装软件</h5>
+
+<p>下一步就是升级系统，安装ppp、iptables和pptp：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{% if site.51_stat %}
-</span><span class='line'>  &lt;script language="javascript" type="text/javascript" src="http://js.users.51.la/id.js"&gt;&lt;/script&gt;
-</span><span class='line'>&lt;noscript&gt;&lt;a href="http://www.51.la/?id" target="_blank"&gt;&lt;img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/id.asp" style="border:none" /&gt;&lt;/a&gt;&lt;/noscript&gt;
-</span><span class='line'>{% endif %}
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum update -y
+</span><span class='line'>yum install -y ppp iptables
+</span><span class='line'>rpm -ivh http://acelnmp.googlecode.com/files/pptpd-1.3.4-1.rhel5.1.i386.rpm</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.3 配置pptp</h5>
+
+<ul>
+<li>编辑/etc/pptpd.conf文件，把下面字段前面的#去掉即可：</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>localip 192.168.0.1
+</span><span class='line'>remoteip 192.168.0.234-238,192.168.0.245</span></code></pre></td></tr></table></div></figure>
 
 
 <ul>
-<li>在source/_includes/after_footer中添加下面的第五行代码，其他都是本来就有的。也可以添加在其他文件，或者改文件的其他行，没什么影响；</li>
+<li>接下来再编辑/etc/ppp/options.pptpd，去掉ms-dns前面的#，并使用Google的NS，修改成如下字段：</li>
 </ul>
 
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ms-dns 8.8.8.8
+</span><span class='line'>ms-dns 8.8.4.4</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>设置pptp VPN账号密码，需要编辑/etc/ppp/chap-secrets这个文件。我的设置是：</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vpn pptpd vpn *</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.4 修改内核设置，使其支持转发</h5>
+
+<p>编辑/etc/sysctl.conf文件，将“net.ipv4.ip_forward”的值设为1，变成下面的形式：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>net.ipv4.ip_forward=1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后保存退出。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sysctl -p</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.5 设置转发规则</h5>
+
+<p>经过前面的设置之后，我们vpn已经可以进行拨号了，但是还不能访问任何的网页，这里需要添加转发规则， 在命令行中输入：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意这里的192.168.0.0/24是根据前面1.3的localip的设置得来的。还有就是这里的eth0，如果你的外网网卡不是eth0的话，要设置为相应的外网网卡。</p>
+
+<p>然后保存iptables：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/init.d/iptables save</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.6 重启iptables和pptp</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/init.d/iptables restart
+</span><span class='line'>/etc/init.d/pptpd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.7 设置为自启动</h5>
+
+<p>将pptp和iptables设置为开机自动运行，这样就不需要每次重启服务器后手动启动服务了：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig pptpd on
+</span><span class='line'>chkconfig iptables on</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>2. 客户端设置</h4>
+
+<p>在一个机器上使用如下代码ssh到vps上，然后就可以把他当成一个代理了，然后任何计算机都可以设置代理到这个机器，就可以成功翻墙了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -qTfnN -D :7070 -g user@youdomain.com</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>3. 错误处理</h4>
+
+<h5>3.1 错误619</h5>
+
+<p>出现错误619的话，则输入以下命令</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mknod /dev/ppp c 108 0</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>3.2 错误734</h5>
+
+<p>出现“错误734：ppp链接控制协议终止”解决的方法是：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{% include disqus.html %}
-</span><span class='line'>{% include facebook_like.html %}
-</span><span class='line'>{% include google_plus_one.html %}
-</span><span class='line'>{% include twitter_sharing.html %}
-</span><span class='line'>{% include custom/51_stat.html %}
-</span><span class='line'>{% include custom/after_footer.html %}</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>在octopress的根目录中的_config.yml文件最后添加以下几行代码。这里的51_stat实际上就是在51_stat.html文件中用到的变量，如果设置为true，就进行流量统计。</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># stat
-</span><span class='line'>51_stat: true</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>4. 提交代码，部署，等待</h4>
-
-<p>下一步就是提交代码，部署blog，然后等待生效。我的博客设置好之后，5分钟就可以看到流量统计了。一个标志就是在博客最下面出现了这个图标：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'><img src="/images/custom/51_stat_icon.jpg"></span></code></pre></td></tr></table></div></figure>
-
-
-<p>另外总结在博客中不使用网络图片，而是直接使用博客文件夹中的图片的方法：在source/images文件夹中建立一个文件夹custom，意思是这里面的图片都是我的博客中使用的图片，然后将博客中要使用的图片都放在这个文件夹里面即可，引用的时候使用如下代码即可：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{% img /images/custom/51_stat_icon.jpg %}</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>5. 相关参考</h4>
-
-<ul>
-<li><a href="http://help.51.la/howto/start.asp">51流量统计-新用户快速启程</a></li>
-<li><a href="http://www.51.la/">51la官网</a></li>
-</ul>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/ppp/options.pptpd
+</span><span class='line'>require-mppe-128 -&gt; # require-mppe-128
+</span><span class='line'>拨号连接–&gt;安全–&gt;要求数据加密(没有就断开) 前面的勾取消</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
@@ -204,12 +255,12 @@
   
 
 
-<time datetime="2012-12-11T16:32:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+<time datetime="2012-12-12T16:58:00+08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/网站/'>网站</a>
+    <a class='category' href='/blog/categories/vpn/'>VPN</a>, <a class='category' href='/blog/categories/网络/'>网络</a>
   
 </span>
 
@@ -227,7 +278,7 @@
 (function(){
   var _w = 72 , _h = 16;
   var param = {
-    url:'http://zhangdian.github.com/blog/2012/12/11/add-51-stat/',
+    url:'http://zhangdian.github.com/blog/2012/12/12/add-setup-vpn-server-and-client/',
     type:'3',
     count:'1', /**是否显示分享数，1显示(可选)*/
     appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
@@ -249,10 +300,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/12/11/a-sql-question/" title="Previous Post: 一个关于sql语句的问题">&laquo; 一个关于sql语句的问题</a>
+        <a class="basic-alignment left" href="/blog/2012/12/11/add-51-stat/" title="Previous Post: 使用51.la统计网站流量">&laquo; 使用51.la统计网站流量</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/12/12/add-setup-vpn-server-and-client/" title="Next Post: 设置VPN">设置VPN &raquo;</a>
       
     </p>
   </footer>
@@ -326,7 +375,7 @@
     height="16" 
     frameborder="0" 
     src=
-      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/11/add-51-stat/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/12/add-setup-vpn-server-and-client/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
   </iframe>
   </span>
 <html xmlns:wb=“http://open.weibo.com/wb”>
@@ -361,8 +410,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/12/11/add-51-stat/';
-        var disqus_url = 'http://zhangdian.github.com/blog/2012/12/11/add-51-stat/';
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/12/12/add-setup-vpn-server-and-client/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2012/12/12/add-setup-vpn-server-and-client/';
         var disqus_script = 'embed.js';
       
     (function () {

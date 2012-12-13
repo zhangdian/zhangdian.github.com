@@ -113,9 +113,28 @@
 
 <h3>2. Redis的数据类型</h3>
 
-<p>redis使用的是key作为存取对象的唯一标识，对“key”的通俗理解就是“字符串”。在Redis中字符串又分为两类：二进制安全(Binary Safe)的和非二进制安全的，关于二进制安全的描述可以参考<a href="http://en.wikipedia.org/wiki/Binary_safe">binary safe</a>。Redis处理存储的内容时用的是二进制安全的字符串，而作为key使用的非二进制安全的。</p>
+<h4>2.0 key&amp;value</h4>
+
+<h5>2.0.1 key</h5>
+
+<p>redis使用的是key作为存取对象的唯一标识，对“key”的通俗理解就是“字符串”。<strong>Redis中的key值是二进制安全的，这意味着可以用任何二进制序列作为key值，从形如“kaka”的简单字符串到一个JPEG文件的内容都可以。空字符串也是有效key值。</strong></p>
+
+<p>关于key有几条比较好的规则：</p>
+
+<ul>
+<li>不要使用太长的key，比如1024个字节的key，因为这样不仅会浪费内存，而且会影响查询的效率；</li>
+<li>也不要使用太短的key，比如使用“u:1000:pwd”来代替“user:1000:password”，这本身没有什么问题，但是后者更容易理解，并且增加的空间消耗相对于key object和value object本身来说是很小的；</li>
+<li>最好使用一种固定的模式。</li>
+</ul>
+
 
 <h4>2.1 String</h4>
+
+<h5>2.1.0 简介</h5>
+
+<p>这是最简单Redis类型。如果你只用这种类型，Redis就像一个可以持久化的memcached服务器，因为memcache的数据时保存在内存的，系统重启后就没了。</p>
+
+<p>redis字符串是二进制安全的，也就是说redis字符串可以包含任意类型的数据，比如一个JPEG图片，或者一个ruby object。一个字符串的最大长度是512M。</p>
 
 <h5>2.1.1 String的结构</h5>
 
@@ -236,7 +255,40 @@
 
 <p>在redis源代码其他地方，可以经常看到这个技巧的使用。</p>
 
+<h5>2.1.4 redis使用</h5>
+
+<p>redis可以进行很多操作，下面列出几种比较常用的，所有的操作见<a href="http://redis.io/commands/#string">字符串操作</a>。</p>
+
+<ul>
+<li>使用诸如INCR, DECR, INCRBY的原子操作；</li>
+<li>使用APPEND进行字符串append操作；</li>
+<li>随机访问：SETRANGE, GETRANGE；</li>
+<li>在一个极小空间内编码很多数据；</li>
+<li>访问一个字符串的某一位的数据：GETBIT, SETBIT；</li>
+</ul>
+
+
+<h5>2.1.5 INCR</h5>
+
+<p>INCR将字符串的值解析为一个整数，然后+1，然后将这个字符串的值设置为新获得的整数值，类似的命令有DECR, INCR等等。如果这个字符串无法解析为一个整数的话，会报一个错：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ERR value is not an integer or out of range</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.1.6 INCR的原子性</h5>
+
+<p>INCR的原子性也就说，假设多个客户端同时对一个key进行诸如INCR, DECR等的操作，也不会出现冲突的情况。比如key=‘2’，此时两个客户端同时发出“INCR ke”y的操作，那么最后key的值一定是4，而不会是3。在一个“read-increment-set”过程执行的时候，其他客户端不会同时执行一个命令。</p>
+
 <h4>2.2 List</h4>
+
+<h5>2.2.0 简介</h5>
+
+<p>列表有两种，分别是linked list和array list。前者使用链表实现，后者实际上是一个数组，两个的优缺点很清楚。</p>
+
+<p>Redis的list使用linked list实现的，那么意味着在头部和尾部添加一个元素的时间复杂度是常数级别的，不管现有的list的规模多大，时间复杂度都一样。其相对于arraylist的缺点就是访问速度了，arraylist通过index访问速度很快。</p>
+
+<p>Redis Lists用linked list实现的原因是：对于数据库系统来说，至关重要的特性是：<strong>能非常快的在很大的列表上添加元素</strong>。另一个重要因素是，正如你将要看到的：<strong>Redis lists能在常数时间取得常数长度</strong>。</p>
 
 <h4>2.3 set（集合）</h4>
 
@@ -253,6 +305,16 @@
 <h3>6. 持久化</h3>
 
 <h3>7. 管理</h3>
+
+<h3>参考链接</h3>
+
+<ul>
+<li><a href="http://redis.io/topics/data-types-intro">A fifteen minute introduction to Redis data types</a></li>
+<li><a href="http://redis.io/topics/data-types">Data types</a></li>
+<li><a href="http://redis.io/">redis官网</a></li>
+<li><a href="http://redis.io/commands/#string">String 操作</a></li>
+</ul>
+
 </div>
 
 

@@ -9,8 +9,7 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="查找了半天的资料，终于在vps上设置好了vpn，在ubuntu中，ssh到服务器，在本地做一个代理，别的客户端就可以通过设置代理到这台机器翻墙了。 1. 在vps上设置，以允许vpn 1.1 开启TUN-TAP 首先确认你的vps的TUN-TAP是否开启，通过以下命令验证： 1
-cat /dev/ &hellip;">
+  <meta name="description" content="1. Redis介绍 1.1 什么是redis REmote DIctionary Server(Redis)是一个由Salvatore Sanfilippo写的key-value存储系统。Redis提供了一些丰富的数据结构，包括lists，sets，ordered sets以及hashes， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +64,63 @@ cat /dev/ &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/13/redis-docs/">Redis文档</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-13T09:27:00+08:00" pubdate data-updated="true">Dec 13<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/12/13/redis-docs/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>1. Redis介绍</h3>
+
+<h4>1.1 什么是redis</h4>
+
+<p>REmote DIctionary Server(Redis)是一个由Salvatore Sanfilippo写的key-value存储系统。Redis提供了一些丰富的数据结构，包括lists，sets，ordered sets以及hashes，当然还有和Memcached一样的strings结构。Redis当然还包括了对这些数据结构的丰富操作。</p>
+
+<h4>1.2 redis的优点</h4>
+
+<ul>
+<li>性能极高：Redis能支持超过 100K+ 每秒的读写频率；</li>
+<li>丰富的数据类型：Redis支持二进制安全的Strings，Lists，Hashes，Sets及Ordered Sets数据类型操作；</li>
+<li><strong>原子性：Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行；</strong></li>
+<li>丰富的特性：Redis还支持 publish/subscribe，通知，key过期等等特性。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/12/13/redis-docs/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -688,97 +744,6 @@ cat /dev/ &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/29/octopress-sharing-code-snippets/">Octopress代码片段分享</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-29T10:44:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/11/29/octopress-sharing-code-snippets/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>1.介绍</h3>
-
-<p>octopress文档中提供了很多种的代码分享高亮方法，其中我用的最多的就是两种：</p>
-
-<ul>
-<li>Backtick Code Blocks</li>
-<li>Include Code Snippets</li>
-</ul>
-
-
-<h3>2. Backtick Code Blocks</h3>
-
-<p>这种方式可以用于代码片段的分享，其格式如下</p>
-
-<pre><code>``` [language] [title] [url] [link text]
-code snippet
-```
-</code></pre>
-
-<p>其中带‘[]’的都是可选项。</p>
-
-<h4>问题:</h4>
-
-<ul>
-<li>我把可选项都带上，但是不能正确显示，在后台一直提示“favicon.ico无法找到”。</li>
-</ul>
-
-
-<h3>3. Include Code Snippets</h3>
-
-<p>这种方式可以将文件系统中的任何文件导入到博客的任何位置，并且还提供高亮和代码下载。</p>
-
-<h4>3.1 语法</h4>
-
-<pre><code>{{ "{% include_code [title] [lang:language] path/to/file" }} %}
-</code></pre>
-
-<p>其中title是标题；lang是你的代码的语言，可以提供高亮的功能；</p>
-
-<p>文件路径的默认根目录在_config.yml中的变量code_dir中，而其默认值是source/downloads/code，只需要把要include的代码放到这个文件夹里就行了。</p>
-
-<h4>问题：</h4>
-
-<ul>
-<li>要想以文本形式显示上述语法文本，需要转义一下，如果直接使用“{% include_code &#8230;&#8230;”这样来显示文本的话，默认会被解析为“Backtick Code Blocks”形式的代码引入，所以需要使用链接1的方式进行转义一下。</li>
-</ul>
-
-
-<h3>参考链接</h3>
-
-<ol>
-<li><a href="https://github.com/imathis/octopress/blob/site/source/docs/plugins/include-code/index.markdown">文本形式显示include_code语法</a></li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -796,6 +761,10 @@ code snippet
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/13/redis-docs/">Redis文档</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/12/12/add-setup-vpn-server-and-client/">设置VPN</a>
@@ -831,10 +800,6 @@ code snippet
     
       <li class="post">
         <a href="/blog/2012/12/04/ctex/">CTeX</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/29/octopress-sharing-code-snippets/">octopress代码片段分享</a>
       </li>
     
   </ul>

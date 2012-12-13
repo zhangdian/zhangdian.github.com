@@ -5,28 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>一个关于sql语句的问题 - bd17kaka's blog</title>
+  <title>Redis文档 - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="看到一个问题，据说很多大牛都搞不出来，看了看，问题虽然不是很难，但是一句sql确实包含了很多的sql知识的，mark下来，回忆一下丢失已久的sql知识。 问题 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-数据表结构
-user_name product_id
-1 A
-2 B
-1 B
-3 C
-4 C
-1 &hellip;">
+  <meta name="description" content="1. Redis介绍 1.1 什么是redis REmote DIctionary Server(Redis)是一个由Salvatore Sanfilippo写的key-value存储系统。Redis提供了一些丰富的数据结构，包括lists，sets，ordered sets以及hashes， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -35,7 +18,7 @@ user_name product_id
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/11/a-sql-question/">
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/13/redis-docs/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -84,7 +67,7 @@ user_name product_id
   
   <header>
     
-      <h1 class="entry-title">一个关于sql语句的问题</h1>
+      <h1 class="entry-title">Redis文档</h1>
     
     
       <p class="meta">
@@ -100,7 +83,7 @@ user_name product_id
   
 
 
-<time datetime="2012-12-11T15:29:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+<time datetime="2012-12-13T09:27:00+08:00" pubdate data-updated="true">Dec 13<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -109,12 +92,64 @@ user_name product_id
   </header>
 
 
-<div class="entry-content"><p>看到一个问题，据说很多大牛都搞不出来，看了看，问题虽然不是很难，但是一句sql确实包含了很多的sql知识的，mark下来，回忆一下丢失已久的sql知识。</p>
+<div class="entry-content"><h3>1. Redis介绍</h3>
+
+<h4>1.1 什么是redis</h4>
+
+<p>REmote DIctionary Server(Redis)是一个由Salvatore Sanfilippo写的key-value存储系统。Redis提供了一些丰富的数据结构，包括lists，sets，ordered sets以及hashes，当然还有和Memcached一样的strings结构。Redis当然还包括了对这些数据结构的丰富操作。</p>
+
+<h4>1.2 redis的优点</h4>
+
+<ul>
+<li>性能极高：Redis能支持超过 100K+ 每秒的读写频率；</li>
+<li>丰富的数据类型：Redis支持二进制安全的Strings，Lists，Hashes，Sets及Ordered Sets数据类型操作；</li>
+<li><strong>原子性：Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行；</strong></li>
+<li>丰富的特性：Redis还支持 publish/subscribe，通知，key过期等等特性。</li>
+</ul>
+
 
 <!-- more -->
 
 
-<h4>问题</h4>
+<h3>2. Redis的数据类型</h3>
+
+<p>redis使用的是key作为存取对象的唯一标识，对“key”的通俗理解就是“字符串”。在Redis中字符串又分为两类：二进制安全(Binary Safe)的和非二进制安全的，关于二进制安全的描述可以参考<a href="http://en.wikipedia.org/wiki/Binary_safe">binary safe</a>。Redis处理存储的内容时用的是二进制安全的字符串，而作为key使用的非二进制安全的。</p>
+
+<h4>2.1 String</h4>
+
+<h5>2.1.1 String的结构</h5>
+
+<p>redis string的实现包含在sds.c文件中，redis string的定义在sdshdr.h文件中：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>struct sdshdr {
+</span><span class='line'>    long len;
+</span><span class='line'>    long free;
+</span><span class='line'>    char buf[];
+</span><span class='line'>};
+</span><span class='line'>// len代表buf中实际保存的字符串的长度，那么就可以再O(1)的时间内获取字符串的长度
+</span><span class='line'>// free代表buf中还剩余的空间长度
+</span><span class='line'>// 保存实际的字符串
+</span><span class='line'>// len + free 等于buf数组的长度</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.1.2 String的创建</h5>
+
+<p>在sds.h中定义了一个新的类型，实际上类型sds就是字符串指针的一个别名而已。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>typedef char *sds;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在sds.c中定义的sdsnewlen函数创建一个新的字符串：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -126,38 +161,98 @@ user_name product_id
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>数据表结构
-</span><span class='line'>user_name product_id
-</span><span class='line'>1            A
-</span><span class='line'>2            B
-</span><span class='line'>1            B
-</span><span class='line'>3            C
-</span><span class='line'>4            C
-</span><span class='line'>1            C
-</span><span class='line'>需求：哪些用户同时购买了 A，C，D？（或者说，同时购买A，C，D的用户都是那些？）
-</span><span class='line'>A,C,D是用户临时输入的，每次都确定、但不固定。</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sds sdsnewlen(const void *init, size_t initlen) {
+</span><span class='line'>    struct sdshdr *sh;
+</span><span class='line'>
+</span><span class='line'>    sh = zmalloc(sizeof(struct sdshdr)+initlen+1);
+</span><span class='line'>#ifdef SDS_ABORT_ON_OOM
+</span><span class='line'>    if (sh == NULL) sdsOomAbort();
+</span><span class='line'>#else
+</span><span class='line'>    if (sh == NULL) return NULL;
+</span><span class='line'>#endif
+</span><span class='line'>    sh-&gt;len = initlen;
+</span><span class='line'>    sh-&gt;free = 0;
+</span><span class='line'>    if (initlen) {
+</span><span class='line'>        if (init) memcpy(sh-&gt;buf, init, initlen);
+</span><span class='line'>        else memset(sh-&gt;buf,0,initlen);
+</span><span class='line'>    }
+</span><span class='line'>    sh-&gt;buf[initlen] = '\0';
+</span><span class='line'>    return (char*)sh-&gt;buf;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-<h4>解答</h4>
+<p>可以看到，函数介绍两个参数，一个是字符串指针，一个是字符串长度。然后分配一个地址空间，包括三个部分：struct sdshdr长度、字符串长度以及字符串最后的结尾符。最后对struct sdshdr的各个元素赋值，返回其buf部分，也就是实际的字符串。</p>
+
+<p>假设使用如下代码初始化它，那么内存结构大概是下面这个样子的：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>SELECT user_name
-</span><span class='line'>FROM product_buy
-</span><span class='line'>WHERE product_id in( A, C, D )
-</span><span class='line'>GROUP BY user_name
-</span><span class='line'>HAVING COUNT( DISTINCT product_id ) = 3 ;</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 初始化
+</span><span class='line'>sdsnewlen("bd17kaka", 8);
+</span><span class='line'>
+</span><span class='line'>// 结果
+</span><span class='line'>-----------
+</span><span class='line'>|8|0|bd17kaka|
+</span><span class='line'>-----------
+</span><span class='line'>^   ^
+</span><span class='line'>sh  sh-&gt;buf
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h4>参考</h4>
+<h5>2.1.3 通过buf指针获取sh指针</h5>
 
-<ul>
-<li>问题来源：<a href="http://julying.com/blog/mysql-and-problem-sets/">一个 MYSQL 并集 的问题</a></li>
-</ul>
+<p>从上面的内存结构图可以看到，buf的内存地址实际上只比sh的内存地址多了len和free两个变量的长度，也就是两个long的长度，实际上就是struct sdshdr的长度，那么可以通过以下方法获取sh的指针：</p>
 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>struct sdshdr *sh = (void*) (s-(sizeof(struct sdshdr)));
+</span><span class='line'>
+</span><span class='line'>// 获取字符串的长度
+</span><span class='line'>size_t sdslen(const sds s) {
+</span><span class='line'>    struct sdshdr *sh = (void*) (s-(sizeof(struct sdshdr)));
+</span><span class='line'>    return sh-&gt;len;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在redis源代码其他地方，可以经常看到这个技巧的使用。</p>
+
+<h4>2.2 List</h4>
+
+<h4>2.3 set（集合）</h4>
+
+<h4>2.4 sorted set（有序集合）</h4>
+
+<h4>2.5 hash</h4>
+
+<h3>3. Publish/Subscribe</h3>
+
+<h3>4. 数据过期</h3>
+
+<h3>5. 事务性</h3>
+
+<h3>6. 持久化</h3>
+
+<h3>7. 管理</h3>
 </div>
 
 
@@ -180,12 +275,12 @@ user_name product_id
   
 
 
-<time datetime="2012-12-11T15:29:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+<time datetime="2012-12-13T09:27:00+08:00" pubdate data-updated="true">Dec 13<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/sql/'>sql</a>
+    <a class='category' href='/blog/categories/redis/'>redis</a>
   
 </span>
 
@@ -203,7 +298,7 @@ user_name product_id
 (function(){
   var _w = 72 , _h = 16;
   var param = {
-    url:'http://zhangdian.github.com/blog/2012/12/11/a-sql-question/',
+    url:'http://zhangdian.github.com/blog/2012/12/13/redis-docs/',
     type:'3',
     count:'1', /**是否显示分享数，1显示(可选)*/
     appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
@@ -225,10 +320,8 @@ user_name product_id
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/12/11/java-spring-some-best-practices/" title="Previous Post: java spring的一些best practice">&laquo; java spring的一些best practice</a>
+        <a class="basic-alignment left" href="/blog/2012/12/12/add-setup-vpn-server-and-client/" title="Previous Post: 设置VPN">&laquo; 设置VPN</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/12/11/add-51-stat/" title="Next Post: 使用51.la统计网站流量">使用51.la统计网站流量 &raquo;</a>
       
     </p>
   </footer>
@@ -302,7 +395,7 @@ user_name product_id
     height="16" 
     frameborder="0" 
     src=
-      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/11/a-sql-question/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/13/redis-docs/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
   </iframe>
   </span>
 <html xmlns:wb=“http://open.weibo.com/wb”>
@@ -337,8 +430,8 @@ user_name product_id
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/12/11/a-sql-question/';
-        var disqus_url = 'http://zhangdian.github.com/blog/2012/12/11/a-sql-question/';
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/12/13/redis-docs/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2012/12/13/redis-docs/';
         var disqus_script = 'embed.js';
       
     (function () {

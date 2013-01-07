@@ -69,11 +69,21 @@
         <lastmod>2013-01-07T21:51:09+08:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/
+        </loc>
+        <lastmod>2013-01-08T00:24:44+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice/</loc>
+        <lastmod>2013-01-08T00:50:05+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://zhangdian.github.com/blog/archives/</loc>
-        <lastmod>2013-01-07T21:51:09+08:00</lastmod>
+        <lastmod>2013-01-08T00:50:05+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/</loc>
-        <lastmod>2013-01-07T21:51:09+08:00</lastmod>
+        <lastmod>2013-01-08T00:50:05+08:00</lastmod>
     </url>
 </urlset>

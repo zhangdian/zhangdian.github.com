@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-01-07T22:18:00+08:00</updated>
+  <updated>2013-01-08T00:51:31+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,41 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[解决当rake deploy的时候，报Bad file number:22的错误]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/"/>
+    <updated>2013-01-07T23:55:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22</id>
+    <content type="html"><![CDATA[<h4>问题</h4>
+
+<p>当Octopress有更新的时候，需要执行以下命令将其更新到线上：</p>
+
+<p><code>
+rake generate
+rake deploy
+</code></p>
+
+<p>可是，有的时候会报“Bad file number:22”的错误（我是在家的时候），原因是家里的网络出口屏蔽了22端口，所以出不去。</p>
+
+<!-- more -->
+
+
+<p>在github网站上可以看到，有两种方式clone代码：
+<code>
+ssh: git@github.com:zhangdian/zhangdian.github.com.git
+https: https://github.com/zhangdian/zhangdian.github.com.git
+</code></p>
+
+<p>当使用ssh方式的时候，ssh默认使用的是22端口，故而有的时候会出现问题。而使用后面的https协议方式是可以的。</p>
+
+<h4>解决方案</h4>
+
+<p>在octopress文件夹中，在执行了rake generate之后，会把生成之后的网站代码保存在<em>deploy文件夹中，进入</em>deploy文件夹可以看到，这个文件夹里的文件就是origin master的代码。进到_deploy/.git/config，将url参数的值修改为https地址，即可。</p>
+
+<p>同样，如果要把source分支的代码push带github，可以查看octopress主文件夹中.git/config的内容，可以将ssh地址修改为https地址。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[设置个性化域名]]></title>
@@ -366,100 +401,6 @@ rake deploy
 
 <ul>
 <li><a href="http://note.softrayn.com/blog/2012/07/two-pc-sync-octopress/">两台计算机同步octopress</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopress安装与配置（Ubuntu12.04）]]></title>
-    <link href="http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/"/>
-    <updated>2012-11-21T14:06:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu</id>
-    <content type="html"><![CDATA[<p>之前安装了在Windows7下面安装了Octopress，现在也把在Ubuntu12.04下安装过程中遇到的问题记录一下。</p>
-
-<!--more-->
-
-
-<h1>1. 环境搭建</h1>
-
-<h2>1.1 安装git</h2>
-
-<pre><code>apt-get install git
-</code></pre>
-
-<h2>1.2安装ruby</h2>
-
-<h3>1.2.2 安装RVM</h3>
-
-<p>RVM(Ruby Version Manager)管理ruby环境的安装，而octopress需要ruby1.9.3。使用如下命令就能安装rvm：</p>
-
-<pre><code>curl -L https://get.rvm.io | bash -s stable --ruby
-</code></pre>
-
-<h3>1.2.1 安装ruby依赖</h3>
-
-<p>直接安装RVM会失败，在此之前要安装ruby的依赖包，使用如下命令安装ruby依赖：</p>
-
-<pre><code>apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake
-</code></pre>
-
-<p>如果rvm安装失败的情况下，最后彻底清除rvm环境，然后安装依赖，然后安装rvm，使用如下的代码应该可以彻底清除rvm环境：</p>
-
-<pre><code>sudo apt-get --purge remove ruby-rvm
-sudo rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh
-</code></pre>
-
-<p>然后使用如下命令查询rvm，确认没有输出，可以尝试打开新的窗户来查询。</p>
-
-<pre><code>env | grep rvm
-</code></pre>
-
-<p><em>注：每次使用rvm之前好像要source一下~/.rvm中的一个script才能正常工作。</em></p>
-
-<h3>1.2.3 安装ruby</h3>
-
-<p>使用如下命令安装ruby就行：</p>
-
-<pre><code>rvm install 1.9.3
-rvm use 1.9.3
-rvm rubygems latest
-</code></pre>
-
-<h1>2. 安装Octopress</h1>
-
-<p>使用如下命令就可以把octopress clone下来了：</p>
-
-<pre><code>git clone git://github.com/imathis/octopress.git octopress
-</code></pre>
-
-<p>然后安装依赖：</p>
-
-<pre><code>gem install bundler
-rbenv rehash    # If you use rbenv, rehash to be able to run the bundle command
-bundle install
-</code></pre>
-
-<p>最后执行命令安装默认主题：</p>
-
-<pre><code>rake install
-</code></pre>
-
-<h1>3. 其他</h1>
-
-<ul>
-<li>其他项目比如博客设置，编写博客和在windows下面是一样的了；</li>
-<li>在windows下面是使用MarkdownPad来编辑的，在Ubuntu下可以使用retext来编辑；</li>
-</ul>
-
-
-<h1>4. 参考链接</h1>
-
-<ul>
-<li><a href="http://stackoverflow.com/questions/9056008/installed-ruby-1-9-3-with-rvm-but-command-line-doesnt-show-ruby-v/9056395#9056395">Installed Ruby 1.9.3 with RVM but command line doesn't show ruby -v</a></li>
-<li><a href="https://help.github.com/articles/generating-ssh-keys">Generating SSH Keys</a></li>
-<li><a href="http://413486774.iteye.com/blog/1166431">RVM “ERROR: Loading command: install (LoadError) > no such file to load — zlib”</a></li>
-<li><a href="http://octopress.org/docs/setup/">Octopress Setup</a></li>
 </ul>
 
 ]]></content>

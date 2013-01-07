@@ -4,7 +4,7 @@
   <title><![CDATA[Category: redis | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/redis/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-01-07T22:18:00+08:00</updated>
+  <updated>2013-01-08T00:51:31+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[redis replication实践]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice/"/>
+    <updated>2013-01-08T00:39:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice</id>
+    <content type="html"><![CDATA[<p>在看了redis replication的官方文档之后，有必要亲自实践一下。下面就在同一个机器上开两个实例，两个不同的端口6379和6380，一个master一个slave。</p>
+
+<!-- more -->
+
+
+<p>首先配置master，bind ip 127.0.0.1，开启master，监听在127.0.0.1:6379，默认master是可读写的。</p>
+
+<p>然后配置slave，需要将以下配置的注释删掉：
+```</p>
+
+<h1>slaveof <masterip> <masterport></h1>
+
+<p>```</p>
+
+<p>然后将masterip修改为127.0.0.1，masterport修改为6379。此外还需要将修改以下两行：
+<code>
+bind 127.0.0.1
+port 6380
+</code></p>
+
+<p>启动slave，这样slave就监听在6380端口，同时它是127.0.0.1::6379的slave。默认情况下slave是只读不写的，可以写数据进行确认。</p>
+
+<p>注意如果master配置了auth的话，也需要配置slave的auth密码，配置成和master一样。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Redis文档]]></title>

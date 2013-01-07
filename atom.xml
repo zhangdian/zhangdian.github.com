@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-01-07T22:18:00+08:00</updated>
+  <updated>2013-01-08T00:51:31+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,76 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[redis replication实践]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice/"/>
+    <updated>2013-01-08T00:39:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice</id>
+    <content type="html"><![CDATA[<p>在看了redis replication的官方文档之后，有必要亲自实践一下。下面就在同一个机器上开两个实例，两个不同的端口6379和6380，一个master一个slave。</p>
+
+<!-- more -->
+
+
+<p>首先配置master，bind ip 127.0.0.1，开启master，监听在127.0.0.1:6379，默认master是可读写的。</p>
+
+<p>然后配置slave，需要将以下配置的注释删掉：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#slaveof &lt;masterip&gt; &lt;masterport&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后将masterip修改为127.0.0.1，masterport修改为6379。此外还需要将修改以下两行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bind 127.0.0.1
+</span><span class='line'>port 6380</span></code></pre></td></tr></table></div></figure>
+
+
+<p>启动slave，这样slave就监听在6380端口，同时它是127.0.0.1::6379的slave。默认情况下slave是只读不写的，可以写数据进行确认。</p>
+
+<p>注意如果master配置了auth的话，也需要配置slave的auth密码，配置成和master一样。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[解决当rake deploy的时候，报Bad file number:22的错误]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/"/>
+    <updated>2013-01-07T23:55:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22</id>
+    <content type="html"><![CDATA[<h4>问题</h4>
+
+<p>当Octopress有更新的时候，需要执行以下命令将其更新到线上：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate
+</span><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可是，有的时候会报“Bad file number:22”的错误（我是在家的时候），原因是家里的网络出口屏蔽了22端口，所以出不去。</p>
+
+<!-- more -->
+
+
+<p>在github网站上可以看到，有两种方式clone代码：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh: git@github.com:zhangdian/zhangdian.github.com.git
+</span><span class='line'>https: https://github.com/zhangdian/zhangdian.github.com.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当使用ssh方式的时候，ssh默认使用的是22端口，故而有的时候会出现问题。而使用后面的https协议方式是可以的。</p>
+
+<h4>解决方案</h4>
+
+<p>在octopress文件夹中，在执行了rake generate之后，会把生成之后的网站代码保存在<em>deploy文件夹中，进入</em>deploy文件夹可以看到，这个文件夹里的文件就是origin master的代码。进到_deploy/.git/config，将url参数的值修改为https地址，即可。</p>
+
+<p>同样，如果要把source分支的代码push带github，可以查看octopress主文件夹中.git/config的内容，可以将ssh地址修改为https地址。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Redis文档]]></title>

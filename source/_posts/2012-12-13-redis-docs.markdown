@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Redis文档
+title: Redis文档(完整)
 date: 2012-12-13 09:27
 comments: true
 categories: [redis]

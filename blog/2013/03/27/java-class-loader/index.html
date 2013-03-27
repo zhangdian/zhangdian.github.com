@@ -5,14 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>解决当rake deploy的时候，报Bad file number:22的错误 - bd17kaka's blog</title>
+  <title>java类加载器 - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="问题 当Octopress有更新的时候，需要执行以下命令将其更新到线上： 1
-2
-rake generate
-rake deploy 可是，有的时候会报“Bad file number:22”的错误（我是在家的时候），原因是家里的网络出口屏蔽了22端口，所以出不去。 在github网站上可以看到， &hellip;">
+  <meta name="description" content="java类加载器
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +19,7 @@ rake deploy 可是，有的时候会报“Bad file number:22”的错误（我�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/">
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2013/03/27/java-class-loader/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -70,7 +68,7 @@ rake deploy 可是，有的时候会报“Bad file number:22”的错误（我�
   
   <header>
     
-      <h1 class="entry-title">解决当rake deploy的时候，报Bad File Number:22的错误</h1>
+      <h1 class="entry-title">Java类加载器</h1>
     
     
       <p class="meta">
@@ -86,7 +84,7 @@ rake deploy 可是，有的时候会报“Bad file number:22”的错误（我�
   
 
 
-<time datetime="2013-01-07T23:55:00+08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2013</time>
+<time datetime="2013-03-27T13:37:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -95,36 +93,7 @@ rake deploy 可是，有的时候会报“Bad file number:22”的错误（我�
   </header>
 
 
-<div class="entry-content"><h4>问题</h4>
-
-<p>当Octopress有更新的时候，需要执行以下命令将其更新到线上：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate
-</span><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可是，有的时候会报“Bad file number:22”的错误（我是在家的时候），原因是家里的网络出口屏蔽了22端口，所以出不去。</p>
-
-<!-- more -->
-
-
-<p>在github网站上可以看到，有两种方式clone代码：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ssh: git@github.com:zhangdian/zhangdian.github.com.git
-</span><span class='line'>https: https://github.com/zhangdian/zhangdian.github.com.git</span></code></pre></td></tr></table></div></figure>
-
-
-<p>当使用ssh方式的时候，ssh默认使用的是22端口，故而有的时候会出现问题。而使用后面的https协议方式是可以的。</p>
-
-<h4>解决方案</h4>
-
-<p>在octopress文件夹中，在执行了rake generate之后，会把生成之后的网站代码保存在<em>deploy文件夹中，进入</em>deploy文件夹可以看到，这个文件夹里的文件就是origin master的代码。进到_deploy/.git/config，将url参数的值修改为https地址，即可。</p>
-
-<p>同样，如果要把source分支的代码push带github，可以查看octopress主文件夹中.git/config的内容，可以将ssh地址修改为https地址。</p>
+<div class="entry-content"><p>java类加载器</p>
 </div>
 
 
@@ -147,14 +116,8 @@ rake deploy 可是，有的时候会报“Bad file number:22”的错误（我�
   
 
 
-<time datetime="2013-01-07T23:55:00+08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2013</time>
+<time datetime="2013-03-27T13:37:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2013</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>
-  
-</span>
 
 
     </p>
@@ -170,7 +133,7 @@ rake deploy 可是，有的时候会报“Bad file number:22”的错误（我�
 (function(){
   var _w = 72 , _h = 16;
   var param = {
-    url:'http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/',
+    url:'http://zhangdian.github.com/blog/2013/03/27/java-class-loader/',
     type:'3',
     count:'1', /**是否显示分享数，1显示(可选)*/
     appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
@@ -192,10 +155,8 @@ rake deploy 可是，有的时候会报“Bad file number:22”的错误（我�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/12/13/redis-docs/" title="Previous Post: Redis文档(完整)">&laquo; Redis文档(完整)</a>
+        <a class="basic-alignment left" href="/blog/2013/01/08/redis-replication-in-practice/" title="Previous Post: redis replication实践">&laquo; redis replication实践</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/01/08/redis-replication-in-practice/" title="Next Post: redis replication实践">redis replication实践 &raquo;</a>
       
     </p>
   </footer>
@@ -269,7 +230,7 @@ rake deploy 可是，有的时候会报“Bad file number:22”的错误（我�
     height="16" 
     frameborder="0" 
     src=
-      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2013/03/27/java-class-loader/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
   </iframe>
   </span>
 <html xmlns:wb=“http://open.weibo.com/wb”>
@@ -304,8 +265,8 @@ rake deploy 可是，有的时候会报“Bad file number:22”的错误（我�
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/';
-        var disqus_url = 'http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/';
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2013/03/27/java-class-loader/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2013/03/27/java-class-loader/';
         var disqus_script = 'embed.js';
       
     (function () {

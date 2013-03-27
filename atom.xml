@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-03-27T13:48:24+08:00</updated>
+  <updated>2013-03-27T15:20:45+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[java类加载器]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/03/27/java-class-loader/"/>
+    <updated>2013-03-27T13:37:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/03/27/java-class-loader</id>
+    <content type="html"><![CDATA[<p>java类加载器</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[redis replication实践]]></title>

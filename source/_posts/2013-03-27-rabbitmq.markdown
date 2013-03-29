@@ -68,4 +68,41 @@ channel.basic_consume(callback,
 ####2. One producer, multi consumer
 {% img https://dl.dropbox.com/u/99113526/blog.bd17kaka.net/rabbitmq-2.png %}
 
+这种模型用于在众多的Workers之间分发一些耗时的任务。
+
+这种模型的主要思想是：避免立即执行资源密集型的任务，等待其完成。而是将任务压缩成一个消息，将其发送到queue。Worker在后台获取这些任务，然后执行它们。如果允许多个Worker，那么它们会公平的分享这些消息。
+
+这个模型特别适合：在一个短的HTTP周期内完成一个很复杂任务的应用。
+
+#####2.1 Round-robin dispatching(轮询调度)
+这种模型很容易做到平衡工作调度。如果突然多了很多的消息，那么可以添加更多的Worker来解决，很容易扩展。
+
+默认情况下，RabbitMQ会按顺序的，将每个消息分发给下一个consumer，平均来看，每个consumer会获得相同数目的消息。这种分发消息的模式叫做Round-robin。
+
+#####2.2 Message ACK
+当一个worker开始一个耗时的task，但是在执行了一部分的时候失败了。对于当前的RabbitMQ的代码，当一个消息被分发到worker之后，它会立即从内存中删掉。在这种情况下，如果一个worker没有正确的执行完一个消息，那么这个消息就丢失了。
+
+当然，我们不希望丢失掉任何的tasks，如果执行该task的worker挂掉了，那么应该将这个task分发给其他的worker去执行。
+
+为了确保一个消息永远都不会丢失，RabbitMQ引入了消息ACK的机制。当worker执行完了一个task之后，就会发送一个消息给RabbitMQ，说明某个消息已经被执行完毕了，RabbitMQ可以将这个消息删除了。
+
+如果worker挂掉了，那么它就不会发送ACK了，RabbitMQ就知道某个消息没有完整的被执行，然后会重新将这个task发送给其他的worker，这就可以保证消息不会丢失。（但是，如果task执行完了，发送了ACK，由于某种原因，ACK没有成功的抵达RabbitMQ，那么这个task会被重新执行一次。）
+
+在RabbitMQ中，没有消息延迟的概念，task只有在到某个worker的连接断掉之后，才会重发。即使一个task执行了很长很长的时候，也是正常的。
+
+默认情况下，ACK是打开的，也是可以设置的。
+
+```
+有一种常见的错误：在worker执行完了之后，没有返回ACK，那么RabbitMQ会不断的重发消息。但是由于消息都没有返回ACK，那么RabbitMQ会不断的吃内存，将消息保存起来。对于这种情况，可以通过使用rabbitmqctl工具来查看messages_unacknowledged字段：
+
+$ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+Listing queues ...
+hello    0       0
+...done.
+```
+
+#####2.2.3 Message durability（消息持久）
+
+
+
 continue...

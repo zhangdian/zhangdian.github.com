@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 技术 | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/技术/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-03-27T23:34:02+08:00</updated>
+  <updated>2013-04-01T00:05:55+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -98,6 +98,97 @@ def callback(ch, method, properties, body):</p>
 <h4>2. One producer, multi consumer</h4>
 
 <p><img src="https://dl.dropbox.com/u/99113526/blog.bd17kaka.net/rabbitmq-2.png"></p>
+
+<p>这种模型用于在众多的Workers之间分发一些耗时的任务。</p>
+
+<p>这种模型的主要思想是：避免立即执行资源密集型的任务，等待其完成。而是将任务压缩成一个消息，将其发送到queue。Worker在后台获取这些任务，然后执行它们。如果允许多个Worker，那么它们会公平的分享这些消息。</p>
+
+<p>这个模型特别适合：在一个短的HTTP周期内完成一个很复杂任务的应用。</p>
+
+<h5>2.1 Round-robin dispatching(轮询调度)</h5>
+
+<p>这种模型很容易做到平衡工作调度。如果突然多了很多的消息，那么可以添加更多的Worker来解决，很容易扩展。</p>
+
+<p>默认情况下，RabbitMQ会按顺序的，将每个消息分发给下一个consumer，平均来看，每个consumer会获得相同数目的消息。这种分发消息的模式叫做Round-robin。</p>
+
+<h5>2.2 Message ACK</h5>
+
+<p>当一个worker开始一个耗时的task，但是在执行了一部分的时候失败了。对于当前的RabbitMQ的代码，当一个消息被分发到worker之后，它会立即从内存中删掉。在这种情况下，如果一个worker没有正确的执行完一个消息，那么这个消息就丢失了。</p>
+
+<p>当然，我们不希望丢失掉任何的tasks，如果执行该task的worker挂掉了，那么应该将这个task分发给其他的worker去执行。</p>
+
+<p>为了确保一个消息永远都不会丢失，RabbitMQ引入了消息ACK的机制。当worker执行完了一个task之后，就会发送一个消息给RabbitMQ，说明某个消息已经被执行完毕了，RabbitMQ可以将这个消息删除了。</p>
+
+<p>如果worker挂掉了，那么它就不会发送ACK了，RabbitMQ就知道某个消息没有完整的被执行，然后会重新将这个task发送给其他的worker，这就可以保证消息不会丢失。（但是，如果task执行完了，发送了ACK，由于某种原因，ACK没有成功的抵达RabbitMQ，那么这个task会被重新执行一次。）</p>
+
+<p>在RabbitMQ中，没有消息延迟的概念，task只有在到某个worker的连接断掉之后，才会重发。即使一个task执行了很长很长的时候，也是正常的。</p>
+
+<p>默认情况下，ACK是打开的，也是可以设置的。</p>
+
+<p>```
+有一种常见的错误：在worker执行完了之后，没有返回ACK，那么RabbitMQ会不断的重发消息。但是由于消息都没有返回ACK，那么RabbitMQ会不断的吃内存，将消息保存起来。对于这种情况，可以通过使用rabbitmqctl工具来查看messages_unacknowledged字段：</p>
+
+<p>$ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+Listing queues ...
+hello    0       0
+...done.
+```</p>
+
+<h5>2.2.3 Message durability（消息持久）</h5>
+
+<p>上一节讲到如何保证在worker挂掉的时候，不让消息丢失，但是如何保证RabbitMQ挂掉的时候，不丢失消息呢？那么消息就不能只保存在内存了，必须持久化。</p>
+
+<p>为了保证在RabbitMQ挂掉的时候，消息不丢失，需要做两件事情：queue和messages都是持久化的。</p>
+
+<p>首先要保证RabbitMQ不会丢失Queue，指定durable参数：</p>
+
+<p><code>
+channel.queue_declare(queue='task_queue', durable=True)
+</code></p>
+
+<p>RabbitMQ不允许使用不同的参数来重定义已经存在的Queue，如果这么做，会返回一个error。所以在上面的代码中，如果Queue "hello"已经存在的话，这样是没有用的，必须指定另外一个Queue名称。</p>
+
+<p>指定了 durable=True 之后，即使RabbitMQ重启，Queue也不会丢失了。</p>
+
+<p>其次，我们需要保证将我们的message标记为持久的了，通过指定参数delivery_mode = 2：</p>
+
+<p>```
+channel.basic_publish(exchange='',</p>
+
+<pre><code>                  routing_key="task_queue",
+                  body=message,
+                  properties=pika.BasicProperties(
+                     delivery_mode = 2, # make message persistent
+                  ))
+</code></pre>
+
+<p>```</p>
+
+<p>注意：
+```
+即使通过指定参数来保证保存message消息到disk，从而不会丢失，但是总有一个时刻：RabbitMQ刚刚接手了一个消息，但是还没有保存到disk。<strong>也就是，RabbitMQ并不能保存对每个消息执行fsync。这个持久化的保证并不强大，但是总比简单的task queue要好一点。</strong>如果需要更强大的持久化保证，只能wrap它的代码。</p>
+
+<p>fsync：同步内存中所有已修改的文件数据到储存设备。<a href="http://baike.baidu.com/view/8092902.htm">详细</a>
+```</p>
+
+<h5>2.2.4 Fair dispatch（公平分发）</h5>
+
+<p>有些时候，上面的轮训分发并不能完全按照我们想象的来工作，比如：有两个worker，所有奇数的消息都是耗时的，偶数的消息都是不耗时的，那么所有耗时的消息都会被分发到worker-1上，所有不耗时的消息都会被分发到worker-2上。但是RabbitMQ什么都不知道，只能这么简单的分发消息，而并没有考虑某个Worker上UnACK的消息的个数。</p>
+
+<p>可以通过如下设置来解决这个问题：</p>
+
+<p><code>
+channel.basic_qos(prefetch_count=1)
+</code>
+这个参数告诉RabbitMQ，不要在同一时刻向同一个worker分发多余一个的消息，也就是说，在接受到之前的task的ACK之前，不要再分发消息给worker。</p>
+
+<p><code>
+当心Queue的大小：如果所有的Queue都busy，那么Queue就会不断变长，要么一直盯着，要么增加更多的worker，要么使用一些其他的策略。
+</code></p>
+
+<h5>2.2.5 完整代码</h5>
+
+<p><a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">官方网站</a></p>
 
 <p>continue...</p>
 ]]></content>

@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-04-02T22:08:08+08:00</updated>
+  <updated>2013-04-02T22:36:06+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -337,6 +337,9 @@
 <h5>1 类缓存</h5>
 
 <p>类缓存是一个大小固定的共享内存区，它在使用它的 JVM 的生命周期之外仍然持久地存在。一个系统上可以有任意数量的共享类缓存，这只受操作系统设置的限制；<strong>但是一个 JVM 在它的生命周期中只能连接一个缓存。</strong></p>
+
+<!-- more -->
+
 
 <p>JVM 并不拥有缓存，也没有 主/从 JVM 的概念；实际上，任意数量的 JVM 都可以并行地读写缓存。在两种情况下会删除缓存：</p>
 

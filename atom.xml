@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-04-02T22:37:35+08:00</updated>
+  <updated>2013-04-02T23:23:56+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[java_jti]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/02/java-jti/"/>
+    <updated>2013-04-02T23:21:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/02/java-jti</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[java_aot]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/02/java-aot/"/>
+    <updated>2013-04-02T23:20:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/02/java-aot</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[email_basic_concept]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/02/email-basic-concept/"/>
+    <updated>2013-04-02T23:20:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/02/email-basic-concept</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[java_gc]]></title>
@@ -1742,350 +1769,6 @@ code snippet
 <ol>
 <li><a href="https://github.com/imathis/octopress/blob/site/source/docs/plugins/include-code/index.markdown">文本形式显示include_code语法</a></li>
 </ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[个性化octopress设置]]></title>
-    <link href="http://zhangdian.github.com/blog/2012/11/29/setup-custom-octopress/"/>
-    <updated>2012-11-29T00:08:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2012/11/29/setup-custom-octopress</id>
-    <content type="html"><![CDATA[<h3>1. Octopress个性化设置文件</h3>
-
-<p>主要文件都在source/_includes/文件夹中，其中</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/asides/ #包含侧边栏的项目
-</span><span class='line'>/custom/ #包含个性化头部、导航栏，footer以及侧边栏等</span></code></pre></td></tr></table></div></figure>
-
-
-<p>/custom中包含的都是个性化的页面，其中也包含</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/asides/ #包含个性化的侧边栏项目
-</span><span class='line'>/*.html  #个性化的页面，可以在这里设置自己个性化的页面</span></code></pre></td></tr></table></div></figure>
-
-
-<p>那么，设置自己个性化的页面，主要修改的是source/<em>incledes/中的内容。
-此外，修改了文件内容之后，还需要修改</em>config.yml中的部分内容才能生效，具体见后面的设置。</p>
-
-<!-- more -->
-
-
-<h3>2. sina相关</h3>
-
-<p>sina的开放平台上提供了很多可以作为插件到octopress中的元素，包括分享按钮、关注按钮等等，见链接：</p>
-
-<ol>
-<li><a href="http://open.weibo.com/">sina开放平台</a></li>
-<li><a href="http://open.weibo.com/sharebutton">sina分享按钮界面</a></li>
-</ol>
-
-
-<h4>2.1 sina分享</h4>
-
-<p>要想在边框栏设置sina分享，要修改三个地方的内容：</p>
-
-<ul>
-<li>添加文件/source/_includes/custom/asides/sina_weibo_sharing.html文件，其中内容如下：
-{% include_code ruby sina_weibo_sharing.html %}</li>
-<li>修改_config.yml，在最后添加下面的代码：</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># Weibo 
-</span><span class='line'>weibo_uid: 1930318973
-</span><span class='line'>weibo_fansline: 0   # How many lines for the fan list
-</span><span class='line'>weibo_show: true    # Whether you want your weibo content to be shown
-</span><span class='line'>weibo_pic: true     # Whether you want the pictures in weibo to be shown
-</span><span class='line'>weibo_skin: 10      # Please refer to http://weibo.com/tool/weiboshow
-</span><span class='line'>weibo_share: true   # Whether show the sharing button</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>修改_config.yml，在defaule_asides数组中添加一项：</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>custom/asides/sina_weibo_sharing.html</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>2.2 sina关注</h4>
-
-<p>要想在边框栏设置sina关注，要修改两个地方的内容：</p>
-
-<ul>
-<li>添加文件/source/_includes/custom/asides/sina_weibo_follow.html文件，其中内容如下：
-{% include_code sina_weibo_follow.html %}</li>
-<li>修改_config.yml，在defaule_asides数组中添加一项：</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>custom/asides/sina_weibo_follow.html</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>2.3 将新浪分享添加到每个博客页面下方</h4>
-
-<p>在_include/post/sharing.html添加如下代码即可：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{% if site.weibo_share %}
-</span><span class='line'>&lt;script type="text/javascript" charset="utf-8"&gt;
-</span><span class='line'>(function(){
-</span><span class='line'>  var _w = 72 , _h = 16;
-</span><span class='line'>  var param = {
-</span><span class='line'>    url:'{{ site.url }}{{ page.url }}',
-</span><span class='line'>    type:'3',
-</span><span class='line'>    count:'1', /**是否显示分享数，1显示(可选)*/
-</span><span class='line'>    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
-</span><span class='line'>    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
-</span><span class='line'>    pic:'', /**分享图片的路径(可选)*/
-</span><span class='line'>    ralateUid:'', /**关联用户的UID，分享微博会@该用户(可选)*/
-</span><span class='line'>  language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
-</span><span class='line'>    rnd:new Date().valueOf()
-</span><span class='line'>  }
-</span><span class='line'>  var temp = [];
-</span><span class='line'>  for( var p in param ){
-</span><span class='line'>    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
-</span><span class='line'>  }
-</span><span class='line'>  document.write('&lt;iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"&gt;&lt;/iframe&gt;')
-</span><span class='line'>})()
-</span><span class='line'>&lt;/script&gt;
-</span><span class='line'>  {% endif %}</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>3. About.html</h3>
-
-<p>可以添加关于自己的介绍页面，同样，需要修改两个地方的数据：</p>
-
-<ul>
-<li>添加文件/source/_includes/custom/asides/about.html的内容</li>
-<li>修改_config.yml，在defaule_asides数组中添加一项：</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>custom/asides/about.html</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>4. 添加评论</h3>
-
-<p>Octopress使用的是<a href="http://www.disqus.com/">disqus</a>插件来展示文章的评论。</p>
-
-<h4>4.1 disqus</h4>
-
-<p>在<a href="http://www.disqus.com/">disqus官网</a>注册一个账号，然后按提示设置shortname，Website name以及Website URL即可。这里的Website必须填写你要使用该插件的网址，也就是你的blog地址，对于我则是http://zhangdian.github.com。这里的shortname是要在octopress设置中填写的值。</p>
-
-<h4>4.2 octopress配置</h4>
-
-<p>需要再_config.yml中填写disqus_short_name的值，也就是在注册disqus时的shortname的值，那么这行设置最后的形式就是“disqus_short_name: value”。注意，冒号后面一定要有一个空格，不然会报错。</p>
-
-<h4>4.3 文章设置</h4>
-
-<p>在文章头部，有一个选项是“comments”，把他设置成true。</p>
-
-<h4>4.4 使用到的文件</h4>
-
-<p>在octopress结构中，实际上是在source/_includes/after_footer.html中引入了评论页面：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{{ "{% include disqus.html" }} %}
-</span><span class='line'>{{ "{% include facebook_like.html" }} %}
-</span><span class='line'>{{ "{% include google_plus_one.html" }} %}
-</span><span class='line'>{{ "{% include twitter_sharing.html" }} %}
-</span><span class='line'>{{ "{% include custom/after_footer.html" }} %}
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其中第一个就是。后面三个分别是facebook、google+、twitter的一些东西，最后一项是引入个性化的设置。在disqus.html中：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{{ "{% if site.disqus_short_name and page.comments != false" }} %}
-</span><span class='line'>&lt;script type="text/javascript"&gt;
-</span><span class='line'>      var disqus_shortname = '{{ site.disqus_short_name }}';
-</span><span class='line'>      {% if page.comments == true %}
-</span><span class='line'>        {% comment %} `page.comments` can be only be set to true on pages/posts, so we embed the comments here. {% endcomment %}
-</span><span class='line'>        // var disqus_developer = 1;
-</span><span class='line'>        var disqus_identifier = '{{ site.url }}{{ page.url }}';
-</span><span class='line'>        var disqus_url = '{{ site.url }}{{ page.url }}';
-</span><span class='line'>        var disqus_script = 'embed.js';
-</span><span class='line'>      {% else %}
-</span><span class='line'>        {% comment %} As `page.comments` is empty, we must be on the index page. {% endcomment %}
-</span><span class='line'>        var disqus_script = 'count.js';
-</span><span class='line'>      {% endif %}
-</span><span class='line'>    (function () {
-</span><span class='line'>      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-</span><span class='line'>      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-</span><span class='line'>      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-</span><span class='line'>    }());
-</span><span class='line'>&lt;/script&gt;
-</span><span class='line'>{% endif %}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>只有在全局变量disqus_short_name和页面变量comments同时为true的时候，才会加载评论页面。</p>
-
-<h4>4.5 关于source/_includes/post/sharing.html页面</h4>
-
-<p>这个页面里面包含的内容紧跟着文章内容下面显示，而我们上述讨论的评论页面是在这下面显示的。</p>
-
-<h3>5. 遇到的问题</h3>
-
-<h4>5.1 undefined method `Py_IsInitialized&#8217; for RubyPython::Python:Module</h4>
-
-<p>在使用插件功能给博客添加边框栏项目的时候，提示上述错误，原因是没有安装python，解决办法是首先安装python，然后bundle update更新一下，就ok了。参考网站：</p>
-
-<ol>
-<li><a href="https://github.com/github/gollum/issues/225">Py_IsInitialized error</a></li>
-<li><a href="https://github.com/imathis/octopress/issues/262">Exception on generate codeblock with &#8220;lang:&#8221; on Windows</a></li>
-</ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[git配置]]></title>
-    <link href="http://zhangdian.github.com/blog/2012/11/27/git-config/"/>
-    <updated>2012-11-27T19:08:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2012/11/27/git-config</id>
-    <content type="html"><![CDATA[<p>使用git进行版本管理，经常需要敲各种命令，比如</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout
-</span><span class='line'>git status
-</span><span class='line'>git commit
-</span><span class='line'>git branch</span></code></pre></td></tr></table></div></figure>
-
-
-<p>等等，可以在git中进行全局配置，让这些命令更加短一些：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global alias.co chekcout
-</span><span class='line'>git config --global alias.st status
-</span><span class='line'>git config --global alias.ci commit
-</span><span class='line'>git config --global alias.br branch</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样，以后就可以敲比较短的命令了。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dropbox的安装(Ubuntu12.04)]]></title>
-    <link href="http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu/"/>
-    <updated>2012-11-23T16:19:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu</id>
-    <content type="html"><![CDATA[<p>Dropbox是一款资料同步软件，只要把资料存在云端，就可以无处不在的访问到这些资料。今天在Ubuntu12.04下安装了Dropbox，把安装过程和遇到的问题写下来。</p>
-
-<!--more-->
-
-
-<h3>1. 安装过程</h3>
-
-<p>访问<a href="https://www.dropbox.com/install?os=linux">Dropbox for Linux</a>，可以下载deb文件，也可以下载源码编译安装，也可以从命令行安装。我选择从命令行安装。</p>
-
-<p>根据系统版本的不同，输入不同的命令进行安装就行：</p>
-
-<pre><code># 32位
-cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf - 
-# 64位
-cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-</code></pre>
-
-<p>安装完之后，运行</p>
-
-<pre><code>~/.dropbox-dist/dropboxd
-</code></pre>
-
-<p>就可以运行dropbox了。</p>
-
-<h3>2. 自动启动Dropbox</h3>
-
-<p>在/etc/init.d/文件夹中添加一个文件auto_dropbox.sh，添加以下代码：</p>
-
-<pre><code>~/.dropbox-dist/dropboxd &amp;
-</code></pre>
-
-<p>保存退出到shell，输入以下命令：</p>
-
-<pre><code>sudo chmod +x /etc/init.d/auto_dropbox.sh # 设置script的执行权限
-sudo update-rc.d auto_dropbox.sh defaults # 设置script在系统启动时执行
-</code></pre>
-
-<p>这样，就可以在系统启动的时候自动启动dropbox，可以使用命令：</p>
-
-<pre><code>dropbox status
-</code></pre>
-
-<p>来查询dropbox的状态。但是，每次启动都不能自动运行，不知道为什么。还是在启动之后，运行命令在后台运行吧。</p>
-
-<h3>3. 相关链接</h3>
-
-<ul>
-<li><a href="https://www.dropbox.com/install?os=linux">dropbox for linux download</a></li>
-</ul>
 
 ]]></content>
   </entry>

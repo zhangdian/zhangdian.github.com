@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>octopress代码片段分享 - bd17kaka's blog</title>
+  <title>java_aot - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="1.介绍 octopress文档中提供了很多种的代码分享高亮方法，其中我用的最多的就是两种： Backtick Code Blocks
-Include Code Snippets 2. Backtick Code Blocks 这种方式可以用于代码片段的分享，其格式如下 ``` [language &hellip;">
+  <meta name="description" content="
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ Include Code Snippets 2. Backtick Code Blocks 这种方式可以用于代码片�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/">
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2013/04/02/java-aot/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +68,7 @@ Include Code Snippets 2. Backtick Code Blocks 这种方式可以用于代码片�
   
   <header>
     
-      <h1 class="entry-title">Octopress代码片段分享</h1>
+      <h1 class="entry-title">Java_aot</h1>
     
     
       <p class="meta">
@@ -84,7 +84,7 @@ Include Code Snippets 2. Backtick Code Blocks 这种方式可以用于代码片�
   
 
 
-<time datetime="2012-11-29T10:44:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2012</time>
+<time datetime="2013-04-02T23:20:00+08:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -93,60 +93,7 @@ Include Code Snippets 2. Backtick Code Blocks 这种方式可以用于代码片�
   </header>
 
 
-<div class="entry-content"><h3>1.介绍</h3>
-
-<p>octopress文档中提供了很多种的代码分享高亮方法，其中我用的最多的就是两种：</p>
-
-<ul>
-<li>Backtick Code Blocks</li>
-<li>Include Code Snippets</li>
-</ul>
-
-
-<h3>2. Backtick Code Blocks</h3>
-
-<p>这种方式可以用于代码片段的分享，其格式如下</p>
-
-<pre><code>``` [language] [title] [url] [link text]
-code snippet
-```
-</code></pre>
-
-<p>其中带‘[]’的都是可选项。</p>
-
-<h4>问题:</h4>
-
-<ul>
-<li>我把可选项都带上，但是不能正确显示，在后台一直提示“favicon.ico无法找到”。</li>
-</ul>
-
-
-<h3>3. Include Code Snippets</h3>
-
-<p>这种方式可以将文件系统中的任何文件导入到博客的任何位置，并且还提供高亮和代码下载。</p>
-
-<h4>3.1 语法</h4>
-
-<pre><code>{{ "{% include_code [title] [lang:language] path/to/file" }} %}
-</code></pre>
-
-<p>其中title是标题；lang是你的代码的语言，可以提供高亮的功能；</p>
-
-<p>文件路径的默认根目录在_config.yml中的变量code_dir中，而其默认值是source/downloads/code，只需要把要include的代码放到这个文件夹里就行了。</p>
-
-<h4>问题：</h4>
-
-<ul>
-<li>要想以文本形式显示上述语法文本，需要转义一下，如果直接使用“{% include_code &#8230;&#8230;”这样来显示文本的话，默认会被解析为“Backtick Code Blocks”形式的代码引入，所以需要使用链接1的方式进行转义一下。</li>
-</ul>
-
-
-<h3>参考链接</h3>
-
-<ol>
-<li><a href="https://github.com/imathis/octopress/blob/site/source/docs/plugins/include-code/index.markdown">文本形式显示include_code语法</a></li>
-</ol>
-
+<div class="entry-content">
 </div>
 
 
@@ -169,14 +116,8 @@ code snippet
   
 
 
-<time datetime="2012-11-29T10:44:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2012</time>
+<time datetime="2013-04-02T23:20:00+08:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/octopress/'>octopress</a>
-  
-</span>
 
 
     </p>
@@ -192,7 +133,7 @@ code snippet
 (function(){
   var _w = 72 , _h = 16;
   var param = {
-    url:'http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/',
+    url:'http://zhangdian.github.com/blog/2013/04/02/java-aot/',
     type:'3',
     count:'1', /**是否显示分享数，1显示(可选)*/
     appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
@@ -214,10 +155,10 @@ code snippet
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/11/29/setup-custom-octopress/" title="Previous Post: 个性化octopress设置">&laquo; 个性化octopress设置</a>
+        <a class="basic-alignment left" href="/blog/2013/04/02/email-basic-concept/" title="Previous Post: email_basic_concept">&laquo; email_basic_concept</a>
       
       
-        <a class="basic-alignment right" href="/blog/2012/12/04/ctex/" title="Next Post: CTeX">CTeX &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/04/02/java-jti/" title="Next Post: java_jti">java_jti &raquo;</a>
       
     </p>
   </footer>
@@ -291,7 +232,7 @@ code snippet
     height="16" 
     frameborder="0" 
     src=
-      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2013/04/02/java-aot/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
   </iframe>
   </span>
 <html xmlns:wb=“http://open.weibo.com/wb”>
@@ -326,8 +267,8 @@ code snippet
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/';
-        var disqus_url = 'http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/';
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2013/04/02/java-aot/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2013/04/02/java-aot/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -101,7 +101,7 @@ hello    0       0
 ...done.
 ```
 
-#####2.2.3 Message durability（消息持久）
+#####2.3 Message durability（消息持久）
 上一节讲到如何保证在worker挂掉的时候，不让消息丢失，但是如何保证RabbitMQ挂掉的时候，不丢失消息呢？那么消息就不能只保存在内存了，必须持久化。
 
 为了保证在RabbitMQ挂掉的时候，消息不丢失，需要做两件事情：queue和messages都是持久化的。
@@ -135,7 +135,7 @@ fsync：同步内存中所有已修改的文件数据到储存设备。
 [详细](http://baike.baidu.com/view/8092902.htm)
 ```
 
-#####2.2.4 Fair dispatch（公平分发）
+#####2.4 Fair dispatch（公平分发）
 有些时候，上面的轮训分发并不能完全按照我们想象的来工作，比如：有两个worker，所有奇数的消息都是耗时的，偶数的消息都是不耗时的，那么所有耗时的消息都会被分发到worker-1上，所有不耗时的消息都会被分发到worker-2上。但是RabbitMQ什么都不知道，只能这么简单的分发消息，而并没有考虑某个Worker上UnACK的消息的个数。
 
 可以通过如下设置来解决这个问题：
@@ -148,7 +148,7 @@ channel.basic_qos(prefetch_count=1)
 __当心Queue的大小：如果所有的Queue都busy，那么Queue就会不断变长，要么一直盯着，要么增加更多的worker，要么使用一些其他的策略。
 __
 
-#####2.2.5 完整代码
+#####2.5 完整代码
 [官方网站](http://www.rabbitmq.com/tutorials/tutorial-two-python.html)
 
 ####3 订阅发布

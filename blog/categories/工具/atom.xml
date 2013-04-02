@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 工具 | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/工具/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-04-02T23:23:56+08:00</updated>
+  <updated>2013-04-02T23:57:22+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -134,7 +134,7 @@ hello    0       0
 ...done.
 </code></p>
 
-<h5>2.2.3 Message durability（消息持久）</h5>
+<h5>2.3 Message durability（消息持久）</h5>
 
 <p>上一节讲到如何保证在worker挂掉的时候，不让消息丢失，但是如何保证RabbitMQ挂掉的时候，不丢失消息呢？那么消息就不能只保存在内存了，必须持久化。</p>
 
@@ -172,7 +172,7 @@ fsync：同步内存中所有已修改的文件数据到储存设备。
 [详细](http://baike.baidu.com/view/8092902.htm)
 </code></p>
 
-<h5>2.2.4 Fair dispatch（公平分发）</h5>
+<h5>2.4 Fair dispatch（公平分发）</h5>
 
 <p>有些时候，上面的轮训分发并不能完全按照我们想象的来工作，比如：有两个worker，所有奇数的消息都是耗时的，偶数的消息都是不耗时的，那么所有耗时的消息都会被分发到worker-1上，所有不耗时的消息都会被分发到worker-2上。但是RabbitMQ什么都不知道，只能这么简单的分发消息，而并没有考虑某个Worker上UnACK的消息的个数。</p>
 
@@ -186,7 +186,7 @@ channel.basic_qos(prefetch_count=1)
 <p><strong>当心Queue的大小：如果所有的Queue都busy，那么Queue就会不断变长，要么一直盯着，要么增加更多的worker，要么使用一些其他的策略。
 </strong></p>
 
-<h5>2.2.5 完整代码</h5>
+<h5>2.5 完整代码</h5>
 
 <p><a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">官方网站</a></p>
 

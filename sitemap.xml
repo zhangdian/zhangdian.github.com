@@ -88,7 +88,7 @@
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2013/03/27/rabbitmq/</loc>
-        <lastmod>2013-04-01T20:34:05+08:00</lastmod>
+        <lastmod>2013-04-02T23:35:26+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2013/03/27/java-gc/</loc>
@@ -107,11 +107,19 @@
         <lastmod>2013-04-02T23:21:00+08:00</lastmod>
     </url>
     <url>
+        <loc>http://zhangdian.github.com/blog/2013/04/02/email-user-reputation/</loc>
+        <lastmod>2013-04-02T23:27:18+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://zhangdian.github.com/blog/2013/04/02/mail-dkim-spf-ptr/</loc>
+        <lastmod>2013-04-02T23:39:52+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://zhangdian.github.com/blog/archives/</loc>
-        <lastmod>2013-04-02T23:21:00+08:00</lastmod>
+        <lastmod>2013-04-02T23:39:52+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/</loc>
-        <lastmod>2013-04-02T23:21:00+08:00</lastmod>
+        <lastmod>2013-04-02T23:39:52+08:00</lastmod>
     </url>
 </urlset>

@@ -9,7 +9,8 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="1. 介绍 FreeMind是由Java撰写而成的实用的开源思维导图/心智软件，可以用来整理思维，结构化，帮助对整个作业流程的了解。 2. 工程界面 3. 生成的图片 4. 相关链接 freemind wiki ">
+  <meta name="description" content="假设你拥有自己的域名，而且又不想使用github的域名，那么可以使用github的custom domain功能，设置自己的域名。 1. 在自己的代码库中进行设置 在source分支中，进入source文件夹，添加一个文件“CNAME”，然后再文件中填入你的域名： 1
+youdomain.com &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +65,131 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/11/setup-custom-domain/">设置个性化域名</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-11T10:05:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/12/11/setup-custom-domain/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>假设你拥有自己的域名，而且又不想使用github的域名，那么可以使用github的custom domain功能，设置自己的域名。</p>
+
+<h4>1. 在自己的代码库中进行设置</h4>
+
+<p>在source分支中，进入source文件夹，添加一个文件“CNAME”，然后再文件中填入你的域名：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>youdomain.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>比如我的是：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>blog.bd17kaka.net</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后commit，push到代码库即可。</p>
+
+<h4>2. 设置DNS</h4>
+
+<p>这里分为两种情况，也就是顶级域名（Top-level domain）和子域名（SubDomain）。</p>
+
+<h5>2.1 顶级域名</h5>
+
+<p>对于一个顶级域名，设置一个A记录到地址204.232.175.78。这里不要使用CNAME记录，因为这样会影响你的顶级域名上的其他服务，比如邮件服务等。</p>
+
+<h5>2.2 子域名</h5>
+
+<p>使用子域名的话，设置一个CNAME记录到，比如我的记录是：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>blog.bd17kaka.net   zhangdian.bd17kaka.net</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>3. 等待</h4>
+
+<p>dns设置和github的设置需要一段时间的等待。</p>
+
+<h4>4. 参考</h4>
+
+<ul>
+<li><a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">官网资料：Setting up a custom domain with Pages</a></li>
+<li><a href="http://robdodson.me/blog/2012/04/30/custom-domain-with-octopress-and-github-pages/">Custom Domain With Octopress and Github Pages</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/07/js-basic-concept-with-example/">借助几个例子加深对js的理解</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T11:13:00+08:00" pubdate data-updated="true">Dec 7<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/12/07/js-basic-concept-with-example/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近在weibo上看到一个关于js的帖子<a href="http://dmitry.baranovskiy.com/post/91403200">So, you think you know JavaScript?</a>，正好在<a href="http://julying.com/blog/so-you-think-you-know-javascript/">这里</a>看到了关于这几个题目的参考，看完之后总结如下。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/12/07/js-basic-concept-with-example/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -562,60 +688,9 @@ code snippet
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/20/setup-octopress/">Octopress的安装与配置(Windows 7)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-20T16:15:00+08:00" pubdate data-updated="true">Nov 20<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/11/20/setup-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>1.Octopress安装</h1>
-
-<h2>1.1 环境配置</h2>
-
-<p>我是在windows 7上安装的Octopress，Octopress的安装基本上按照<a href="http://octopress.org/docs/setup/">Octopress安装文档</a>安装就行。我遇到的问题主要有以下几点：</p>
-
-<ul>
-<li>ruby的版本问题，Octopress必须要ruby1.9.3，如果版本不对的话，文档中提供了rbenv和rvm两种方法来安装合适的版本。我直接使用<a href="http://www.douban.com/group/topic/29077892/">http://www.douban.com/group/topic/29077892/</a>中讲到的办法，也就是直接安装Ruby Installer和development kit就行了，在ruby的官网上下载就行</li>
-<li>另外在执行rake的命令的时候，提示Octopress需要0.9.2.2版本，但是我的版本是10.0.1，最后查到可以在前面加上“bundle exec”，就可以通过执行</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/20/setup-octopress/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -632,6 +707,14 @@ code snippet
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/how-to-improve-email-reputation/">how to improve email reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/email-authentation/">email authentation</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/04/05/email-from-name-reputation/">关注From Name信誉度</a>
@@ -663,14 +746,6 @@ code snippet
     
       <li class="post">
         <a href="/blog/2013/03/27/rabbitmq/">RabbitMQ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/27/java-shared-class/">java共享类</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/27/java-class-loader/">java类加载器</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 邮件 | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/邮件/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-04-07T20:33:25+08:00</updated>
+  <updated>2013-04-07T22:07:48+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -23,7 +23,7 @@
 <p>在去年12月中旬，发现Yahoo开始将一些在白名单中的Sender发送的邮件，发送到垃圾箱中。通过分析了解到，Yahoo的这个策略几乎会影响使用多个“From Name”发送邮件的发送者。</p>
 
 <ul>
-<li>注意这里的“From Name”和“Friendly From Name”的区别：以发送地址“reputation<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#98;&#x64;&#x31;&#55;&#107;&#97;&#107;&#x61;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x62;&#x64;&#x31;&#x37;&#107;&#97;&#x6b;&#97;&#64;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a>”为例，“Friendly From Name”指的是“reputation”，“From Name”指的是bd17kaka。而Yahoo的这个变化时针对“From Name”的。</li>
+<li>注意这里的“From Name”和“Friendly From Name”的区别：以发送地址“reputation<a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x62;&#100;&#x31;&#55;&#x6b;&#97;&#x6b;&#x61;&#x40;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#98;&#x64;&#x31;&#x37;&#107;&#x61;&#107;&#x61;&#x40;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>”为例，“Friendly From Name”指的是“reputation”，“From Name”指的是bd17kaka。而Yahoo的这个变化时针对“From Name”的。</li>
 </ul>
 
 

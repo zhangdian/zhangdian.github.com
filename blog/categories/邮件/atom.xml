@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 邮件 | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/邮件/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-04-08T22:25:05+08:00</updated>
+  <updated>2013-04-08T22:33:34+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -19,6 +19,9 @@
     <updated>2013-04-07T22:04:00+08:00</updated>
     <id>http://zhangdian.github.com/blog/2013/04/07/email-authentation</id>
     <content type="html"><![CDATA[<p>要想让邮件准确的到达目标客户的收件箱，最好的方法就是满足ISPs的需要，其中对邮件信息进行验证是很重要的部分。</p>
+
+<!-- more -->
+
 
 <h4>什么是邮件验证</h4>
 
@@ -69,6 +72,9 @@ SPF和SenderID的区别是获取Sender的算法不同。</p>
     <updated>2013-04-05T20:44:00+08:00</updated>
     <id>http://zhangdian.github.com/blog/2013/04/05/email-from-name-reputation</id>
     <content type="html"><![CDATA[<p>下面是对<a href="http://www.adstation.com/a-new-years-resolution-monitor-your-from-name-from-address-reputation/">A New Year’s Resolution: Monitor Your “From Name” (From Address) Reputation</a>的翻译和总结，是关于“关注From Name信誉度”的一篇文章。</p>
+
+<!-- more -->
+
 
 <p>在去年12月中旬，发现Yahoo开始将一些在白名单中的Sender发送的邮件，发送到垃圾箱中。通过分析了解到，Yahoo的这个策略几乎会影响使用多个“From Name”发送邮件的发送者。</p>
 

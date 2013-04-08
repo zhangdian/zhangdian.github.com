@@ -4,7 +4,7 @@
   <title><![CDATA[Category: email | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/email/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-04-08T21:25:29+08:00</updated>
+  <updated>2013-04-08T22:25:05+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -73,7 +73,7 @@ SPF和SenderID的区别是获取Sender的算法不同。</p>
 <p>在去年12月中旬，发现Yahoo开始将一些在白名单中的Sender发送的邮件，发送到垃圾箱中。通过分析了解到，Yahoo的这个策略几乎会影响使用多个“From Name”发送邮件的发送者。</p>
 
 <ul>
-<li>注意这里的“From Name”和“Friendly From Name”的区别：以发送地址“reputation<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#x62;&#x64;&#49;&#x37;&#107;&#x61;&#107;&#97;&#x40;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x62;&#x64;&#x31;&#x37;&#x6b;&#97;&#x6b;&#x61;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a>”为例，“Friendly From Name”指的是“reputation”，“From Name”指的是bd17kaka。而Yahoo的这个变化时针对“From Name”的。</li>
+<li>注意这里的“From Name”和“Friendly From Name”的区别：以发送地址“reputation &lt; bd17kaka@gmail.com > ”为例，“Friendly From Name”指的是“reputation”，“From Name”指的是bd17kaka。而Yahoo的这个变化时针对“From Name”的。</li>
 </ul>
 
 

@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Dropbox的安装(Ubuntu12.04) - bd17kaka's blog</title>
+  <title>linux crontab - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="Dropbox是一款资料同步软件，只要把资料存在云端，就可以无处不在的访问到这些资料。今天在Ubuntu12.04下安装了Dropbox，把安装过程和遇到的问题写下来。 1. 安装过程 访问Dropbox for Linux，可以下载deb文件，也可以下载源码编译安装，也可以从命令行安装。 &hellip;">
+  <meta name="description" content="
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu/">
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2013/04/08/linux-crontab/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">Dropbox的安装(Ubuntu12.04)</h1>
+      <h1 class="entry-title">Linux Crontab</h1>
     
     
       <p class="meta">
@@ -83,7 +84,7 @@
   
 
 
-<time datetime="2012-11-23T16:19:00+08:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2012</time>
+<time datetime="2013-04-08T22:21:00+08:00" pubdate data-updated="true">Apr 8<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -92,56 +93,7 @@
   </header>
 
 
-<div class="entry-content"><p>Dropbox是一款资料同步软件，只要把资料存在云端，就可以无处不在的访问到这些资料。今天在Ubuntu12.04下安装了Dropbox，把安装过程和遇到的问题写下来。</p>
-
-<!--more-->
-
-
-<h3>1. 安装过程</h3>
-
-<p>访问<a href="https://www.dropbox.com/install?os=linux">Dropbox for Linux</a>，可以下载deb文件，也可以下载源码编译安装，也可以从命令行安装。我选择从命令行安装。</p>
-
-<p>根据系统版本的不同，输入不同的命令进行安装就行：</p>
-
-<pre><code># 32位
-cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf - 
-# 64位
-cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-</code></pre>
-
-<p>安装完之后，运行</p>
-
-<pre><code>~/.dropbox-dist/dropboxd
-</code></pre>
-
-<p>就可以运行dropbox了。</p>
-
-<h3>2. 自动启动Dropbox</h3>
-
-<p>在/etc/init.d/文件夹中添加一个文件auto_dropbox.sh，添加以下代码：</p>
-
-<pre><code>~/.dropbox-dist/dropboxd &amp;
-</code></pre>
-
-<p>保存退出到shell，输入以下命令：</p>
-
-<pre><code>sudo chmod +x /etc/init.d/auto_dropbox.sh # 设置script的执行权限
-sudo update-rc.d auto_dropbox.sh defaults # 设置script在系统启动时执行
-</code></pre>
-
-<p>这样，就可以在系统启动的时候自动启动dropbox，可以使用命令：</p>
-
-<pre><code>dropbox status
-</code></pre>
-
-<p>来查询dropbox的状态。但是，每次启动都不能自动运行，不知道为什么。还是在启动之后，运行命令在后台运行吧。</p>
-
-<h3>3. 相关链接</h3>
-
-<ul>
-<li><a href="https://www.dropbox.com/install?os=linux">dropbox for linux download</a></li>
-</ul>
-
+<div class="entry-content">
 </div>
 
 
@@ -164,14 +116,8 @@ sudo update-rc.d auto_dropbox.sh defaults # 设置script在系统启动时执行
   
 
 
-<time datetime="2012-11-23T16:19:00+08:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2012</time>
+<time datetime="2013-04-08T22:21:00+08:00" pubdate data-updated="true">Apr 8<span>th</span>, 2013</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/dropbox/'>dropbox</a>, <a class='category' href='/blog/categories/环境配置-软件安装/'>环境配置&软件安装</a>
-  
-</span>
 
 
     </p>
@@ -187,7 +133,7 @@ sudo update-rc.d auto_dropbox.sh defaults # 设置script在系统启动时执行
 (function(){
   var _w = 72 , _h = 16;
   var param = {
-    url:'http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu/',
+    url:'http://zhangdian.github.com/blog/2013/04/08/linux-crontab/',
     type:'3',
     count:'1', /**是否显示分享数，1显示(可选)*/
     appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
@@ -209,10 +155,10 @@ sudo update-rc.d auto_dropbox.sh defaults # 设置script在系统启动时执行
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/11/21/git-operation-with-octopress/" title="Previous Post: 使用git操作Octopress">&laquo; 使用git操作Octopress</a>
+        <a class="basic-alignment left" href="/blog/2013/04/07/how-to-improve-email-reputation/" title="Previous Post: how to improve email reputation">&laquo; how to improve email reputation</a>
       
       
-        <a class="basic-alignment right" href="/blog/2012/11/27/git-config/" title="Next Post: git配置">git配置 &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/04/08/what-is-email-reputation/" title="Next Post: what is email reputation">what is email reputation &raquo;</a>
       
     </p>
   </footer>
@@ -286,7 +232,7 @@ sudo update-rc.d auto_dropbox.sh defaults # 设置script在系统启动时执行
     height="16" 
     frameborder="0" 
     src=
-      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2013/04/08/linux-crontab/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
   </iframe>
   </span>
 <html xmlns:wb=“http://open.weibo.com/wb”>
@@ -321,8 +267,8 @@ sudo update-rc.d auto_dropbox.sh defaults # 设置script在系统启动时执行
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu/';
-        var disqus_url = 'http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu/';
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2013/04/08/linux-crontab/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2013/04/08/linux-crontab/';
         var disqus_script = 'embed.js';
       
     (function () {

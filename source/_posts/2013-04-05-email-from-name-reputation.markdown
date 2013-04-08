@@ -9,7 +9,7 @@ categories: [邮件, email]
 
 在去年12月中旬，发现Yahoo开始将一些在白名单中的Sender发送的邮件，发送到垃圾箱中。通过分析了解到，Yahoo的这个策略几乎会影响使用多个“From Name”发送邮件的发送者。
 
-* 注意这里的“From Name”和“Friendly From Name”的区别：以发送地址“reputation<bd17kaka@gmail.com>”为例，“Friendly From Name”指的是“reputation”，“From Name”指的是bd17kaka。而Yahoo的这个变化时针对“From Name”的。
+* 注意这里的“From Name”和“Friendly From Name”的区别：以发送地址“reputation < bd17kaka@gmail.com > ”为例，“Friendly From Name”指的是“reputation”，“From Name”指的是bd17kaka。而Yahoo的这个变化时针对“From Name”的。
 
 #####Yahoo做了什么改变
 Yahoo的信誉度规则发生了改变，从去年12月开始，Yahoo使用“From Name”+“Domain Name”+“IP”的组合来确定信誉度：

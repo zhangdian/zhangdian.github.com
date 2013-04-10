@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: octopress | bd17kaka's blog]]></title>
+  <link href="http://zhangdian.github.com/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://zhangdian.github.com/"/>
+  <updated>2013-04-08T22:33:34+08:00</updated>
+  <id>http://zhangdian.github.com/</id>
+  <author>
+    <name><![CDATA[bd17kaka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[解决当rake deploy的时候，报Bad file number:22的错误]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/"/>
+    <updated>2013-01-07T23:55:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22</id>
+    <content type="html"><![CDATA[<h4>问题</h4>
+
+<p>当Octopress有更新的时候，需要执行以下命令将其更新到线上：</p>
+
+<p><code>
+rake generate
+rake deploy
+</code></p>
+
+<p>可是，有的时候会报“Bad file number:22”的错误（我是在家的时候），原因是家里的网络出口屏蔽了22端口，所以出不去。</p>
+
+<!-- more -->
+
+
+<p>在github网站上可以看到，有两种方式clone代码：
+<code>
+ssh: git@github.com:zhangdian/zhangdian.github.com.git
+https: https://github.com/zhangdian/zhangdian.github.com.git
+</code></p>
+
+<p>当使用ssh方式的时候，ssh默认使用的是22端口，故而有的时候会出现问题。而使用后面的https协议方式是可以的。</p>
+
+<h4>解决方案</h4>
+
+<p>在octopress文件夹中，在执行了rake generate之后，会把生成之后的网站代码保存在<em>deploy文件夹中，进入</em>deploy文件夹可以看到，这个文件夹里的文件就是origin master的代码。进到_deploy/.git/config，将url参数的值修改为https地址，即可。</p>
+
+<p>同样，如果要把source分支的代码push带github，可以查看octopress主文件夹中.git/config的内容，可以将ssh地址修改为https地址。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[设置个性化域名]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/11/setup-custom-domain/"/>
+    <updated>2012-12-11T10:05:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/11/setup-custom-domain</id>
+    <content type="html"><![CDATA[<p>假设你拥有自己的域名，而且又不想使用github的域名，那么可以使用github的custom domain功能，设置自己的域名。</p>
+
+<h4>1. 在自己的代码库中进行设置</h4>
+
+<p>在source分支中，进入source文件夹，添加一个文件“CNAME”，然后再文件中填入你的域名：</p>
+
+<p><code>
+youdomain.com
+</code></p>
+
+<p>比如我的是：</p>
+
+<p><code>
+blog.bd17kaka.net
+</code></p>
+
+<p>然后commit，push到代码库即可。</p>
+
+<h4>2. 设置DNS</h4>
+
+<p>这里分为两种情况，也就是顶级域名（Top-level domain）和子域名（SubDomain）。</p>
+
+<h5>2.1 顶级域名</h5>
+
+<p>对于一个顶级域名，设置一个A记录到地址204.232.175.78。这里不要使用CNAME记录，因为这样会影响你的顶级域名上的其他服务，比如邮件服务等。</p>
+
+<h5>2.2 子域名</h5>
+
+<p>使用子域名的话，设置一个CNAME记录到，比如我的记录是：</p>
+
+<p><code>
+blog.bd17kaka.net   zhangdian.bd17kaka.net
+</code></p>
+
+<h4>3. 等待</h4>
+
+<p>dns设置和github的设置需要一段时间的等待。</p>
+
+<h4>4. 参考</h4>
+
+<ul>
+<li><a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">官网资料：Setting up a custom domain with Pages</a></li>
+<li><a href="http://robdodson.me/blog/2012/04/30/custom-domain-with-octopress-and-github-pages/">Custom Domain With Octopress and Github Pages</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[octopress代码片段分享]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets/"/>
+    <updated>2012-11-29T10:44:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/29/octopress-sharing-code-snippets</id>
+    <content type="html"><![CDATA[<h3>1.介绍</h3>
+
+<p>octopress文档中提供了很多种的代码分享高亮方法，其中我用的最多的就是两种：</p>
+
+<ul>
+<li>Backtick Code Blocks</li>
+<li>Include Code Snippets</li>
+</ul>
+
+
+<h3>2. Backtick Code Blocks</h3>
+
+<p>这种方式可以用于代码片段的分享，其格式如下</p>
+
+<pre><code>``` [language] [title] [url] [link text]
+code snippet
+```
+</code></pre>
+
+<p>其中带‘[]’的都是可选项。</p>
+
+<h4>问题:</h4>
+
+<ul>
+<li>我把可选项都带上，但是不能正确显示，在后台一直提示“favicon.ico无法找到”。</li>
+</ul>
+
+
+<h3>3. Include Code Snippets</h3>
+
+<p>这种方式可以将文件系统中的任何文件导入到博客的任何位置，并且还提供高亮和代码下载。</p>
+
+<h4>3.1 语法</h4>
+
+<pre><code>{{ "{% include_code [title] [lang:language] path/to/file" }} %}
+</code></pre>
+
+<p>其中title是标题；lang是你的代码的语言，可以提供高亮的功能；</p>
+
+<p>文件路径的默认根目录在_config.yml中的变量code_dir中，而其默认值是source/downloads/code，只需要把要include的代码放到这个文件夹里就行了。</p>
+
+<h4>问题：</h4>
+
+<ul>
+<li>要想以文本形式显示上述语法文本，需要转义一下，如果直接使用“{% include_code ......”这样来显示文本的话，默认会被解析为“Backtick Code Blocks”形式的代码引入，所以需要使用链接1的方式进行转义一下。</li>
+</ul>
+
+
+<h3>参考链接</h3>
+
+<ol>
+<li><a href="https://github.com/imathis/octopress/blob/site/source/docs/plugins/include-code/index.markdown">文本形式显示include_code语法</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[个性化octopress设置]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/29/setup-custom-octopress/"/>
+    <updated>2012-11-29T00:08:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/29/setup-custom-octopress</id>
+    <content type="html"><![CDATA[<h3>1. Octopress个性化设置文件</h3>
+
+<p>主要文件都在source/<em>includes/文件夹中，其中
+<code>
+/asides/ #包含侧边栏的项目
+/custom/ #包含个性化头部、导航栏，footer以及侧边栏等
+</code>
+/custom中包含的都是个性化的页面，其中也包含
+<code>
+/asides/ #包含个性化的侧边栏项目
+/*.html  #个性化的页面，可以在这里设置自己个性化的页面
+</code>
+那么，设置自己个性化的页面，主要修改的是source/</em>incledes/中的内容。
+此外，修改了文件内容之后，还需要修改_config.yml中的部分内容才能生效，具体见后面的设置。</p>
+
+<!-- more -->
+
+
+<h3>2. sina相关</h3>
+
+<p>sina的开放平台上提供了很多可以作为插件到octopress中的元素，包括分享按钮、关注按钮等等，见链接：</p>
+
+<ol>
+<li><a href="http://open.weibo.com/">sina开放平台</a></li>
+<li><a href="http://open.weibo.com/sharebutton">sina分享按钮界面</a></li>
+</ol>
+
+
+<h4>2.1 sina分享</h4>
+
+<p>要想在边框栏设置sina分享，要修改三个地方的内容：</p>
+
+<ul>
+<li>添加文件/source/_includes/custom/asides/sina_weibo_sharing.html文件，其中内容如下：
+{% include_code ruby sina_weibo_sharing.html %}</li>
+<li>修改_config.yml，在最后添加下面的代码：
+```
+
+<h1>Weibo</h1>
+
+<p>weibo_uid: 1930318973
+weibo_fansline: 0   # How many lines for the fan list
+weibo_show: true    # Whether you want your weibo content to be shown
+weibo_pic: true     # Whether you want the pictures in weibo to be shown
+weibo_skin: 10      # Please refer to http://weibo.com/tool/weiboshow
+weibo_share: true   # Whether show the sharing button
+```</p></li>
+<li>修改_config.yml，在defaule_asides数组中添加一项：
+<code>
+custom/asides/sina_weibo_sharing.html
+</code></li>
+</ul>
+
+
+<h4>2.2 sina关注</h4>
+
+<p>要想在边框栏设置sina关注，要修改两个地方的内容：</p>
+
+<ul>
+<li>添加文件/source/_includes/custom/asides/sina_weibo_follow.html文件，其中内容如下：
+{% include_code sina_weibo_follow.html %}</li>
+<li>修改_config.yml，在defaule_asides数组中添加一项：
+<code>
+custom/asides/sina_weibo_follow.html
+</code></li>
+</ul>
+
+
+<h4>2.3 将新浪分享添加到每个博客页面下方</h4>
+
+<p>在_include/post/sharing.html添加如下代码即可：
+```
+{% if site.weibo_share %}</p>
+
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'{{ site.url }}{{ page.url }}',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'', /**关联用户的UID，分享微博会@该用户(可选)*/
+    language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+
+
+<p>  {% endif %}
+```</p>
+
+<h3>3. About.html</h3>
+
+<p>可以添加关于自己的介绍页面，同样，需要修改两个地方的数据：</p>
+
+<ul>
+<li>添加文件/source/_includes/custom/asides/about.html的内容</li>
+<li>修改_config.yml，在defaule_asides数组中添加一项：
+<code>
+custom/asides/about.html
+</code></li>
+</ul>
+
+
+<h3>4. 添加评论</h3>
+
+<p>Octopress使用的是<a href="http://www.disqus.com/">disqus</a>插件来展示文章的评论。</p>
+
+<h4>4.1 disqus</h4>
+
+<p>在<a href="http://www.disqus.com/">disqus官网</a>注册一个账号，然后按提示设置shortname，Website name以及Website URL即可。这里的Website必须填写你要使用该插件的网址，也就是你的blog地址，对于我则是http://zhangdian.github.com。这里的shortname是要在octopress设置中填写的值。</p>
+
+<h4>4.2 octopress配置</h4>
+
+<p>需要再_config.yml中填写disqus_short_name的值，也就是在注册disqus时的shortname的值，那么这行设置最后的形式就是“disqus_short_name: value”。注意，冒号后面一定要有一个空格，不然会报错。</p>
+
+<h4>4.3 文章设置</h4>
+
+<p>在文章头部，有一个选项是“comments”，把他设置成true。</p>
+
+<h4>4.4 使用到的文件</h4>
+
+<p>在octopress结构中，实际上是在source/_includes/after_footer.html中引入了评论页面：
+```
+{{ "{% include disqus.html" }} %}
+{{ "{% include facebook_like.html" }} %}
+{{ "{% include google_plus_one.html" }} %}
+{{ "{% include twitter_sharing.html" }} %}
+{{ "{% include custom/after_footer.html" }} %}</p>
+
+<p><code>
+其中第一个就是。后面三个分别是facebook、google+、twitter的一些东西，最后一项是引入个性化的设置。在disqus.html中：
+</code>
+{{ "{% if site.disqus_short_name and page.comments != false" }} %}</p>
+
+<script type="text/javascript">
+      var disqus_shortname = '{{ site.disqus_short_name }}';
+      {% if page.comments == true %}
+        {% comment %} `page.comments` can be only be set to true on pages/posts, so we embed the comments here. {% endcomment %}
+        // var disqus_developer = 1;
+        var disqus_identifier = '{{ site.url }}{{ page.url }}';
+        var disqus_url = '{{ site.url }}{{ page.url }}';
+        var disqus_script = 'embed.js';
+      {% else %}
+        {% comment %} As `page.comments` is empty, we must be on the index page. {% endcomment %}
+        var disqus_script = 'count.js';
+      {% endif %}
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+<p>{% endif %}
+```
+只有在全局变量disqus_short_name和页面变量comments同时为true的时候，才会加载评论页面。</p>
+
+<h4>4.5 关于source/_includes/post/sharing.html页面</h4>
+
+<p>这个页面里面包含的内容紧跟着文章内容下面显示，而我们上述讨论的评论页面是在这下面显示的。</p>
+
+<h3>5. 遇到的问题</h3>
+
+<h4>5.1 undefined method `Py_IsInitialized' for RubyPython::Python:Module</h4>
+
+<p>在使用插件功能给博客添加边框栏项目的时候，提示上述错误，原因是没有安装python，解决办法是首先安装python，然后bundle update更新一下，就ok了。参考网站：</p>
+
+<ol>
+<li><a href="https://github.com/github/gollum/issues/225">Py_IsInitialized error</a></li>
+<li><a href="https://github.com/imathis/octopress/issues/262">Exception on generate codeblock with "lang:" on Windows</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用git操作Octopress]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/21/git-operation-with-octopress/"/>
+    <updated>2012-11-21T15:34:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/21/git-operation-with-octopress</id>
+    <content type="html"><![CDATA[<h2>1. 建立dev分支</h2>
+
+<p>默认情况下，octopress在本地只有一个source分支。我另外建立一个dev分支，开始的时候，设置dev分支和source分支一致，在source分支，执行命令(1)就可以新建一个和source内容一样的分支，并且自动checkout到dev分支；</p>
+
+<pre><code>git checkout source -b dev (1)
+</code></pre>
+
+<!--more-->
+
+
+<h2>2. 编辑文件，commit</h2>
+
+<p>以后在编辑博客的时候，在dev分支编辑，编辑完之后在source文件夹中，执行命令(2)就可以将该表提交；</p>
+
+<pre><code>git add *
+git commit -m'msg' (2)
+</code></pre>
+
+<h2>3. 合并代码，push</h2>
+
+<p>然后切换到source分支，pull远程的代码下来，然后merge dev分支的代码，然后将source的代码push上去就完成代码的更新了；</p>
+
+<pre><code>git checkout source
+git pull origin source
+git merge dev
+git push origin source
+</code></pre>
+
+<h2>4. 生成、部署</h2>
+
+<p>最后生成，部署新的博客内容就ok了；</p>
+
+<pre><code>rake generate
+rake deploy
+</code></pre>
+
+<p>此外，以后每次编辑博客之前，最好首先将远程的代码pull下来，然后编辑，编辑完之后最后马上push，这样可以防止冲突的产生。</p>
+
+<h2>5. 参考</h2>
+
+<ul>
+<li><a href="http://note.softrayn.com/blog/2012/07/two-pc-sync-octopress/">两台计算机同步octopress</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

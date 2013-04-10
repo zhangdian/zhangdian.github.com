@@ -1,0 +1,542 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Redis文档(完整) - bd17kaka's blog</title>
+  <meta name="author" content="bd17kaka">
+
+  
+  <meta name="description" content="1. Redis介绍 1.1 什么是redis REmote DIctionary Server(Redis)是一个由Salvatore Sanfilippo写的key-value存储系统。Redis提供了一些丰富的数据结构，包括lists，sets，ordered sets以及hashes， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/13/redis-docs/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="bd17kaka's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">bd17kaka's blog</a></h1>
+  
+    <h2>I belong to Moon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zhangdian.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">分类</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Redis文档(完整)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-13T09:27:00+08:00" pubdate data-updated="true">Dec 13<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>1. Redis介绍</h3>
+
+<h4>1.1 什么是redis</h4>
+
+<p>REmote DIctionary Server(Redis)是一个由Salvatore Sanfilippo写的key-value存储系统。Redis提供了一些丰富的数据结构，包括lists，sets，ordered sets以及hashes，当然还有和Memcached一样的strings结构。Redis当然还包括了对这些数据结构的丰富操作。</p>
+
+<h4>1.2 redis的优点</h4>
+
+<ul>
+<li>性能极高：Redis能支持超过 100K+ 每秒的读写频率；</li>
+<li>丰富的数据类型：Redis支持二进制安全的Strings，Lists，Hashes，Sets及Ordered Sets数据类型操作；</li>
+<li><strong>原子性：Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行；</strong></li>
+<li>丰富的特性：Redis还支持 publish/subscribe，通知，key过期等等特性。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>2. Redis的数据类型</h3>
+
+<h4>2.0 key&amp;value</h4>
+
+<h5>2.0.1 key</h5>
+
+<p>redis使用的是key作为存取对象的唯一标识，对“key”的通俗理解就是“字符串”。<strong>Redis中的key值是二进制安全的，这意味着可以用任何二进制序列作为key值，从形如“kaka”的简单字符串到一个JPEG文件的内容都可以。空字符串也是有效key值。</strong></p>
+
+<p>关于key有几条比较好的规则：</p>
+
+<ul>
+<li>不要使用太长的key，比如1024个字节的key，因为这样不仅会浪费内存，而且会影响查询的效率；</li>
+<li>也不要使用太短的key，比如使用“u:1000:pwd”来代替“user:1000:password”，这本身没有什么问题，但是后者更容易理解，并且增加的空间消耗相对于key object和value object本身来说是很小的；</li>
+<li>最好使用一种固定的模式。</li>
+</ul>
+
+
+<h4>2.1 String</h4>
+
+<h5>2.1.0 简介</h5>
+
+<p>这是最简单Redis类型。如果你只用这种类型，Redis就像一个可以持久化的memcached服务器，因为memcache的数据时保存在内存的，系统重启后就没了。</p>
+
+<p>redis字符串是二进制安全的，也就是说redis字符串可以包含任意类型的数据，比如一个JPEG图片，或者一个ruby object。一个字符串的最大长度是512M。</p>
+
+<h5>2.1.1 String的结构</h5>
+
+<p>redis string的实现包含在sds.c文件中，redis string的定义在sdshdr.h文件中：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>struct sdshdr {
+</span><span class='line'>    long len;
+</span><span class='line'>    long free;
+</span><span class='line'>    char buf[];
+</span><span class='line'>};
+</span><span class='line'>// len代表buf中实际保存的字符串的长度，那么就可以再O(1)的时间内获取字符串的长度
+</span><span class='line'>// free代表buf中还剩余的空间长度
+</span><span class='line'>// 保存实际的字符串
+</span><span class='line'>// len + free 等于buf数组的长度</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.1.2 String的创建</h5>
+
+<p>在sds.h中定义了一个新的类型，实际上类型sds就是字符串指针的一个别名而已。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>typedef char *sds;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在sds.c中定义的sdsnewlen函数创建一个新的字符串：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sds sdsnewlen(const void *init, size_t initlen) {
+</span><span class='line'>    struct sdshdr *sh;
+</span><span class='line'>
+</span><span class='line'>    sh = zmalloc(sizeof(struct sdshdr)+initlen+1);
+</span><span class='line'>#ifdef SDS_ABORT_ON_OOM
+</span><span class='line'>    if (sh == NULL) sdsOomAbort();
+</span><span class='line'>#else
+</span><span class='line'>    if (sh == NULL) return NULL;
+</span><span class='line'>#endif
+</span><span class='line'>    sh-&gt;len = initlen;
+</span><span class='line'>    sh-&gt;free = 0;
+</span><span class='line'>    if (initlen) {
+</span><span class='line'>        if (init) memcpy(sh-&gt;buf, init, initlen);
+</span><span class='line'>        else memset(sh-&gt;buf,0,initlen);
+</span><span class='line'>    }
+</span><span class='line'>    sh-&gt;buf[initlen] = '\0';
+</span><span class='line'>    return (char*)sh-&gt;buf;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到，函数介绍两个参数，一个是字符串指针，一个是字符串长度。然后分配一个地址空间，包括三个部分：struct sdshdr长度、字符串长度以及字符串最后的结尾符。最后对struct sdshdr的各个元素赋值，返回其buf部分，也就是实际的字符串。</p>
+
+<p>假设使用如下代码初始化它，那么内存结构大概是下面这个样子的：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 初始化
+</span><span class='line'>sdsnewlen("bd17kaka", 8);
+</span><span class='line'>
+</span><span class='line'>// 结果
+</span><span class='line'>-----------
+</span><span class='line'>|8|0|bd17kaka|
+</span><span class='line'>-----------
+</span><span class='line'>^   ^
+</span><span class='line'>sh  sh-&gt;buf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.1.3 通过buf指针获取sh指针</h5>
+
+<p>从上面的内存结构图可以看到，buf的内存地址实际上只比sh的内存地址多了len和free两个变量的长度，也就是两个long的长度，实际上就是struct sdshdr的长度，那么可以通过以下方法获取sh的指针：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>struct sdshdr *sh = (void*) (s-(sizeof(struct sdshdr)));
+</span><span class='line'>
+</span><span class='line'>// 获取字符串的长度
+</span><span class='line'>size_t sdslen(const sds s) {
+</span><span class='line'>    struct sdshdr *sh = (void*) (s-(sizeof(struct sdshdr)));
+</span><span class='line'>    return sh-&gt;len;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在redis源代码其他地方，可以经常看到这个技巧的使用。</p>
+
+<h5>2.1.4 redis使用</h5>
+
+<p>redis可以进行很多操作，下面列出几种比较常用的，所有的操作见<a href="http://redis.io/commands/#string">字符串操作</a>。</p>
+
+<ul>
+<li>使用诸如INCR, DECR, INCRBY的原子操作；</li>
+<li>使用APPEND进行字符串append操作；</li>
+<li>随机访问：SETRANGE, GETRANGE；</li>
+<li>在一个极小空间内编码很多数据；</li>
+<li>访问一个字符串的某一位的数据：GETBIT, SETBIT；</li>
+</ul>
+
+
+<h5>2.1.5 INCR</h5>
+
+<p>INCR将字符串的值解析为一个整数，然后+1，然后将这个字符串的值设置为新获得的整数值，类似的命令有DECR, INCR等等。如果这个字符串无法解析为一个整数的话，会报一个错：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ERR value is not an integer or out of range</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.1.6 INCR的原子性</h5>
+
+<p>INCR的原子性也就说，假设多个客户端同时对一个key进行诸如INCR, DECR等的操作，也不会出现冲突的情况。比如key=‘2’，此时两个客户端同时发出“INCR ke”y的操作，那么最后key的值一定是4，而不会是3。在一个“read-increment-set”过程执行的时候，其他客户端不会同时执行一个命令。</p>
+
+<h4>2.2 List</h4>
+
+<h5>2.2.0 简介</h5>
+
+<p>列表有两种，分别是linked list和array list。前者使用链表实现，后者实际上是一个数组，两个的优缺点很清楚。</p>
+
+<p>Redis的list使用linked list实现的，那么意味着在头部和尾部添加一个元素的时间复杂度是常数级别的，不管现有的list的规模多大，时间复杂度都一样。其相对于arraylist的缺点就是访问速度了，arraylist通过index访问速度很快。</p>
+
+<p>Redis Lists用linked list实现的原因是：对于数据库系统来说，至关重要的特性是：<strong>能非常快的在很大的列表上添加元素</strong>。另一个重要因素是，正如你将要看到的：<strong>Redis lists能在常数时间取得常数长度</strong>。</p>
+
+<h4>2.3 set（集合）</h4>
+
+<h4>2.4 sorted set（有序集合）</h4>
+
+<h4>2.5 hash</h4>
+
+<h3>3. Publish/Subscribe</h3>
+
+<h3>4. 数据过期</h3>
+
+<h3>5. 事务性</h3>
+
+<h3>6. 持久化</h3>
+
+<h3>7. 管理</h3>
+
+<h3>参考链接</h3>
+
+<ul>
+<li><a href="http://redis.io/topics/data-types-intro">A fifteen minute introduction to Redis data types</a></li>
+<li><a href="http://redis.io/topics/data-types">Data types</a></li>
+<li><a href="http://redis.io/">redis官网</a></li>
+<li><a href="http://redis.io/commands/#string">String 操作</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">bd17kaka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-13T09:27:00+08:00" pubdate data-updated="true">Dec 13<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/redis/'>redis</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'http://zhangdian.github.com/blog/2012/12/13/redis-docs/',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'1930318973', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/12/12/add-setup-vpn-server-and-client/" title="Previous Post: 设置VPN">&laquo; 设置VPN</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/" title="Next Post: 解决当rake deploy的时候，报Bad file number:22的错误">解决当rake deploy的时候，报Bad file number:22的错误 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    ﻿<section>
+  <h1>About Me</h1>
+  <p>屌丝一枚，技术新人，服务于互联网，忠诚于AC米兰</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/04/08/what-is-email-reputation/">what is email reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/08/linux-crontab/">linux crontab</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/how-to-improve-email-reputation/">how to improve email reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/email-authentation/">邮件验证</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/05/email-from-name-reputation/">关注From Name信誉度</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/mail-dkim-spf-ptr/"></a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/email-user-reputation/">email_user_reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/java-jti/">java_jti</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/java-aot/">java_aot</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/email-basic-concept/">email_basic_concept</a>
+      </li>
+    
+  </ul>
+</section>
+
+  <span>
+  <iframe 
+    width="86" 
+    scrolling="no" 
+    height="16" 
+    frameborder="0" 
+    src=
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/13/redis-docs/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+  </iframe>
+  </span>
+<html xmlns:wb=“http://open.weibo.com/wb”>
+<head>
+	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<wb:follow-button uid="1930318973" type="red_4" width="100%" height="64" >
+</wb:follow-button>
+</body>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - bd17kaka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  ﻿
+
+<script type="text/javascript">
+      var disqus_shortname = 'bd17kakablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/12/13/redis-docs/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2012/12/13/redis-docs/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script language="javascript" type="text/javascript" src="http://js.users.51.la/15203840.js"></script>
+<noscript><a href="http://www.51.la/?15203840" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/15203840.asp" style="border:none" /></a></noscript>
+
+
+
+
+
+</body>
+</html>

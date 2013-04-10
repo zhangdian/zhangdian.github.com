@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 网站 | bd17kaka's blog]]></title>
+  <link href="http://zhangdian.github.com/blog/categories/网站/atom.xml" rel="self"/>
+  <link href="http://zhangdian.github.com/"/>
+  <updated>2013-04-08T22:33:34+08:00</updated>
+  <id>http://zhangdian.github.com/</id>
+  <author>
+    <name><![CDATA[bd17kaka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用51.la统计网站流量]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/11/add-51-stat/"/>
+    <updated>2012-12-11T16:32:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/11/add-51-stat</id>
+    <content type="html"><![CDATA[<p>进行网站流量统计的工具有很多，比如Google Analytics。这里，我就使用国产工具<a href="http://www.51.la/">51.la免费统计工具</a>，来对我的博客流量进行统计，具体操作步骤如下：</p>
+
+<!-- more -->
+
+
+<h4>1. 添加统计ID</h4>
+
+<p>添加你要进行流量监测的网站，填入网站名称和网站地址。</p>
+
+<h4>2. 获取统计代码</h4>
+
+<p>统计代码就是一个js引用或者图片引用，如果网页被访问，这段JS代码就会运行并调用51.la某一台服务器上的一个程序，从而让程序感知到网站被访问了。有的用户使用了不支持javascript的浏览器，那么该浏览器会尝试读取嵌入代码中引用的图片，这个图片也位于51.La的服务器上，51统计服务器也会因为这个图片被引用而感知到您的网站被访问。统计代码是如下的代码，当然，每个用户的每个应用的统计代码是不一样的。</p>
+
+<p>```</p>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/id.js"></script>
+
+
+<p><noscript><a href="http://www.51.la/?id" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/id.asp" style="border:none" /></a></noscript>
+```</p>
+
+<h4>3. 将统计代码嵌入到网页中</h4>
+
+<p>由于我的博客是用octopress搭建的，那么下面讲一下在octopress中创建51.la流量统计的方法。</p>
+
+<ul>
+<li>在source/_includes/custom 中创建文件51_stat.html，在文件中贴入以下代码。代码的意思就是：判断全局变量51_stat是否设置为true，如果是的话，就添加后面的js代码，这里的js代码实际上就是上面获取的统计代码；</li>
+</ul>
+
+
+<p>```
+{% if site.51_stat %}
+  <script language="javascript" type="text/javascript" src="http://js.users.51.la/id.js"></script>
+<noscript><a href="http://www.51.la/?id" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/id.asp" style="border:none" /></a></noscript>
+{% endif %}</p>
+
+<p>```</p>
+
+<ul>
+<li>在source/_includes/after_footer中添加下面的第五行代码，其他都是本来就有的。也可以添加在其他文件，或者改文件的其他行，没什么影响；</li>
+</ul>
+
+
+<p><code>
+{% include disqus.html %}
+{% include facebook_like.html %}
+{% include google_plus_one.html %}
+{% include twitter_sharing.html %}
+{% include custom/51_stat.html %}
+{% include custom/after_footer.html %}
+</code></p>
+
+<ul>
+<li>在octopress的根目录中的_config.yml文件最后添加以下几行代码。这里的51_stat实际上就是在51_stat.html文件中用到的变量，如果设置为true，就进行流量统计。</li>
+</ul>
+
+
+<p>```</p>
+
+<h1>stat</h1>
+
+<p>51_stat: true
+```</p>
+
+<h4>4. 提交代码，部署，等待</h4>
+
+<p>下一步就是提交代码，部署blog，然后等待生效。我的博客设置好之后，5分钟就可以看到流量统计了。一个标志就是在博客最下面出现了这个图标：</p>
+
+<p><code>
+<img src="/images/custom/51_stat_icon.jpg">
+</code></p>
+
+<p>另外总结在博客中不使用网络图片，而是直接使用博客文件夹中的图片的方法：在source/images文件夹中建立一个文件夹custom，意思是这里面的图片都是我的博客中使用的图片，然后将博客中要使用的图片都放在这个文件夹里面即可，引用的时候使用如下代码即可：</p>
+
+<p><code>
+{% img /images/custom/51_stat_icon.jpg %}
+</code></p>
+
+<h4>5. 相关参考</h4>
+
+<ul>
+<li><a href="http://help.51.la/howto/start.asp">51流量统计-新用户快速启程</a></li>
+<li><a href="http://www.51.la/">51la官网</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 环境配置&软件安装 | bd17kaka's blog]]></title>
+  <link href="http://zhangdian.github.com/blog/categories/环境配置-软件安装/atom.xml" rel="self"/>
+  <link href="http://zhangdian.github.com/"/>
+  <updated>2013-04-08T22:33:34+08:00</updated>
+  <id>http://zhangdian.github.com/</id>
+  <author>
+    <name><![CDATA[bd17kaka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Dropbox的安装(Ubuntu12.04)]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu/"/>
+    <updated>2012-11-23T16:19:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/23/setup-dropbox-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>Dropbox是一款资料同步软件，只要把资料存在云端，就可以无处不在的访问到这些资料。今天在Ubuntu12.04下安装了Dropbox，把安装过程和遇到的问题写下来。</p>
+
+<!--more-->
+
+
+<h3>1. 安装过程</h3>
+
+<p>访问<a href="https://www.dropbox.com/install?os=linux">Dropbox for Linux</a>，可以下载deb文件，也可以下载源码编译安装，也可以从命令行安装。我选择从命令行安装。</p>
+
+<p>根据系统版本的不同，输入不同的命令进行安装就行：</p>
+
+<pre><code># 32位
+cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf - 
+# 64位
+cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+</code></pre>
+
+<p>安装完之后，运行</p>
+
+<pre><code>~/.dropbox-dist/dropboxd
+</code></pre>
+
+<p>就可以运行dropbox了。</p>
+
+<h3>2. 自动启动Dropbox</h3>
+
+<p>在/etc/init.d/文件夹中添加一个文件auto_dropbox.sh，添加以下代码：</p>
+
+<pre><code>~/.dropbox-dist/dropboxd &amp;
+</code></pre>
+
+<p>保存退出到shell，输入以下命令：</p>
+
+<pre><code>sudo chmod +x /etc/init.d/auto_dropbox.sh # 设置script的执行权限
+sudo update-rc.d auto_dropbox.sh defaults # 设置script在系统启动时执行
+</code></pre>
+
+<p>这样，就可以在系统启动的时候自动启动dropbox，可以使用命令：</p>
+
+<pre><code>dropbox status
+</code></pre>
+
+<p>来查询dropbox的状态。但是，每次启动都不能自动运行，不知道为什么。还是在启动之后，运行命令在后台运行吧。</p>
+
+<h3>3. 相关链接</h3>
+
+<ul>
+<li><a href="https://www.dropbox.com/install?os=linux">dropbox for linux download</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress安装与配置（Ubuntu12.04）]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/"/>
+    <updated>2012-11-21T14:06:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>之前安装了在Windows7下面安装了Octopress，现在也把在Ubuntu12.04下安装过程中遇到的问题记录一下。</p>
+
+<!--more-->
+
+
+<h1>1. 环境搭建</h1>
+
+<h2>1.1 安装git</h2>
+
+<pre><code>apt-get install git
+</code></pre>
+
+<h2>1.2安装ruby</h2>
+
+<h3>1.2.2 安装RVM</h3>
+
+<p>RVM(Ruby Version Manager)管理ruby环境的安装，而octopress需要ruby1.9.3。使用如下命令就能安装rvm：</p>
+
+<pre><code>curl -L https://get.rvm.io | bash -s stable --ruby
+</code></pre>
+
+<h3>1.2.1 安装ruby依赖</h3>
+
+<p>直接安装RVM会失败，在此之前要安装ruby的依赖包，使用如下命令安装ruby依赖：</p>
+
+<pre><code>apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake
+</code></pre>
+
+<p>如果rvm安装失败的情况下，最后彻底清除rvm环境，然后安装依赖，然后安装rvm，使用如下的代码应该可以彻底清除rvm环境：</p>
+
+<pre><code>sudo apt-get --purge remove ruby-rvm
+sudo rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh
+</code></pre>
+
+<p>然后使用如下命令查询rvm，确认没有输出，可以尝试打开新的窗户来查询。</p>
+
+<pre><code>env | grep rvm
+</code></pre>
+
+<p><em>注：每次使用rvm之前好像要source一下~/.rvm中的一个script才能正常工作。</em></p>
+
+<h3>1.2.3 安装ruby</h3>
+
+<p>使用如下命令安装ruby就行：</p>
+
+<pre><code>rvm install 1.9.3
+rvm use 1.9.3
+rvm rubygems latest
+</code></pre>
+
+<h1>2. 安装Octopress</h1>
+
+<p>使用如下命令就可以把octopress clone下来了：</p>
+
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+</code></pre>
+
+<p>然后安装依赖：</p>
+
+<pre><code>gem install bundler
+rbenv rehash    # If you use rbenv, rehash to be able to run the bundle command
+bundle install
+</code></pre>
+
+<p>最后执行命令安装默认主题：</p>
+
+<pre><code>rake install
+</code></pre>
+
+<h1>3. 其他</h1>
+
+<ul>
+<li>其他项目比如博客设置，编写博客和在windows下面是一样的了；</li>
+<li>在windows下面是使用MarkdownPad来编辑的，在Ubuntu下可以使用retext来编辑；</li>
+</ul>
+
+
+<h1>4. 参考链接</h1>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/9056008/installed-ruby-1-9-3-with-rvm-but-command-line-doesnt-show-ruby-v/9056395#9056395">Installed Ruby 1.9.3 with RVM but command line doesn't show ruby -v</a></li>
+<li><a href="https://help.github.com/articles/generating-ssh-keys">Generating SSH Keys</a></li>
+<li><a href="http://413486774.iteye.com/blog/1166431">RVM “ERROR: Loading command: install (LoadError) > no such file to load — zlib”</a></li>
+<li><a href="http://octopress.org/docs/setup/">Octopress Setup</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress的安装与配置(Windows 7)]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/11/20/setup-octopress/"/>
+    <updated>2012-11-20T16:15:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/11/20/setup-octopress</id>
+    <content type="html"><![CDATA[<h1>1.Octopress安装</h1>
+
+<h2>1.1 环境配置</h2>
+
+<p>我是在windows 7上安装的Octopress，Octopress的安装基本上按照<a href="http://octopress.org/docs/setup/">Octopress安装文档</a>安装就行。我遇到的问题主要有以下几点：</p>
+
+<ul>
+<li>ruby的版本问题，Octopress必须要ruby1.9.3，如果版本不对的话，文档中提供了rbenv和rvm两种方法来安装合适的版本。我直接使用<a href="http://www.douban.com/group/topic/29077892/">http://www.douban.com/group/topic/29077892/</a>中讲到的办法，也就是直接安装Ruby Installer和development kit就行了，在ruby的官网上下载就行</li>
+<li>另外在执行rake的命令的时候，提示Octopress需要0.9.2.2版本，但是我的版本是10.0.1，最后查到可以在前面加上“bundle exec”，就可以通过执行</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>1.2 博客部署</h2>
+
+<pre><code>rake setup_github_pages
+rake generate
+rake deploy
+</code></pre>
+
+<p>当然，这里需要再每个rake签名加上bundle exec。</p>
+
+<h2>1.3 编写博客</h2>
+
+<pre><code>rake new_post["title"]
+</code></pre>
+
+<p>使用上述命令添加一个博客页面，具体的信息见<a href="http://octopress.org/docs/blogging/">http://octopress.org/docs/blogging/</a>。生成的博客文件都在“/source/_post/”中。
+由于编码的原因，我直接在MINGW32里面编写博客文件后，在部署的时候会出问题，所以我使用了<a href="http://markdownpad.com/">MarkDownPad</a>来编写生成的博客文件，然后再进行部署就不会出编码问题。</p>
+
+<h2>1.4 其他</h2>
+
+<p>这里只是Octopress最基本的功能，还有很多功能有待研究。。。</p>
+
+<h2>1.5 参考资料</h2>
+
+<ul>
+<li><a href="http://sinosmond.github.com/blog/2012/03/12/install-and-deploy-octopress-to-github-on-windows7-from-scratch/">在 Windows7 下从头开始安装部署 Octopress</a></li>
+</ul>
+
+
+<h1>2.github博客配置</h1>
+
+<h2>2.1 博客名称</h2>
+
+<p>如果是想使用个人博客的话，可以将reposotory的名称设置为yourname.github.com，这里的yourname必须是你登陆github的用户名，那么最后的博客地址就是yourname.github.com；</p>
+]]></content>
+  </entry>
+  
+</feed>

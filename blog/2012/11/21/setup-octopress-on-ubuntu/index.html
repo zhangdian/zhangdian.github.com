@@ -1,0 +1,405 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Octopress安装与配置（Ubuntu12.04） - bd17kaka's blog</title>
+  <meta name="author" content="bd17kaka">
+
+  
+  <meta name="description" content="之前安装了在Windows7下面安装了Octopress，现在也把在Ubuntu12.04下安装过程中遇到的问题记录一下。 1. 环境搭建 1.1 安装git apt-get install git 1.2安装ruby 1.2.2 安装RVM RVM(Ruby Version Manager) &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="bd17kaka's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">bd17kaka's blog</a></h1>
+  
+    <h2>I belong to Moon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zhangdian.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">分类</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Octopress安装与配置（Ubuntu12.04）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-21T14:06:00+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>之前安装了在Windows7下面安装了Octopress，现在也把在Ubuntu12.04下安装过程中遇到的问题记录一下。</p>
+
+<!--more-->
+
+
+<h1>1. 环境搭建</h1>
+
+<h2>1.1 安装git</h2>
+
+<pre><code>apt-get install git
+</code></pre>
+
+<h2>1.2安装ruby</h2>
+
+<h3>1.2.2 安装RVM</h3>
+
+<p>RVM(Ruby Version Manager)管理ruby环境的安装，而octopress需要ruby1.9.3。使用如下命令就能安装rvm：</p>
+
+<pre><code>curl -L https://get.rvm.io | bash -s stable --ruby
+</code></pre>
+
+<h3>1.2.1 安装ruby依赖</h3>
+
+<p>直接安装RVM会失败，在此之前要安装ruby的依赖包，使用如下命令安装ruby依赖：</p>
+
+<pre><code>apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake
+</code></pre>
+
+<p>如果rvm安装失败的情况下，最后彻底清除rvm环境，然后安装依赖，然后安装rvm，使用如下的代码应该可以彻底清除rvm环境：</p>
+
+<pre><code>sudo apt-get --purge remove ruby-rvm
+sudo rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh
+</code></pre>
+
+<p>然后使用如下命令查询rvm，确认没有输出，可以尝试打开新的窗户来查询。</p>
+
+<pre><code>env | grep rvm
+</code></pre>
+
+<p><em>注：每次使用rvm之前好像要source一下~/.rvm中的一个script才能正常工作。</em></p>
+
+<h3>1.2.3 安装ruby</h3>
+
+<p>使用如下命令安装ruby就行：</p>
+
+<pre><code>rvm install 1.9.3
+rvm use 1.9.3
+rvm rubygems latest
+</code></pre>
+
+<h1>2. 安装Octopress</h1>
+
+<p>使用如下命令就可以把octopress clone下来了：</p>
+
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+</code></pre>
+
+<p>然后安装依赖：</p>
+
+<pre><code>gem install bundler
+rbenv rehash    # If you use rbenv, rehash to be able to run the bundle command
+bundle install
+</code></pre>
+
+<p>最后执行命令安装默认主题：</p>
+
+<pre><code>rake install
+</code></pre>
+
+<h1>3. 其他</h1>
+
+<ul>
+<li>其他项目比如博客设置，编写博客和在windows下面是一样的了；</li>
+<li>在windows下面是使用MarkdownPad来编辑的，在Ubuntu下可以使用retext来编辑；</li>
+</ul>
+
+
+<h1>4. 参考链接</h1>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/9056008/installed-ruby-1-9-3-with-rvm-but-command-line-doesnt-show-ruby-v/9056395#9056395">Installed Ruby 1.9.3 with RVM but command line doesn&#8217;t show ruby -v</a></li>
+<li><a href="https://help.github.com/articles/generating-ssh-keys">Generating SSH Keys</a></li>
+<li><a href="http://413486774.iteye.com/blog/1166431">RVM “ERROR: Loading command: install (LoadError) > no such file to load — zlib”</a></li>
+<li><a href="http://octopress.org/docs/setup/">Octopress Setup</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">bd17kaka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-21T14:06:00+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/octopress/'>octopress</a>, <a class='category' href='/blog/categories/环境配置-软件安装/'>环境配置&软件安装</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'1930318973', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/20/setup-octopress/" title="Previous Post: Octopress的安装与配置(Windows 7)">&laquo; Octopress的安装与配置(Windows 7)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/11/21/git-operation-with-octopress/" title="Next Post: 使用git操作Octopress">使用git操作Octopress &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    ﻿<section>
+  <h1>About Me</h1>
+  <p>屌丝一枚，技术新人，服务于互联网，忠诚于AC米兰</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/04/08/what-is-email-reputation/">what is email reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/08/linux-crontab/">linux crontab</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/how-to-improve-email-reputation/">how to improve email reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/email-authentation/">邮件验证</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/05/email-from-name-reputation/">关注From Name信誉度</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/mail-dkim-spf-ptr/"></a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/email-user-reputation/">email_user_reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/java-jti/">java_jti</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/java-aot/">java_aot</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/email-basic-concept/">email_basic_concept</a>
+      </li>
+    
+  </ul>
+</section>
+
+  <span>
+  <iframe 
+    width="86" 
+    scrolling="no" 
+    height="16" 
+    frameborder="0" 
+    src=
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+  </iframe>
+  </span>
+<html xmlns:wb=“http://open.weibo.com/wb”>
+<head>
+	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<wb:follow-button uid="1930318973" type="red_4" width="100%" height="64" >
+</wb:follow-button>
+</body>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - bd17kaka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  ﻿
+
+<script type="text/javascript">
+      var disqus_shortname = 'bd17kakablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2012/11/21/setup-octopress-on-ubuntu/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script language="javascript" type="text/javascript" src="http://js.users.51.la/15203840.js"></script>
+<noscript><a href="http://www.51.la/?15203840" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/15203840.asp" style="border:none" /></a></noscript>
+
+
+
+
+
+</body>
+</html>

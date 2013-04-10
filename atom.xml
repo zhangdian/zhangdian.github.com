@@ -1,0 +1,1349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[bd17kaka's blog]]></title>
+  <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
+  <link href="http://zhangdian.github.com/"/>
+  <updated>2013-04-08T22:33:34+08:00</updated>
+  <id>http://zhangdian.github.com/</id>
+  <author>
+    <name><![CDATA[bd17kaka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[what is email reputation]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/08/what-is-email-reputation/"/>
+    <updated>2013-04-08T22:22:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/08/what-is-email-reputation</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[linux crontab]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/08/linux-crontab/"/>
+    <updated>2013-04-08T22:21:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/08/linux-crontab</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[how to improve email reputation]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/07/how-to-improve-email-reputation/"/>
+    <updated>2013-04-07T22:05:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/07/how-to-improve-email-reputation</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[邮件验证]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/07/email-authentation/"/>
+    <updated>2013-04-07T22:04:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/07/email-authentation</id>
+    <content type="html"><![CDATA[<p>要想让邮件准确的到达目标客户的收件箱，最好的方法就是满足ISPs的需要，其中对邮件信息进行验证是很重要的部分。</p>
+
+<!-- more -->
+
+
+<h4>什么是邮件验证</h4>
+
+<p>主要有三个部分的邮件验证：</p>
+
+<h5>IP反解</h5>
+
+<p>对于设置了反向解析的IP认为是固定IP，可以追查到使用人。如果发了大量垃圾邮件可以通知IP管理单位协助封停。而对于没有反向解的IP被认为是动态IP，或不可信IP，被大量用来发送垃圾邮件。</p>
+
+<h5>SenderID / SPF</h5>
+
+<p>SenderID和SPF是基于IP的验证。在这种验证机制中，Sender指定哪些IP是属于一个指定的域名的（Sender的域名）。</p>
+
+<p>当一个Sender请求一个到ISP得连接的时候，这个ISP使用这个技术，到 DNS上查询这个IP是否在这个域名的SPF记录下面，也就是这个IP有没有使用这个域名发送邮件的权限。</p>
+
+<p>Gmail和Yahoo会验证SPF，Hotmail会验证SenderID。
+SPF和SenderID的区别是获取Sender的算法不同。</p>
+
+<h5>Domain Keys / DKIM</h5>
+
+<p>Domain Keys/DKIM是加密的邮件内容加密算法。在这种机制中，sender在邮件原文中添加一个DKIM-Signature字段，用于ISPs对接收到得内容进行验证。</p>
+
+<p>ISP获取发送域名（DKIM-Signature中的h字段）和DKIM-Signature数字签名，执行一次DNS查询获取到公钥，然后进行邮件正文内容验证。</p>
+
+<p>Gmail和Hotmail验证DKIM，yahoo验证Domain keys</p>
+
+<h4>是否一定需要进行验证？</h4>
+
+<p>如果你的消息没有进行任何验证，那么ISPs<strong>可能会</strong>拒绝连接。所以使用所有的验证机制是比较好的。</p>
+
+<h4>使用了验证机制后，邮件就不会被拒绝了吗？</h4>
+
+<p>ISPs主要还是使用你的IP和域名的<strong>信誉度</strong>来决定是否接受或者拒绝你的邮件，或者将邮件发送到收件箱还是垃圾箱。</p>
+
+<p>验证机制可以帮助ISP来验证你的身份或者邮件内容，但是他并不能提高你的信誉度。</p>
+
+<p>换句话说，验证不一定能提高你的邮件到达率。但是如果没有验证的话，即使你有一个很好的信誉度，也会影响到邮件的到达率。</p>
+
+<h4>信誉度和验证</h4>
+
+<p>上述的三种验证，只能验证IP是否是固定IP，IP是否有权限以声明为某域名发送邮件，邮件内容是否被纂改，但是不能确保你发送的邮件不是垃圾邮件等等。<strong>所以IP和域名的信誉度才是邮件到达率更关键的因素。</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[关注From Name信誉度]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/05/email-from-name-reputation/"/>
+    <updated>2013-04-05T20:44:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/05/email-from-name-reputation</id>
+    <content type="html"><![CDATA[<p>下面是对<a href="http://www.adstation.com/a-new-years-resolution-monitor-your-from-name-from-address-reputation/">A New Year’s Resolution: Monitor Your “From Name” (From Address) Reputation</a>的翻译和总结，是关于“关注From Name信誉度”的一篇文章。</p>
+
+<!-- more -->
+
+
+<p>在去年12月中旬，发现Yahoo开始将一些在白名单中的Sender发送的邮件，发送到垃圾箱中。通过分析了解到，Yahoo的这个策略几乎会影响使用多个“From Name”发送邮件的发送者。</p>
+
+<ul>
+<li>注意这里的“From Name”和“Friendly From Name”的区别：以发送地址“reputation &lt; bd17kaka@gmail.com > ”为例，“Friendly From Name”指的是“reputation”，“From Name”指的是bd17kaka。而Yahoo的这个变化时针对“From Name”的。</li>
+</ul>
+
+
+<h5>Yahoo做了什么改变</h5>
+
+<p>Yahoo的信誉度规则发生了改变，从去年12月开始，Yahoo使用“From Name”+“Domain Name”+“IP”的组合来确定信誉度：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>“From Name + Domain Name + IP”</span></code></pre></td></tr></table></div></figure>
+
+
+<p>同时也确定“Friendly From Name”和信誉度以及邮件是进入收件箱还是垃圾箱没有什么关系。</p>
+
+<h5>影响了谁，谁需要改变</h5>
+
+<ul>
+<li>最近改变了From Name，并且没有为新的From Name建立信誉度；</li>
+<li>使用多个From Name，并且任何一个From Name组合的信誉度都不满足Yahoo的需求；</li>
+</ul>
+
+
+<p>在以前，如果某一域名下的所有From Name的所有组合的平均信誉度是可以接受的话，邮件就会被发送到收件箱。经过这个改变之后，如果任何一个From Name的组合不是被接受的，那么这个组合发出来的邮件将不会被发送到收件箱。</p>
+
+<p>考虑下面三个From Name：</p>
+
+<ul>
+<li>fromname_1@bd17kaka.net</li>
+<li>fromname_2@bd17kaka.net</li>
+<li>fromname_3@bd17kaka.net</li>
+</ul>
+
+
+<p>假设前两个From Name的组合满足Yahoo的要求，但是第三个FromName是不满足的，那么前两个From Name发出来的邮件会发送到收件箱，第三个From Name发出来的邮件会进入垃圾箱。</p>
+
+<h5>如果From Name的信誉度很差，那么修改From Name会有帮助吗？</h5>
+
+<p>直到新的From Name建立一个好的信誉度之前，修改From Name都没有什么帮助。如果你不提升你发送邮件的策略，那么新的FromName也不会有一个好的信誉度。</p>
+
+<h5>Yahoo为什么做这个改变？</h5>
+
+<p>发送者对于不同收件人列表，使用不同的FromName和相同的IP来发送邮件。对于建立了好的信誉度的部分，会给予奖励，相反会给予惩罚。</p>
+
+<p>在以前，忽略FromName不管，如果一个发送者的平均信誉度满足Yahoo的要求，那么它是可以被接受的。可是现在不再是这样的了。</p>
+
+<h5>原文链接</h5>
+
+<p><a href="http://www.adstation.com/a-new-years-resolution-monitor-your-from-name-from-address-reputation/">Monitor Your “From Name” (From Address) Reputation</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/02/mail-dkim-spf-ptr/"/>
+    <updated>2013-04-02T23:36:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/02/mail-dkim-spf-ptr</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[email_user_reputation]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/02/email-user-reputation/"/>
+    <updated>2013-04-02T23:27:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/02/email-user-reputation</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[java_jti]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/02/java-jti/"/>
+    <updated>2013-04-02T23:21:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/02/java-jti</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[java_aot]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/02/java-aot/"/>
+    <updated>2013-04-02T23:20:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/02/java-aot</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[email_basic_concept]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/02/email-basic-concept/"/>
+    <updated>2013-04-02T23:20:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/02/email-basic-concept</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[java_gc]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/03/27/java-gc/"/>
+    <updated>2013-03-27T23:43:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/03/27/java-gc</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RabbitMQ]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/03/27/rabbitmq/"/>
+    <updated>2013-03-27T17:02:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/03/27/rabbitmq</id>
+    <content type="html"><![CDATA[<h3>RabbitMQ</h3>
+
+<p>RabbitMQ是一个消息代理，它接收和转发消息。它有六种模式，下面介绍其中的四种模式。</p>
+
+<!-- more -->
+
+
+<h4>1. 最简单的模式</h4>
+
+<p><img src="https://dl.dropbox.com/u/99113526/blog.bd17kaka.net/rabbitmq-1.png"></p>
+
+<h5>1.1 角色</h5>
+
+<ul>
+<li>生产者(Producing)除了发送消息之外，什么也不做，用“P”表示；</li>
+<li>所有消息都存储在Queue里面，所有消息都流经Queue以及我们的应用程序。Queue没有任何限制，它可以存储尽可能多的消息，本质上，它是一个无穷大(infinite)的buffer；</li>
+<li>消费者(Consumer)等待接收消息，用“C”表示。</li>
+</ul>
+
+
+<p>这三个角色没必要在一个机器上，实际上也是这样的。</p>
+
+<h5>1.2 生产者</h5>
+
+<p>生产者发送消息的时候，一定要保证Queue的存在，如果它发送消息到一个不存在的Queue，RabbitMQ会丢弃掉这个消息。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.queue_declare(queue='hello')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>RabbitMQ中，消息实际上不会直接发送到Qeueu上，而是先发送到Exchange上，不指定Exchange的话，会发送到默认的Exchange（“”，空字符串）上。</p>
+
+<p>需要在routing_key参数中指定Queue的名称：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.basic_publish(exchange='',
+</span><span class='line'>                      routing_key='hello',
+</span><span class='line'>                      body='Hello World!')print " [x] Sent 'Hello World!'"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>退出之前，需要确保清空缓存，并且所有的消息都发送到RabbitMQ：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>connection.close()</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.3 消费者</h5>
+
+<p>首先要连接到服务器，其次，要保证Queue的存在，使用queue_declare创建Queue是幂等的（idempotent，也就是多次创建，只会有一个同一名字的Queue被创建），所以，重新声明一个Queue永远是比较好的。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.queue_declare(queue='hello')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>RabbitMQ通过注册一个回调函数来接收消息，每次接收到一个消息的时候，都会调用回调函数。其次，需要指定消费者从指定的Queue来接收消息：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def callback(ch, method, properties, body):
+</span><span class='line'>    print " [x] Received %r" % (body,)
+</span><span class='line'>
+</span><span class='line'>channel.basic_consume(callback,
+</span><span class='line'>                      queue='hello',
+</span><span class='line'>                      no_ack=True)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>为了保证正确的读取消息，要保证Queue的存在，只要我们在生产者端创建了Queue，那么就可以保证这点。</p>
+
+<p>然后，就会进入到一个永远都不会停止的循环，只要有消息都会调用回调函数。</p>
+
+<h4>2. One producer, multi consumer</h4>
+
+<p><img src="https://dl.dropbox.com/u/99113526/blog.bd17kaka.net/rabbitmq-2.png"></p>
+
+<p>这种模型用于在众多的Workers之间分发一些耗时的任务。</p>
+
+<p>这种模型的主要思想是：避免立即执行资源密集型的任务，等待其完成。而是将任务压缩成一个消息，将其发送到queue。Worker在后台获取这些任务，然后执行它们。如果允许多个Worker，那么它们会公平的分享这些消息。</p>
+
+<p>这个模型特别适合：在一个短的HTTP周期内完成一个很复杂任务的应用。</p>
+
+<h5>2.1 Round-robin dispatching(轮询调度)</h5>
+
+<p>这种模型很容易做到平衡工作调度。如果突然多了很多的消息，那么可以添加更多的Worker来解决，很容易扩展。</p>
+
+<p>默认情况下，RabbitMQ会按顺序的，将每个消息分发给下一个consumer，平均来看，每个consumer会获得相同数目的消息。这种分发消息的模式叫做Round-robin。</p>
+
+<h5>2.2 Message ACK</h5>
+
+<p>当一个worker开始一个耗时的task，但是在执行了一部分的时候失败了。对于当前的RabbitMQ的代码，当一个消息被分发到worker之后，它会立即从内存中删掉。在这种情况下，如果一个worker没有正确的执行完一个消息，那么这个消息就丢失了。</p>
+
+<p>当然，我们不希望丢失掉任何的tasks，如果执行该task的worker挂掉了，那么应该将这个task分发给其他的worker去执行。</p>
+
+<p>为了确保一个消息永远都不会丢失，RabbitMQ引入了消息ACK的机制。当worker执行完了一个task之后，就会发送一个消息给RabbitMQ，说明某个消息已经被执行完毕了，RabbitMQ可以将这个消息删除了。</p>
+
+<p>如果worker挂掉了，那么它就不会发送ACK了，RabbitMQ就知道某个消息没有完整的被执行，然后会重新将这个task发送给其他的worker，这就可以保证消息不会丢失。（但是，如果task执行完了，发送了ACK，由于某种原因，ACK没有成功的抵达RabbitMQ，那么这个task会被重新执行一次。）</p>
+
+<p>在RabbitMQ中，没有消息延迟的概念，task只有在到某个worker的连接断掉之后，才会重发。即使一个task执行了很长很长的时候，也是正常的。</p>
+
+<p>默认情况下，ACK是打开的，也是可以设置的。</p>
+
+<p>有一种常见的错误：在worker执行完了之后，没有返回ACK，那么RabbitMQ会不断的重发消息。但是由于消息都没有返回ACK，那么RabbitMQ会不断的吃内存，将消息保存起来。对于这种情况，可以通过使用rabbitmqctl工具来查看messages_unacknowledged字段：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+</span><span class='line'>Listing queues ...
+</span><span class='line'>hello    0       0
+</span><span class='line'>...done.</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.3 Message durability（消息持久）</h5>
+
+<p>上一节讲到如何保证在worker挂掉的时候，不让消息丢失，但是如何保证RabbitMQ挂掉的时候，不丢失消息呢？那么消息就不能只保存在内存了，必须持久化。</p>
+
+<p>为了保证在RabbitMQ挂掉的时候，消息不丢失，需要做两件事情：queue和messages都是持久化的。</p>
+
+<p>首先要保证RabbitMQ不会丢失Queue，指定durable参数：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.queue_declare(queue='task_queue', durable=True)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>RabbitMQ不允许使用不同的参数来重定义已经存在的Queue，如果这么做，会返回一个error。所以在上面的代码中，如果Queue &#8220;hello&#8221;已经存在的话，这样是没有用的，必须指定另外一个Queue名称。</p>
+
+<p>指定了 durable=True 之后，即使RabbitMQ重启，Queue也不会丢失了。</p>
+
+<p>其次，我们需要保证将我们的message标记为持久的了，通过指定参数delivery_mode = 2：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.basic_publish(exchange='',
+</span><span class='line'>                      routing_key="task_queue",
+</span><span class='line'>                      body=message,
+</span><span class='line'>                      properties=pika.BasicProperties(
+</span><span class='line'>                         delivery_mode = 2, # make message persistent
+</span><span class='line'>                      ))</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：
+即使通过指定参数来保证保存message消息到disk，从而不会丢失，但是总有一个时刻：RabbitMQ刚刚接手了一个消息，但是还没有保存到disk。<strong>也就是，RabbitMQ并不能保存对每个消息执行fsync。这个持久化的保证并不强大，但是总比简单的task queue要好一点。</strong>如果需要更强大的持久化保证，只能wrap它的代码。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fsync：同步内存中所有已修改的文件数据到储存设备。
+</span><span class='line'>[详细](http://baike.baidu.com/view/8092902.htm)</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.4 Fair dispatch（公平分发）</h5>
+
+<p>有些时候，上面的轮训分发并不能完全按照我们想象的来工作，比如：有两个worker，所有奇数的消息都是耗时的，偶数的消息都是不耗时的，那么所有耗时的消息都会被分发到worker-1上，所有不耗时的消息都会被分发到worker-2上。但是RabbitMQ什么都不知道，只能这么简单的分发消息，而并没有考虑某个Worker上UnACK的消息的个数。</p>
+
+<p>可以通过如下设置来解决这个问题：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.basic_qos(prefetch_count=1)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个参数告诉RabbitMQ，不要在同一时刻向同一个worker分发多余一个的消息，也就是说，在接受到之前的task的ACK之前，不要再分发消息给worker。</p>
+
+<p><strong>当心Queue的大小：如果所有的Queue都busy，那么Queue就会不断变长，要么一直盯着，要么增加更多的worker，要么使用一些其他的策略。
+</strong></p>
+
+<h5>2.5 完整代码</h5>
+
+<p><a href="http://www.rabbitmq.com/tutorials/tutorial-two-python.html">官方网站</a></p>
+
+<h4>3 订阅发布</h4>
+
+<p>在前面的模式中，每个消息只会发送到一个worker。在这里的“订阅发布”模式中，会发送一个消息给多个consumer。</p>
+
+<h5>3.1 Exchanges</h5>
+
+<p>在前面的部分中，只是介绍了从一个单独的Queue来接受消息，这里会介绍RabbitMQ的完整的消息模型。</p>
+
+<p><img src="https://dl.dropbox.com/u/99113526/blog.bd17kaka.net/rabbitmq-2.png"></p>
+
+<p>在RabbitMQ中，producer永远不会直接将消息发送给Queue，实际上Producer甚至并不知道一个消息会被发送到一个Queue上。Producer只是将消息发送到exchange上。exchange一方面接收消息，一方面将消息推送到Queue上。Exchange必须知道如何处理每个接收到的消息：附加到一个Queue上？附加到多个Queue上？还是忽略之。</p>
+
+<p>有很多种可用的exchange：direct, topic, headers and fanout。本节，主要介绍fanout。创建一个fanout类型的exchange：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.exchange_declare(exchange='logs',
+</span><span class='line'>                         type='fanout')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>fanout类型的exchange的作用很简单，就是将它接收到得所有消息，分发到每一个它所知道的Queue。</p>
+
+<p>然后就可以将消息发送到“logs”这个exchange：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.basic_publish(exchange='logs',
+</span><span class='line'>                      routing_key='',
+</span><span class='line'>                      body=message)</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>3.2 临时Queue</h5>
+
+<p>我们有时只关注当前的消息，而并不关注之前的消息，或者希望在consumer断开与RabbitMQ的连接之后，不保存Queue中的消息，那么可以使用临时Queue。要做到这点，需要两点：</p>
+
+<ul>
+<li>在server端创建一个使用随机Queue名称的channel；</li>
+<li>客户端在声明Queue的时候，加上exclusive=true参数；</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(客户端)
+</span><span class='line'>result = channel.queue_declare(exclusive=True)</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>3.3 绑定</h5>
+
+<p>接下来，就需要绑定：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(客户端)
+</span><span class='line'>channel.queue_bind(exchange='logs',
+</span><span class='line'>                   queue=result.method.queue)</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>4 Routing</h4>
+
+<p>这一节介绍的模型可以只将所有消息的子集发送到某个指定的Queue。比如在日志系统中，可以将error消息和warning消息发送到两个不一样的Queue。</p>
+
+<p>在bing过程中，可以指定一个routing_key参数：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.queue_bind(exchange=exchange_name,
+</span><span class='line'>                   queue=queue_name,
+</span><span class='line'>                   routing_key='black')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>routing_key在有的类型的exchange中是被忽视的，比如在前面的fanout模型中，是被忽略的。</p>
+
+<h5>4.1 Direct exchange</h5>
+
+<p><img src="https://dl.dropbox.com/u/99113526/blog.bd17kaka.net/rabbitmq-4.png"></p>
+
+<p>在这个图中可以看到，exchange和两个Queue绑定，第一个Queue和routing_key为orange的消息绑定，第二个Queue和routing_key为black和green的Queue绑定。</p>
+
+<p>消息根据它们的routing_key被分发到不同的Queue。</p>
+
+<p>也可以将一个routing_key绑定到多个Queue，如果绑定到所有的Queue的话，那么这种模型和fanout exchange就是一样的了。</p>
+
+<h5>4.2 producer分发消息</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel.exchange_declare(exchange='direct_logs',
+</span><span class='line'>                         type='direct')
+</span><span class='line'>
+</span><span class='line'>channel.basic_publish(exchange='direct_logs',
+</span><span class='line'>                      routing_key=severity,
+</span><span class='line'>                      body=message)</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>4.3 consumer消费消息</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>result = channel.queue_declare(exclusive=True)queue_name = result.method.queue
+</span><span class='line'>
+</span><span class='line'>for severity in severities:
+</span><span class='line'>    channel.queue_bind(exchange='direct_logs',
+</span><span class='line'>                       queue=queue_name,
+</span><span class='line'>                       routing_key=severity)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>continue&#8230;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[java共享类]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/03/27/java-shared-class/"/>
+    <updated>2013-03-27T17:02:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/03/27/java-shared-class</id>
+    <content type="html"><![CDATA[<p>共享类特性是从头设计的，它是一个可以打开和关闭的选项，可以减少虚拟内存占用并改进 JVM 启动时间。因此，<strong>它非常适合多个 JVM 运行相似代码的环境或者 JVM 常常重新启动的环境。</strong></p>
+
+<h5>1 类缓存</h5>
+
+<p>类缓存是一个大小固定的共享内存区，它在使用它的 JVM 的生命周期之外仍然持久地存在。一个系统上可以有任意数量的共享类缓存，这只受操作系统设置的限制；<strong>但是一个 JVM 在它的生命周期中只能连接一个缓存。</strong></p>
+
+<!-- more -->
+
+
+<p>JVM 并不拥有缓存，也没有 主/从 JVM 的概念；实际上，任意数量的 JVM 都可以并行地读写缓存。在两种情况下会删除缓存：</p>
+
+<ul>
+<li>使用 JVM 实用程序显式地销毁它</li>
+<li>或者操作系统重新启动时（缓存无法在操作系统重新启动时持久存在）。</li>
+</ul>
+
+
+<p>缓存的大小无法增长，当它被填满时，JVM 仍然可以从其中装载类，但是不能再向其中添加任何类。</p>
+
+<h5>2 如何缓存类</h5>
+
+<p>当 JVM 装载一个类时，它先查看需要的类是否已经在缓存中存在。如果是这样，那么它从缓存装载这个类。否则，它从文件系统装载这个类并将其写到缓存中（在 defineClass() 调用中进行这一操作）。</p>
+
+<p>不进行共享的 JVM 采用以下类装载器查找次序：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>类装载器缓存
+</span><span class='line'>父类装载器
+</span><span class='line'>文件系统</span></code></pre></td></tr></table></div></figure>
+
+
+<p>进行共享的 JVM 采用以下次序：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>__类装载器缓存__
+</span><span class='line'>父类装载器
+</span><span class='line'>__共享缓存__
+</span><span class='line'>文件系统</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>3 缓存类的哪些部分</h5>
+
+<p>在 JVM 的 IBM 实现中，Java 类分成两个部分：</p>
+
+<ul>
+<li>一个称为 ROMClass 的只读部分，其中包含不可变的所有类数据；</li>
+<li>一个 RAMClass 部分，其中包含可变的数据，比如静态类变量。</li>
+</ul>
+
+
+<p>RAMClass 指向 ROMClass 中的数据，但是这两部分是完全分开的，这意味着 ROMClass 可以十分安全地在 JVM 之间共享，甚至在同一个 JVM 中的 RAMClass 之间共享。</p>
+
+<h5>4 共享类好处</h5>
+
+<ul>
+<li>因为大部分类数据存储在 ROMClass 中，因此可以节省虚拟内存；</li>
+<li>已经填充的缓存还会显著改进 JVM 启动时间，因为每个缓存的类的一部分定义工作已经完成了，而且会从内存装载类而不是从文件系统装载；</li>
+<li>填充新缓存导致的启动时间开销并不显著，因为每个类只需在定义时重新定位到缓存中；</li>
+</ul>
+
+
+<h5>5 如果文件系统中的类发生变化</h5>
+
+<p>因为缓存是无限期持久存在的，文件系统更新可能会使缓存中的类失效。因此，当类装载器请求一个共享的类时，缓存代码要负责确保返回的类总是与从文件系统装载的类完全一样。当装载类时这一检查会透明地进行，所以用户可以在共享类缓存的生命周期内修改和更新任意类，系统总会装载正确的类。</p>
+
+<p>JVM 探测文件系统更新的方法是，将时间戳值存储在缓存中并在装载每个类时比较缓存的值和实际值。如果它探测到一个 JAR 文件已经更新了，那么它不知道哪些类已经更新了，所以缓存中所有从这个 JAR 装载的类都立即被标为过时的，不能再从缓存中装载它们。当从文件系统装载这个 JAR 中的类并重新添加到缓存中时，只添加实际修改过的类；那些没有修改的类实际上没有过时。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[java类加载器]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/03/27/java-class-loader/"/>
+    <updated>2013-03-27T13:37:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/03/27/java-class-loader</id>
+    <content type="html"><![CDATA[<h4>1 类加载器基本概念</h4>
+
+<p>一般来说，Java 应用的开发人员不需要直接同类加载器进行交互。Java 虚拟机默认的行为就已经足够满足大多数情况的需求了。不过如果遇到了需要与类加载器进行交互的情况，而对类加载器的机制又不是很了解的话，<strong>就很容易花大量的时间去调试 ClassNotFoundException和 NoClassDefFoundError等异常</strong>。</p>
+
+<!-- more -->
+
+
+<p>一般来说，Java 虚拟机使用 Java 类的方式如下：Java 源程序（.java 文件）在经过 Java 编译器编译之后就被转换成 Java 字节代码（.class 文件）。类加载器负责读取 Java 字节代码，并转换成 java.lang.Class类的一个实例。每个这样的实例用来表示一个 Java 类。通过此实例的 newInstance()方法就可以创建出该类的一个对象。实际的情况可能更加复杂，比如 Java 字节代码可能是通过工具动态生成的，也可能是通过网络下载的。</p>
+
+<h4>2 java.lang.ClassLoader</h4>
+
+<p>基本上所有的类加载器都是 java.lang.ClassLoader类的一个实例。java.lang.ClassLoader类的基本职责就是根据一个指定的类的名称，找到或者生成其对应的字节代码，然后从这些字节代码中定义出一个 Java 类，即 java.lang.Class类的一个实例。</p>
+
+<p>除此之外，ClassLoader还负责加载 Java 应用所需的资源，如图像文件和配置文件等。</p>
+
+<h5>2.1 ClassLoader中与加载类相关的方法</h5>
+
+<p>getParent()返回该类加载器的父类加载器。
+loadClass(String name)加载名称为 name的类，返回的结果是 java.lang.Class类的实例。
+findClass(String name)查找名称为 name的类，返回的结果是 java.lang.Class类的实例。
+findLoadedClass(String name)查找名称为 name的已经被加载过的类，返回的结果是 java.lang.Class类的实例。
+defineClass(String name, byte[] b, int off, int len)把字节数组 b中的内容转换成 Java 类，返回的结果是 java.lang.Class类的实例。这个方法被声明为 final的。
+resolveClass(Class&lt;?> c)链接指定的 Java 类。</p>
+
+<h5>2.2 类加载器的树状组织结构</h5>
+
+<p>Java 中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的。</p>
+
+<h6>2.2.1 系统提供</h6>
+
+<ul>
+<li>引导类加载器（bootstrap class loader）：它用来加载 Java 的核心库，是用原生代码来实现的，并不继承自 java.lang.ClassLoader。</li>
+<li>扩展类加载器（extensions class loader）：它用来加载 Java 的扩展库。Java 虚拟机的实现会提供一个扩展库目录。该类加载器在此目录里面查找并加载 Java 类。</li>
+<li>系统类加载器（system class loader）：<strong>它根据 Java 应用的类路径（CLASSPATH）来加载 Java 类。</strong>一般来说，Java 应用的类都是由它来完成加载的。可以通过 ClassLoader.getSystemClassLoader()来获取它。</li>
+</ul>
+
+
+<h6>2.2.2自定义</h6>
+
+<p>开发人员可以通过继承 java.lang.ClassLoader类的方式实现自己的类加载器，以满足一些特殊的需求。</p>
+
+<h5>2.3 相互关系</h5>
+
+<p>除了引导类加载器之外，所有的类加载器都有一个父类加载器。通过getParent()方法可以得到。对于系统提供的类加载器来说，系统类加载器的父类加载器是扩展类加载器，而扩展类加载器的父类加载器是引导类加载器；<strong>对于开发人员编写的类加载器来说，其父类加载器是加载此类加载器 Java 类的类加载器。因为类加载器 Java 类如同其它的 Java 类一样，也是要由类加载器来加载的。一般来说，开发人员编写的类加载器的父类加载器是系统类加载器。</strong>类加载器通过这种方式组织起来，形成树状结构。树的根节点就是引导类加载器。</p>
+
+<h4>3 类加载器的代理模式</h4>
+
+<p><strong>类加载器在尝试自己去查找某个类的字节代码并定义它时，会先代理给其父类加载器，由父类加载器先去尝试加载这个类，依次类推。</strong></p>
+
+<p>在介绍代理模式背后的动机之前，首先需要说明一下 Java 虚拟机是如何判定两个 Java 类是相同的。Java 虚拟机不仅要看类的全名是否相同，还要看加载此类的类加载器是否一样。只有两者都相同的情况，才认为两个类是相同的。即便是同样的字节代码，被不同的类加载器加载之后所得到的类，也是不同的。</p>
+
+<p>比如一个 Java 类 com.example.Sample，编译之后生成了字节代码文件 Sample.class。两个不同的类加载器 ClassLoaderA和 ClassLoaderB分别读取了这个 Sample.class文件，并定义出两个 java.lang.Class类的实例来表示这个类。这两个实例是不相同的。对于 Java 虚拟机来说，它们是不同的类。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>测试 Java 类是否相同
+</span><span class='line'>public void testClassIdentity() { 
+</span><span class='line'>    String classDataRootPath = "C:\\workspace\\Classloader\\classData"; 
+</span><span class='line'>    FileSystemClassLoader fscl1 = new FileSystemClassLoader(classDataRootPath); 
+</span><span class='line'>    FileSystemClassLoader fscl2 = new FileSystemClassLoader(classDataRootPath); 
+</span><span class='line'>    String className = "com.example.Sample";    
+</span><span class='line'>    try { 
+</span><span class='line'>        Class&lt;?&gt; class1 = fscl1.loadClass(className); 
+</span><span class='line'>        Object obj1 = class1.newInstance(); 
+</span><span class='line'>        Class&lt;?&gt; class2 = fscl2.loadClass(className); 
+</span><span class='line'>        Object obj2 = class2.newInstance(); 
+</span><span class='line'>        Method setSampleMethod = class1.getMethod("setSample", java.lang.Object.class); 
+</span><span class='line'>        setSampleMethod.invoke(obj1, obj2); 
+</span><span class='line'>    } catch (Exception e) { 
+</span><span class='line'>        e.printStackTrace(); 
+</span><span class='line'>    } 
+</span><span class='line'> }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上述代码使用了类 FileSystemClassLoader的两个不同实例来分别加载类 com.example.Sample，得到了两个不同的 java.lang.Class的实例，接着通过 newInstance()方法分别生成了两个类的对象 obj1和 obj2，最后通过 Java 的反射 API 在对象 obj1上调用方法 setSample，试图把对象 obj2赋值给 obj1内部的 instance对象。</p>
+
+<p><strong>虽然两个对象 obj1和 obj2的类的名字相同，但是这两个类是由不同的类加载器实例来加载的，因此不被 Java 虚拟机认为是相同的。</strong></p>
+
+<p>了解了这一点之后，就可以理解代理模式的设计动机了。<strong>代理模式是为了保证 Java 核心库的类型安全。所有 Java 应用都至少需要引用 java.lang.Object类，也就是说在运行的时候，java.lang.Object这个类需要被加载到 Java 虚拟机中。如果这个加载过程由 Java 应用自己的类加载器来完成的话，很可能就存在多个版本的 java.lang.Object类，而且这些类之间是不兼容的。通过代理模式，对于 Java 核心库的类的加载工作由引导类加载器来统一完成，保证了 Java 应用所使用的都是同一个版本的 Java 核心库的类，是互相兼容的。</strong></p>
+
+<p>不同的类加载器为相同名称的类创建了额外的名称空间。相同名称的类可以并存在 Java 虚拟机中，只需要用不同的类加载器来加载它们即可。不同类加载器加载的类之间是不兼容的，这就相当于在 Java 虚拟机内部创建了一个个相互隔离的 Java 类空间。</p>
+
+<h4>4 类加载过程</h4>
+
+<p>在前面介绍类加载器的代理模式的时候，提到过类加载器会首先代理给其它类加载器来尝试加载某个类。这就意味着真正完成类的加载工作的类加载器和启动这个加载过程的类加载器，有可能不是同一个。</p>
+
+<p>真正完成类的加载工作是通过调用 defineClass来实现的；而启动类的加载过程是通过调用 loadClass来实现的。<strong>前者称为一个类的定义加载器（defining loader），后者称为初始加载器（initiating loader）。</strong></p>
+
+<p>在 Java 虚拟机判断两个类是否相同的时候，使用的是类的定义加载器。也就是说，哪个类加载器启动类的加载过程并不重要，重要的是最终定义这个类的加载器。<strong>两种类加载器的关联之处在于：一个类的定义加载器是它引用的其它类的初始加载器。如类 com.example.Outer引用了类 com.example.Inner，则由类 com.example.Outer的定义加载器负责启动类 com.example.Inner的加载过程。</strong></p>
+
+<p>类加载器在成功加载某个类之后，会把得到的 java.lang.Class类的实例缓存起来。下次再请求加载该类的时候，类加载器会直接使用缓存的类的实例，而不会尝试再次加载。也就是说，<strong>对于一个类加载器实例来说，相同全名的类只加载一次，即 loadClass方法不会被重复调用。</strong></p>
+
+<h4>5 线程上下文加载器</h4>
+
+<p>线程上下文类加载器（context class loader）是从 JDK 1.2 开始引入的。类 java.lang.Thread中的方法 getContextClassLoader()和 setContextClassLoader(ClassLoader cl)用来获取和设置线程的上下文类加载器。</p>
+
+<p>如果没有通过 setContextClassLoader(ClassLoader cl)方法进行设置的话，线程将继承其父线程的上下文类加载器。Java 应用运行的初始线程的上下文类加载器是系统类加载器。在线程中运行的代码可以通过此类加载器来加载类和资源。</p>
+
+<p>前面提到的类加载器的代理模式并不能解决 Java 应用开发中会遇到的类加载器的全部问题。Java 提供了很多服务提供者接口（Service Provider Interface，SPI），允许第三方为这些接口提供实现。常见的 SPI 有 JDBC、JCE、JNDI、JAXP 和 JBI 等。这些 SPI 的接口由 Java 核心库来提供，如 JAXP 的 SPI 接口定义包含在 javax.xml.parsers包中。这些 SPI 的实现代码很可能是作为 Java 应用所依赖的 jar 包被包含进来，可以通过类路径（CLASSPATH）来找到，如实现了 JAXP SPI 的 Apache Xerces所包含的 jar 包。SPI 接口中的代码经常需要加载具体的实现类。如 JAXP 中的 javax.xml.parsers.DocumentBuilderFactory类中的 newInstance()方法用来生成一个新的 DocumentBuilderFactory的实例。这里的实例的真正的类是继承自 javax.xml.parsers.DocumentBuilderFactory，由 SPI 的实现所提供的。如在 Apache Xerces 中，实现的类是 org.apache.xerces.jaxp.DocumentBuilderFactoryImpl。</p>
+
+<p>问题在于，SPI 的接口是 Java 核心库的一部分，是由引导类加载器来加载的；SPI 实现的 Java 类一般是由系统类加载器来加载的。引导类加载器是无法找到 SPI 的实现类的，因为它只加载 Java 的核心库。它也不能代理给系统类加载器，因为它是系统类加载器的祖先类加载器。也就是说，类加载器的代理模式无法解决这个问题。</p>
+
+<p><strong>线程上下文类加载器正好解决了这个问题。</strong>如果不做任何的设置，Java 应用的线程的上下文类加载器默认就是系统上下文类加载器。在 SPI 接口的代码中使用线程上下文类加载器，就可以成功的加载到 SPI 实现的类。线程上下文类加载器在很多 SPI 的实现中都会用到。</p>
+
+<h4>6 类加载器和Web容器</h4>
+
+<p>对于运行在 Java EE™容器中的 Web 应用来说，类加载器的实现方式与一般的 Java 应用有所不同。不同的 Web 容器的实现方式也会有所不同。</p>
+
+<p>以 Apache Tomcat 来说，每个 Web 应用都有一个对应的类加载器实例。该类加载器也使用代理模式，所不同的是它是首先尝试去加载某个类，如果找不到再代理给父类加载器。这与一般类加载器的顺序是相反的。这是 Java Servlet 规范中的推荐做法，其目的是使得 Web 应用自己的类的优先级高于 Web 容器提供的类。</p>
+
+<p>这种代理模式的一个例外是：Java 核心库的类是不在查找范围之内的。这也是为了保证 Java 核心库的类型安全。</p>
+
+<p>绝大多数情况下，Web 应用的开发人员不需要考虑与类加载器相关的细节。下面给出几条简单的原则：</p>
+
+<ul>
+<li>每个 Web 应用自己的 Java 类文件和使用的库的 jar 包，分别放在 WEB-INF/classes和 WEB-INF/lib目录下面。</li>
+<li>多个应用共享的 Java 类文件和 jar 包，分别放在 Web 容器指定的由所有 Web 应用共享的目录下面。</li>
+<li>当出现找不到类的错误时，检查当前类的类加载器和当前线程的上下文类加载器是否正确。</li>
+</ul>
+
+
+<h4>7 相关链接</h4>
+
+<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/">Java 类加载器</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[redis replication实践]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice/"/>
+    <updated>2013-01-08T00:39:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice</id>
+    <content type="html"><![CDATA[<p>在看了redis replication的官方文档之后，有必要亲自实践一下。下面就在同一个机器上开两个实例，两个不同的端口6379和6380，一个master一个slave。</p>
+
+<!-- more -->
+
+
+<p>首先配置master，bind ip 127.0.0.1，开启master，监听在127.0.0.1:6379，默认master是可读写的。</p>
+
+<p>然后配置slave，需要将以下配置的注释删掉：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#slaveof &lt;masterip&gt; &lt;masterport&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后将masterip修改为127.0.0.1，masterport修改为6379。此外还需要将修改以下两行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bind 127.0.0.1
+</span><span class='line'>port 6380</span></code></pre></td></tr></table></div></figure>
+
+
+<p>启动slave，这样slave就监听在6380端口，同时它是127.0.0.1::6379的slave。默认情况下slave是只读不写的，可以写数据进行确认。</p>
+
+<p>注意如果master配置了auth的话，也需要配置slave的auth密码，配置成和master一样。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[解决当rake deploy的时候，报Bad file number:22的错误]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/"/>
+    <updated>2013-01-07T23:55:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22</id>
+    <content type="html"><![CDATA[<h4>问题</h4>
+
+<p>当Octopress有更新的时候，需要执行以下命令将其更新到线上：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate
+</span><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可是，有的时候会报“Bad file number:22”的错误（我是在家的时候），原因是家里的网络出口屏蔽了22端口，所以出不去。</p>
+
+<!-- more -->
+
+
+<p>在github网站上可以看到，有两种方式clone代码：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh: git@github.com:zhangdian/zhangdian.github.com.git
+</span><span class='line'>https: https://github.com/zhangdian/zhangdian.github.com.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当使用ssh方式的时候，ssh默认使用的是22端口，故而有的时候会出现问题。而使用后面的https协议方式是可以的。</p>
+
+<h4>解决方案</h4>
+
+<p>在octopress文件夹中，在执行了rake generate之后，会把生成之后的网站代码保存在<em>deploy文件夹中，进入</em>deploy文件夹可以看到，这个文件夹里的文件就是origin master的代码。进到_deploy/.git/config，将url参数的值修改为https地址，即可。</p>
+
+<p>同样，如果要把source分支的代码push带github，可以查看octopress主文件夹中.git/config的内容，可以将ssh地址修改为https地址。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redis文档(完整)]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/13/redis-docs/"/>
+    <updated>2012-12-13T09:27:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/13/redis-docs</id>
+    <content type="html"><![CDATA[<h3>1. Redis介绍</h3>
+
+<h4>1.1 什么是redis</h4>
+
+<p>REmote DIctionary Server(Redis)是一个由Salvatore Sanfilippo写的key-value存储系统。Redis提供了一些丰富的数据结构，包括lists，sets，ordered sets以及hashes，当然还有和Memcached一样的strings结构。Redis当然还包括了对这些数据结构的丰富操作。</p>
+
+<h4>1.2 redis的优点</h4>
+
+<ul>
+<li>性能极高：Redis能支持超过 100K+ 每秒的读写频率；</li>
+<li>丰富的数据类型：Redis支持二进制安全的Strings，Lists，Hashes，Sets及Ordered Sets数据类型操作；</li>
+<li><strong>原子性：Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行；</strong></li>
+<li>丰富的特性：Redis还支持 publish/subscribe，通知，key过期等等特性。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>2. Redis的数据类型</h3>
+
+<h4>2.0 key&amp;value</h4>
+
+<h5>2.0.1 key</h5>
+
+<p>redis使用的是key作为存取对象的唯一标识，对“key”的通俗理解就是“字符串”。<strong>Redis中的key值是二进制安全的，这意味着可以用任何二进制序列作为key值，从形如“kaka”的简单字符串到一个JPEG文件的内容都可以。空字符串也是有效key值。</strong></p>
+
+<p>关于key有几条比较好的规则：</p>
+
+<ul>
+<li>不要使用太长的key，比如1024个字节的key，因为这样不仅会浪费内存，而且会影响查询的效率；</li>
+<li>也不要使用太短的key，比如使用“u:1000:pwd”来代替“user:1000:password”，这本身没有什么问题，但是后者更容易理解，并且增加的空间消耗相对于key object和value object本身来说是很小的；</li>
+<li>最好使用一种固定的模式。</li>
+</ul>
+
+
+<h4>2.1 String</h4>
+
+<h5>2.1.0 简介</h5>
+
+<p>这是最简单Redis类型。如果你只用这种类型，Redis就像一个可以持久化的memcached服务器，因为memcache的数据时保存在内存的，系统重启后就没了。</p>
+
+<p>redis字符串是二进制安全的，也就是说redis字符串可以包含任意类型的数据，比如一个JPEG图片，或者一个ruby object。一个字符串的最大长度是512M。</p>
+
+<h5>2.1.1 String的结构</h5>
+
+<p>redis string的实现包含在sds.c文件中，redis string的定义在sdshdr.h文件中：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>struct sdshdr {
+</span><span class='line'>    long len;
+</span><span class='line'>    long free;
+</span><span class='line'>    char buf[];
+</span><span class='line'>};
+</span><span class='line'>// len代表buf中实际保存的字符串的长度，那么就可以再O(1)的时间内获取字符串的长度
+</span><span class='line'>// free代表buf中还剩余的空间长度
+</span><span class='line'>// 保存实际的字符串
+</span><span class='line'>// len + free 等于buf数组的长度</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.1.2 String的创建</h5>
+
+<p>在sds.h中定义了一个新的类型，实际上类型sds就是字符串指针的一个别名而已。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>typedef char *sds;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在sds.c中定义的sdsnewlen函数创建一个新的字符串：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sds sdsnewlen(const void *init, size_t initlen) {
+</span><span class='line'>    struct sdshdr *sh;
+</span><span class='line'>
+</span><span class='line'>    sh = zmalloc(sizeof(struct sdshdr)+initlen+1);
+</span><span class='line'>#ifdef SDS_ABORT_ON_OOM
+</span><span class='line'>    if (sh == NULL) sdsOomAbort();
+</span><span class='line'>#else
+</span><span class='line'>    if (sh == NULL) return NULL;
+</span><span class='line'>#endif
+</span><span class='line'>    sh-&gt;len = initlen;
+</span><span class='line'>    sh-&gt;free = 0;
+</span><span class='line'>    if (initlen) {
+</span><span class='line'>        if (init) memcpy(sh-&gt;buf, init, initlen);
+</span><span class='line'>        else memset(sh-&gt;buf,0,initlen);
+</span><span class='line'>    }
+</span><span class='line'>    sh-&gt;buf[initlen] = '\0';
+</span><span class='line'>    return (char*)sh-&gt;buf;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到，函数介绍两个参数，一个是字符串指针，一个是字符串长度。然后分配一个地址空间，包括三个部分：struct sdshdr长度、字符串长度以及字符串最后的结尾符。最后对struct sdshdr的各个元素赋值，返回其buf部分，也就是实际的字符串。</p>
+
+<p>假设使用如下代码初始化它，那么内存结构大概是下面这个样子的：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 初始化
+</span><span class='line'>sdsnewlen("bd17kaka", 8);
+</span><span class='line'>
+</span><span class='line'>// 结果
+</span><span class='line'>-----------
+</span><span class='line'>|8|0|bd17kaka|
+</span><span class='line'>-----------
+</span><span class='line'>^   ^
+</span><span class='line'>sh  sh-&gt;buf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.1.3 通过buf指针获取sh指针</h5>
+
+<p>从上面的内存结构图可以看到，buf的内存地址实际上只比sh的内存地址多了len和free两个变量的长度，也就是两个long的长度，实际上就是struct sdshdr的长度，那么可以通过以下方法获取sh的指针：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>struct sdshdr *sh = (void*) (s-(sizeof(struct sdshdr)));
+</span><span class='line'>
+</span><span class='line'>// 获取字符串的长度
+</span><span class='line'>size_t sdslen(const sds s) {
+</span><span class='line'>    struct sdshdr *sh = (void*) (s-(sizeof(struct sdshdr)));
+</span><span class='line'>    return sh-&gt;len;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在redis源代码其他地方，可以经常看到这个技巧的使用。</p>
+
+<h5>2.1.4 redis使用</h5>
+
+<p>redis可以进行很多操作，下面列出几种比较常用的，所有的操作见<a href="http://redis.io/commands/#string">字符串操作</a>。</p>
+
+<ul>
+<li>使用诸如INCR, DECR, INCRBY的原子操作；</li>
+<li>使用APPEND进行字符串append操作；</li>
+<li>随机访问：SETRANGE, GETRANGE；</li>
+<li>在一个极小空间内编码很多数据；</li>
+<li>访问一个字符串的某一位的数据：GETBIT, SETBIT；</li>
+</ul>
+
+
+<h5>2.1.5 INCR</h5>
+
+<p>INCR将字符串的值解析为一个整数，然后+1，然后将这个字符串的值设置为新获得的整数值，类似的命令有DECR, INCR等等。如果这个字符串无法解析为一个整数的话，会报一个错：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ERR value is not an integer or out of range</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.1.6 INCR的原子性</h5>
+
+<p>INCR的原子性也就说，假设多个客户端同时对一个key进行诸如INCR, DECR等的操作，也不会出现冲突的情况。比如key=‘2’，此时两个客户端同时发出“INCR ke”y的操作，那么最后key的值一定是4，而不会是3。在一个“read-increment-set”过程执行的时候，其他客户端不会同时执行一个命令。</p>
+
+<h4>2.2 List</h4>
+
+<h5>2.2.0 简介</h5>
+
+<p>列表有两种，分别是linked list和array list。前者使用链表实现，后者实际上是一个数组，两个的优缺点很清楚。</p>
+
+<p>Redis的list使用linked list实现的，那么意味着在头部和尾部添加一个元素的时间复杂度是常数级别的，不管现有的list的规模多大，时间复杂度都一样。其相对于arraylist的缺点就是访问速度了，arraylist通过index访问速度很快。</p>
+
+<p>Redis Lists用linked list实现的原因是：对于数据库系统来说，至关重要的特性是：<strong>能非常快的在很大的列表上添加元素</strong>。另一个重要因素是，正如你将要看到的：<strong>Redis lists能在常数时间取得常数长度</strong>。</p>
+
+<h4>2.3 set（集合）</h4>
+
+<h4>2.4 sorted set（有序集合）</h4>
+
+<h4>2.5 hash</h4>
+
+<h3>3. Publish/Subscribe</h3>
+
+<h3>4. 数据过期</h3>
+
+<h3>5. 事务性</h3>
+
+<h3>6. 持久化</h3>
+
+<h3>7. 管理</h3>
+
+<h3>参考链接</h3>
+
+<ul>
+<li><a href="http://redis.io/topics/data-types-intro">A fifteen minute introduction to Redis data types</a></li>
+<li><a href="http://redis.io/topics/data-types">Data types</a></li>
+<li><a href="http://redis.io/">redis官网</a></li>
+<li><a href="http://redis.io/commands/#string">String 操作</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[设置VPN]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/12/add-setup-vpn-server-and-client/"/>
+    <updated>2012-12-12T16:58:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/12/add-setup-vpn-server-and-client</id>
+    <content type="html"><![CDATA[<p>查找了半天的资料，终于在vps上设置好了vpn，在ubuntu中，ssh到服务器，在本地做一个代理，别的客户端就可以通过设置代理到这台机器翻墙了。</p>
+
+<h4>1. 在vps上设置，以允许vpn</h4>
+
+<h5>1.1 开启TUN-TAP</h5>
+
+<p>首先确认你的vps的TUN-TAP是否开启，通过以下命令验证：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat /dev/net/tun</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果输出显示如下，那么说明你的是启用的。我的是没有启动的，然后去我的vps后台去enabled就好了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat: /dev/net/tun: File descriptor in bad state</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.2 升级系统，安装软件</h5>
+
+<p>下一步就是升级系统，安装ppp、iptables和pptp：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum update -y
+</span><span class='line'>yum install -y ppp iptables
+</span><span class='line'>rpm -ivh http://acelnmp.googlecode.com/files/pptpd-1.3.4-1.rhel5.1.i386.rpm</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.3 配置pptp</h5>
+
+<ul>
+<li>编辑/etc/pptpd.conf文件，把下面字段前面的#去掉即可：</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>localip 192.168.0.1
+</span><span class='line'>remoteip 192.168.0.234-238,192.168.0.245</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>接下来再编辑/etc/ppp/options.pptpd，去掉ms-dns前面的#，并使用Google的NS，修改成如下字段：</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ms-dns 8.8.8.8
+</span><span class='line'>ms-dns 8.8.4.4</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>设置pptp VPN账号密码，需要编辑/etc/ppp/chap-secrets这个文件。我的设置是：</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vpn pptpd vpn *</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.4 修改内核设置，使其支持转发</h5>
+
+<p>编辑/etc/sysctl.conf文件，将“net.ipv4.ip_forward”的值设为1，变成下面的形式：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>net.ipv4.ip_forward=1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后保存退出。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sysctl -p</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.5 设置转发规则</h5>
+
+<p>经过前面的设置之后，我们vpn已经可以进行拨号了，但是还不能访问任何的网页，这里需要添加转发规则， 在命令行中输入：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意这里的192.168.0.0/24是根据前面1.3的localip的设置得来的。还有就是这里的eth0，如果你的外网网卡不是eth0的话，要设置为相应的外网网卡。</p>
+
+<p>然后保存iptables：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/init.d/iptables save</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.6 重启iptables和pptp</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/init.d/iptables restart
+</span><span class='line'>/etc/init.d/pptpd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.7 设置为自启动</h5>
+
+<p>将pptp和iptables设置为开机自动运行，这样就不需要每次重启服务器后手动启动服务了：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig pptpd on
+</span><span class='line'>chkconfig iptables on</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>2. 客户端设置</h4>
+
+<p>在一个机器上使用如下代码ssh到vps上，然后就可以把他当成一个代理了，然后任何计算机都可以设置代理到这个机器，就可以成功翻墙了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -qTfnN -D :7070 -g user@youdomain.com</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>3. 错误处理</h4>
+
+<h5>3.1 错误619</h5>
+
+<p>出现错误619的话，则输入以下命令</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mknod /dev/ppp c 108 0</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>3.2 错误734</h5>
+
+<p>出现“错误734：ppp链接控制协议终止”解决的方法是：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/ppp/options.pptpd
+</span><span class='line'>require-mppe-128 -&gt; # require-mppe-128
+</span><span class='line'>拨号连接–&gt;安全–&gt;要求数据加密(没有就断开) 前面的勾取消</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用51.la统计网站流量]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/11/add-51-stat/"/>
+    <updated>2012-12-11T16:32:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/11/add-51-stat</id>
+    <content type="html"><![CDATA[<p>进行网站流量统计的工具有很多，比如Google Analytics。这里，我就使用国产工具<a href="http://www.51.la/">51.la免费统计工具</a>，来对我的博客流量进行统计，具体操作步骤如下：</p>
+
+<!-- more -->
+
+
+<h4>1. 添加统计ID</h4>
+
+<p>添加你要进行流量监测的网站，填入网站名称和网站地址。</p>
+
+<h4>2. 获取统计代码</h4>
+
+<p>统计代码就是一个js引用或者图片引用，如果网页被访问，这段JS代码就会运行并调用51.la某一台服务器上的一个程序，从而让程序感知到网站被访问了。有的用户使用了不支持javascript的浏览器，那么该浏览器会尝试读取嵌入代码中引用的图片，这个图片也位于51.La的服务器上，51统计服务器也会因为这个图片被引用而感知到您的网站被访问。统计代码是如下的代码，当然，每个用户的每个应用的统计代码是不一样的。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script language="javascript" type="text/javascript" src="http://js.users.51.la/id.js"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;noscript&gt;&lt;a href="http://www.51.la/?id" target="_blank"&gt;&lt;img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/id.asp" style="border:none" /&gt;&lt;/a&gt;&lt;/noscript&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>3. 将统计代码嵌入到网页中</h4>
+
+<p>由于我的博客是用octopress搭建的，那么下面讲一下在octopress中创建51.la流量统计的方法。</p>
+
+<ul>
+<li>在source/_includes/custom 中创建文件51_stat.html，在文件中贴入以下代码。代码的意思就是：判断全局变量51_stat是否设置为true，如果是的话，就添加后面的js代码，这里的js代码实际上就是上面获取的统计代码；</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% if site.51_stat %}
+</span><span class='line'>  &lt;script language="javascript" type="text/javascript" src="http://js.users.51.la/id.js"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;noscript&gt;&lt;a href="http://www.51.la/?id" target="_blank"&gt;&lt;img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/id.asp" style="border:none" /&gt;&lt;/a&gt;&lt;/noscript&gt;
+</span><span class='line'>{% endif %}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在source/_includes/after_footer中添加下面的第五行代码，其他都是本来就有的。也可以添加在其他文件，或者改文件的其他行，没什么影响；</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% include disqus.html %}
+</span><span class='line'>{% include facebook_like.html %}
+</span><span class='line'>{% include google_plus_one.html %}
+</span><span class='line'>{% include twitter_sharing.html %}
+</span><span class='line'>{% include custom/51_stat.html %}
+</span><span class='line'>{% include custom/after_footer.html %}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在octopress的根目录中的_config.yml文件最后添加以下几行代码。这里的51_stat实际上就是在51_stat.html文件中用到的变量，如果设置为true，就进行流量统计。</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># stat
+</span><span class='line'>51_stat: true</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>4. 提交代码，部署，等待</h4>
+
+<p>下一步就是提交代码，部署blog，然后等待生效。我的博客设置好之后，5分钟就可以看到流量统计了。一个标志就是在博客最下面出现了这个图标：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'><img src="http://zhangdian.github.com/images/custom/51_stat_icon.jpg"></span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外总结在博客中不使用网络图片，而是直接使用博客文件夹中的图片的方法：在source/images文件夹中建立一个文件夹custom，意思是这里面的图片都是我的博客中使用的图片，然后将博客中要使用的图片都放在这个文件夹里面即可，引用的时候使用如下代码即可：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% img /images/custom/51_stat_icon.jpg %}</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>5. 相关参考</h4>
+
+<ul>
+<li><a href="http://help.51.la/howto/start.asp">51流量统计-新用户快速启程</a></li>
+<li><a href="http://www.51.la/">51la官网</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一个关于sql语句的问题]]></title>
+    <link href="http://zhangdian.github.com/blog/2012/12/11/a-sql-question/"/>
+    <updated>2012-12-11T15:29:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2012/12/11/a-sql-question</id>
+    <content type="html"><![CDATA[<p>看到一个问题，据说很多大牛都搞不出来，看了看，问题虽然不是很难，但是一句sql确实包含了很多的sql知识的，mark下来，回忆一下丢失已久的sql知识。</p>
+
+<!-- more -->
+
+
+<h4>问题</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>数据表结构
+</span><span class='line'>user_name product_id
+</span><span class='line'>1            A
+</span><span class='line'>2            B
+</span><span class='line'>1            B
+</span><span class='line'>3            C
+</span><span class='line'>4            C
+</span><span class='line'>1            C
+</span><span class='line'>需求：哪些用户同时购买了 A，C，D？（或者说，同时购买A，C，D的用户都是那些？）
+</span><span class='line'>A,C,D是用户临时输入的，每次都确定、但不固定。</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>解答</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SELECT user_name
+</span><span class='line'>FROM product_buy
+</span><span class='line'>WHERE product_id in( A, C, D )
+</span><span class='line'>GROUP BY user_name
+</span><span class='line'>HAVING COUNT( DISTINCT product_id ) = 3 ;</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>参考</h4>
+
+<ul>
+<li>问题来源：<a href="http://julying.com/blog/mysql-and-problem-sets/">一个 MYSQL 并集 的问题</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

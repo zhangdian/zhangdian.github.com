@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>使用51.la统计网站流量 - bd17kaka's blog</title>
+  <meta name="author" content="bd17kaka">
+
+  
+  <meta name="description" content="进行网站流量统计的工具有很多，比如Google Analytics。这里，我就使用国产工具51.la免费统计工具，来对我的博客流量进行统计，具体操作步骤如下： 1. 添加统计ID 添加你要进行流量监测的网站，填入网站名称和网站地址。 2. 获取统计代码 统计代码就是一个js引用或者图片引用， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/11/add-51-stat/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="bd17kaka's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">bd17kaka's blog</a></h1>
+  
+    <h2>I belong to Moon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zhangdian.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">分类</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">使用51.la统计网站流量</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-11T16:32:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>进行网站流量统计的工具有很多，比如Google Analytics。这里，我就使用国产工具<a href="http://www.51.la/">51.la免费统计工具</a>，来对我的博客流量进行统计，具体操作步骤如下：</p>
+
+<!-- more -->
+
+
+<h4>1. 添加统计ID</h4>
+
+<p>添加你要进行流量监测的网站，填入网站名称和网站地址。</p>
+
+<h4>2. 获取统计代码</h4>
+
+<p>统计代码就是一个js引用或者图片引用，如果网页被访问，这段JS代码就会运行并调用51.la某一台服务器上的一个程序，从而让程序感知到网站被访问了。有的用户使用了不支持javascript的浏览器，那么该浏览器会尝试读取嵌入代码中引用的图片，这个图片也位于51.La的服务器上，51统计服务器也会因为这个图片被引用而感知到您的网站被访问。统计代码是如下的代码，当然，每个用户的每个应用的统计代码是不一样的。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script language="javascript" type="text/javascript" src="http://js.users.51.la/id.js"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;noscript&gt;&lt;a href="http://www.51.la/?id" target="_blank"&gt;&lt;img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/id.asp" style="border:none" /&gt;&lt;/a&gt;&lt;/noscript&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>3. 将统计代码嵌入到网页中</h4>
+
+<p>由于我的博客是用octopress搭建的，那么下面讲一下在octopress中创建51.la流量统计的方法。</p>
+
+<ul>
+<li>在source/_includes/custom 中创建文件51_stat.html，在文件中贴入以下代码。代码的意思就是：判断全局变量51_stat是否设置为true，如果是的话，就添加后面的js代码，这里的js代码实际上就是上面获取的统计代码；</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% if site.51_stat %}
+</span><span class='line'>  &lt;script language="javascript" type="text/javascript" src="http://js.users.51.la/id.js"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;noscript&gt;&lt;a href="http://www.51.la/?id" target="_blank"&gt;&lt;img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/id.asp" style="border:none" /&gt;&lt;/a&gt;&lt;/noscript&gt;
+</span><span class='line'>{% endif %}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在source/_includes/after_footer中添加下面的第五行代码，其他都是本来就有的。也可以添加在其他文件，或者改文件的其他行，没什么影响；</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% include disqus.html %}
+</span><span class='line'>{% include facebook_like.html %}
+</span><span class='line'>{% include google_plus_one.html %}
+</span><span class='line'>{% include twitter_sharing.html %}
+</span><span class='line'>{% include custom/51_stat.html %}
+</span><span class='line'>{% include custom/after_footer.html %}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在octopress的根目录中的_config.yml文件最后添加以下几行代码。这里的51_stat实际上就是在51_stat.html文件中用到的变量，如果设置为true，就进行流量统计。</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># stat
+</span><span class='line'>51_stat: true</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>4. 提交代码，部署，等待</h4>
+
+<p>下一步就是提交代码，部署blog，然后等待生效。我的博客设置好之后，5分钟就可以看到流量统计了。一个标志就是在博客最下面出现了这个图标：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'><img src="/images/custom/51_stat_icon.jpg"></span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外总结在博客中不使用网络图片，而是直接使用博客文件夹中的图片的方法：在source/images文件夹中建立一个文件夹custom，意思是这里面的图片都是我的博客中使用的图片，然后将博客中要使用的图片都放在这个文件夹里面即可，引用的时候使用如下代码即可：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% img /images/custom/51_stat_icon.jpg %}</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>5. 相关参考</h4>
+
+<ul>
+<li><a href="http://help.51.la/howto/start.asp">51流量统计-新用户快速启程</a></li>
+<li><a href="http://www.51.la/">51la官网</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">bd17kaka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-11T16:32:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/网站/'>网站</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'http://zhangdian.github.com/blog/2012/12/11/add-51-stat/',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'1930318973', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/12/11/a-sql-question/" title="Previous Post: 一个关于sql语句的问题">&laquo; 一个关于sql语句的问题</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/12/12/add-setup-vpn-server-and-client/" title="Next Post: 设置VPN">设置VPN &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    ﻿<section>
+  <h1>About Me</h1>
+  <p>屌丝一枚，技术新人，服务于互联网，忠诚于AC米兰</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/04/08/what-is-email-reputation/">what is email reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/08/linux-crontab/">linux crontab</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/how-to-improve-email-reputation/">how to improve email reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/email-authentation/">邮件验证</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/05/email-from-name-reputation/">关注From Name信誉度</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/mail-dkim-spf-ptr/"></a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/email-user-reputation/">email_user_reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/java-jti/">java_jti</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/java-aot/">java_aot</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/email-basic-concept/">email_basic_concept</a>
+      </li>
+    
+  </ul>
+</section>
+
+  <span>
+  <iframe 
+    width="86" 
+    scrolling="no" 
+    height="16" 
+    frameborder="0" 
+    src=
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/11/add-51-stat/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+  </iframe>
+  </span>
+<html xmlns:wb=“http://open.weibo.com/wb”>
+<head>
+	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<wb:follow-button uid="1930318973" type="red_4" width="100%" height="64" >
+</wb:follow-button>
+</body>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - bd17kaka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  ﻿
+
+<script type="text/javascript">
+      var disqus_shortname = 'bd17kakablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/12/11/add-51-stat/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2012/12/11/add-51-stat/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script language="javascript" type="text/javascript" src="http://js.users.51.la/15203840.js"></script>
+<noscript><a href="http://www.51.la/?15203840" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/15203840.asp" style="border:none" /></a></noscript>
+
+
+
+
+
+</body>
+</html>

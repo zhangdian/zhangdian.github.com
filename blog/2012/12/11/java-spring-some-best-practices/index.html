@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>java spring的一些best practice - bd17kaka's blog</title>
+  <meta name="author" content="bd17kaka">
+
+  
+  <meta name="description" content="一些没写过java，现在一直主要写java，刚才向公司的java大牛请教了一些关于java spring的一些观点，现在总结如下，作为自己的一些best practice。 1. 异常处理 1.1 什么是异常 异常分为两种，一种是checked异常，比如IOException、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/11/java-spring-some-best-practices/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="bd17kaka's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">bd17kaka's blog</a></h1>
+  
+    <h2>I belong to Moon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zhangdian.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">分类</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Java Spring的一些best Practice</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-11T15:06:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>一些没写过java，现在一直主要写java，刚才向公司的java大牛请教了一些关于java spring的一些观点，现在总结如下，作为自己的一些best practice。</p>
+
+<!-- more -->
+
+
+<h4>1. 异常处理</h4>
+
+<h5>1.1 什么是异常</h5>
+
+<p>异常分为两种，一种是checked异常，比如IOException、SQLException，一种是unchecked异常。这两种Exception的区别主要是CheckedException需要用try&#8230;catch&#8230;显示的捕获，而UncheckedException不需要捕获。通常UncheckedException又叫做RuntimeException。</p>
+
+<ul>
+<li>我们常见的RuntimeExcepiton有IllegalArgumentException、IllegalStateException、NullPointerException、IndexOutOfBoundsException等等。</li>
+<li>对于那些CheckedException就不胜枚举了，我们在编写程序过程中try&#8230;catch&#8230;捕捉的异常都是CheckedException。io包中的IOException及其子类，这些都是CheckedException。</li>
+</ul>
+
+
+<h5>1.2 异常best practice</h5>
+
+<ul>
+<li>如果逻辑比较核心的话，那么就创建一个专门的异常，继承runtimeexception，在这个异常中需要记录能够标示这个异常的一些必要的信息，比如用户id以及基本信息等，来替代日志；</li>
+<li>如果逻辑不是太核心的话，创建通用的异常类，同样继承runtimeexception，在这个异常里记录一些常用的信息；</li>
+</ul>
+
+
+<p>总之，我们自己创建的异常都是继承自runtimeexception的。定义特殊的类是为了记录特殊的信息，而如果没有特殊的信息，那么就使用通用的异常类就行。</p>
+
+<h4>2. spring框架内service和dao调用</h4>
+
+<ul>
+<li>service和dao之间，service和service之间的调用其实没有什么限制，都是可以调用的；</li>
+<li>一般在一个service函数中，通常是调用dao来完成这个函数的功能；</li>
+<li>如果另外一个service中的一个函数，完成了我们现在要完成的一个业务，也可以直接去调用哪个函数即可，而不是去调用dao，然后把那个函数的逻辑重新走一遍，这样做的目的就是省事方便。</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">bd17kaka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-11T15:06:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/spring/'>spring</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'http://zhangdian.github.com/blog/2012/12/11/java-spring-some-best-practices/',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'1930318973', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/12/11/js-code-conventions/" title="Previous Post: js代码约定">&laquo; js代码约定</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/12/11/a-sql-question/" title="Next Post: 一个关于sql语句的问题">一个关于sql语句的问题 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    ﻿<section>
+  <h1>About Me</h1>
+  <p>屌丝一枚，技术新人，服务于互联网，忠诚于AC米兰</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/04/08/what-is-email-reputation/">what is email reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/08/linux-crontab/">linux crontab</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/how-to-improve-email-reputation/">how to improve email reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/07/email-authentation/">邮件验证</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/05/email-from-name-reputation/">关注From Name信誉度</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/mail-dkim-spf-ptr/"></a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/email-user-reputation/">email_user_reputation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/java-jti/">java_jti</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/java-aot/">java_aot</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/02/email-basic-concept/">email_basic_concept</a>
+      </li>
+    
+  </ul>
+</section>
+
+  <span>
+  <iframe 
+    width="86" 
+    scrolling="no" 
+    height="16" 
+    frameborder="0" 
+    src=
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/11/java-spring-some-best-practices/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+  </iframe>
+  </span>
+<html xmlns:wb=“http://open.weibo.com/wb”>
+<head>
+	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<wb:follow-button uid="1930318973" type="red_4" width="100%" height="64" >
+</wb:follow-button>
+</body>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - bd17kaka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  ﻿
+
+<script type="text/javascript">
+      var disqus_shortname = 'bd17kakablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/12/11/java-spring-some-best-practices/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2012/12/11/java-spring-some-best-practices/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script language="javascript" type="text/javascript" src="http://js.users.51.la/15203840.js"></script>
+<noscript><a href="http://www.51.la/?15203840" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/15203840.asp" style="border:none" /></a></noscript>
+
+
+
+
+
+</body>
+</html>

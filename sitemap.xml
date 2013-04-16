@@ -132,14 +132,18 @@
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2013/04/08/what-is-email-reputation/</loc>
-        <lastmod>2013-04-08T22:22:47+08:00</lastmod>
+        <lastmod>2013-04-11T10:16:57+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://zhangdian.github.com/blog/2013/04/16/dns-lookup-cmds-in-linux/</loc>
+        <lastmod>2013-04-16T09:58:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/archives/</loc>
-        <lastmod>2013-04-08T22:32:06+08:00</lastmod>
+        <lastmod>2013-04-16T09:58:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/</loc>
-        <lastmod>2013-04-08T22:32:06+08:00</lastmod>
+        <lastmod>2013-04-16T09:58:11+08:00</lastmod>
     </url>
 </urlset>

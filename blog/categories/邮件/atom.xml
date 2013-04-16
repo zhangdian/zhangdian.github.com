@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 邮件 | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/邮件/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-04-10T14:22:43+08:00</updated>
+  <updated>2013-04-16T09:58:38+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[linux上常见DNS记录查询]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/16/dns-lookup-cmds-in-linux/"/>
+    <updated>2013-04-16T09:40:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/16/dns-lookup-cmds-in-linux</id>
+    <content type="html"><![CDATA[<p>首先介绍一个查询DNS记录很好的网站：<a href="http://mxtoolbox.com/SuperTool.aspx">MXToolBox</a></p>
+
+<p>查询DKIM记录：dig TXT + short mail._domainkey.domain.com</p>
+
+<p>查询SPF记录：dig TXT +short domain.com</p>
+
+<p>查询MX记录：dig MX domain.com</p>
+
+<p>查询A记录：dig A domain.com</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[什么是邮件信誉度]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/04/08/what-is-email-reputation/"/>
+    <updated>2013-04-08T22:22:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/04/08/what-is-email-reputation</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[邮件验证]]></title>

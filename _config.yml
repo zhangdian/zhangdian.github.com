@@ -109,3 +109,4 @@ weibo_share: true   # Whether show the sharing button
 
 # stat
 51_stat: true
+baidu_stat: true

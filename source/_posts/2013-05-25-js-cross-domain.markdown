@@ -11,6 +11,8 @@ categories: [javascript,js,jquery]
 
 所谓同源是指，__域名，协议，端口__相同。
 
+<!-- more -->
+
 ####JSONP解决跨域的问题
 
 JSON(JavaScript Object Notation), JSONP(JSON with Padding)

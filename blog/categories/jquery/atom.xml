@@ -4,7 +4,7 @@
   <title><![CDATA[Category: jquery | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-05-25T01:14:04+08:00</updated>
+  <updated>2013-05-25T01:16:33+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -23,6 +23,9 @@
 <p>在JavaScript中，有一个很重要的安全性限制，被称为“Same-Origin Policy”（同源策略）。这一策略对于JavaScript代码能够访问的页面内容做了很重要的限制，即JavaScript只能访问与包含它的文档在同一域下的内容。</p>
 
 <p>所谓同源是指，<strong>域名，协议，端口</strong>相同。</p>
+
+<!-- more -->
+
 
 <h4>JSONP解决跨域的问题</h4>
 

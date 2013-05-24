@@ -113,13 +113,15 @@
 
 <h5>请求JSON数据</h5>
 
-<p>URL     http://lifeblog.bd17kaka.net/json?id=123
-返回数据    {&#8220;id&#8221;: 123, &#8220;name&#8221; : &#8220;json&#8221;}</p>
+<p>URL     http://lifeblog.bd17kaka.net/json?id=123</p>
+
+<p>返回数据    {&#8220;id&#8221;: 123, &#8220;name&#8221; : &#8220;json&#8221;}</p>
 
 <h5>请求JSONP数据</h5>
 
-<p>URL     http://lifeblog.bd17kaka.net/json?id=123&amp;callback=cb
-返回数据    cb({&#8220;id&#8221;: 123, &#8220;name&#8221; : &#8220;json&#8221;});</p>
+<p>URL     http://lifeblog.bd17kaka.net/json?id=123&amp;callback=cb</p>
+
+<p>返回数据    cb({&#8220;id&#8221;: 123, &#8220;name&#8221; : &#8220;json&#8221;});</p>
 
 <p>上述返回数据包含一段可以执行的代码，客户端应该有cb这个函数。当然，更好返回值写法应该是：
 try{cb({&#8220;id&#8221;: 123, &#8220;name&#8221; : &#8220;json&#8221;});}catch(e){}</p>

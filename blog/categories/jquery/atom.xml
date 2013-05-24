@@ -4,7 +4,7 @@
   <title><![CDATA[Category: jquery | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-05-25T01:18:02+08:00</updated>
+  <updated>2013-05-25T01:21:25+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -39,13 +39,15 @@
 
 <h5>请求JSON数据</h5>
 
-<p>URL     http://lifeblog.bd17kaka.net/json?id=123
-返回数据    {"id": 123, "name" : "json"}</p>
+<p>URL     http://lifeblog.bd17kaka.net/json?id=123</p>
+
+<p>返回数据    {"id": 123, "name" : "json"}</p>
 
 <h5>请求JSONP数据</h5>
 
-<p>URL     http://lifeblog.bd17kaka.net/json?id=123&amp;callback=cb
-返回数据    cb({"id": 123, "name" : "json"});</p>
+<p>URL     http://lifeblog.bd17kaka.net/json?id=123&amp;callback=cb</p>
+
+<p>返回数据    cb({"id": 123, "name" : "json"});</p>
 
 <p>上述返回数据包含一段可以执行的代码，客户端应该有cb这个函数。当然，更好返回值写法应该是：
 try{cb({"id": 123, "name" : "json"});}catch(e){}</p>

@@ -25,10 +25,12 @@ __但img、iframe、script等标签是个例外，这些标签可以通过src属
 
 #####请求JSON数据
 URL 	http://lifeblog.bd17kaka.net/json?id=123
+
 返回数据	{"id": 123, "name" : "json"}
 
 #####请求JSONP数据
 URL 	http://lifeblog.bd17kaka.net/json?id=123&callback=cb
+
 返回数据	cb({"id": 123, "name" : "json"}); 
 
 上述返回数据包含一段可以执行的代码，客户端应该有cb这个函数。当然，更好返回值写法应该是：

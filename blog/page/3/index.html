@@ -9,7 +9,8 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="进行网站流量统计的工具有很多，比如Google Analytics。这里，我就使用国产工具51.la免费统计工具，来对我的博客流量进行统计，具体操作步骤如下： ">
+  <meta name="description" content="查找了半天的资料，终于在vps上设置好了vpn，在ubuntu中，ssh到服务器，在本地做一个代理，别的客户端就可以通过设置代理到这台机器翻墙了。 1. 在vps上设置，以允许vpn 1.1 开启TUN-TAP 首先确认你的vps的TUN-TAP是否开启，通过以下命令验证： 1
+cat /dev/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +65,183 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/12/add-setup-vpn-server-and-client/">设置VPN</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-12T16:58:00+08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/12/12/add-setup-vpn-server-and-client/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>查找了半天的资料，终于在vps上设置好了vpn，在ubuntu中，ssh到服务器，在本地做一个代理，别的客户端就可以通过设置代理到这台机器翻墙了。</p>
+
+<h4>1. 在vps上设置，以允许vpn</h4>
+
+<h5>1.1 开启TUN-TAP</h5>
+
+<p>首先确认你的vps的TUN-TAP是否开启，通过以下命令验证：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat /dev/net/tun</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果输出显示如下，那么说明你的是启用的。我的是没有启动的，然后去我的vps后台去enabled就好了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat: /dev/net/tun: File descriptor in bad state</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.2 升级系统，安装软件</h5>
+
+<p>下一步就是升级系统，安装ppp、iptables和pptp：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum update -y
+</span><span class='line'>yum install -y ppp iptables
+</span><span class='line'>rpm -ivh http://acelnmp.googlecode.com/files/pptpd-1.3.4-1.rhel5.1.i386.rpm</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.3 配置pptp</h5>
+
+<ul>
+<li>编辑/etc/pptpd.conf文件，把下面字段前面的#去掉即可：</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>localip 192.168.0.1
+</span><span class='line'>remoteip 192.168.0.234-238,192.168.0.245</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>接下来再编辑/etc/ppp/options.pptpd，去掉ms-dns前面的#，并使用Google的NS，修改成如下字段：</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ms-dns 8.8.8.8
+</span><span class='line'>ms-dns 8.8.4.4</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>设置pptp VPN账号密码，需要编辑/etc/ppp/chap-secrets这个文件。我的设置是：</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vpn pptpd vpn *</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.4 修改内核设置，使其支持转发</h5>
+
+<p>编辑/etc/sysctl.conf文件，将“net.ipv4.ip_forward”的值设为1，变成下面的形式：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>net.ipv4.ip_forward=1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后保存退出。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sysctl -p</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.5 设置转发规则</h5>
+
+<p>经过前面的设置之后，我们vpn已经可以进行拨号了，但是还不能访问任何的网页，这里需要添加转发规则， 在命令行中输入：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意这里的192.168.0.0/24是根据前面1.3的localip的设置得来的。还有就是这里的eth0，如果你的外网网卡不是eth0的话，要设置为相应的外网网卡。</p>
+
+<p>然后保存iptables：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/init.d/iptables save</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.6 重启iptables和pptp</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/init.d/iptables restart
+</span><span class='line'>/etc/init.d/pptpd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>1.7 设置为自启动</h5>
+
+<p>将pptp和iptables设置为开机自动运行，这样就不需要每次重启服务器后手动启动服务了：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig pptpd on
+</span><span class='line'>chkconfig iptables on</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>2. 客户端设置</h4>
+
+<p>在一个机器上使用如下代码ssh到vps上，然后就可以把他当成一个代理了，然后任何计算机都可以设置代理到这个机器，就可以成功翻墙了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -qTfnN -D :7070 -g user@youdomain.com</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>3. 错误处理</h4>
+
+<h5>3.1 错误619</h5>
+
+<p>出现错误619的话，则输入以下命令</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mknod /dev/ppp c 108 0</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>3.2 错误734</h5>
+
+<p>出现“错误734：ppp链接控制协议终止”解决的方法是：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/ppp/options.pptpd
+</span><span class='line'>require-mppe-128 -&gt; # require-mppe-128
+</span><span class='line'>拨号连接–&gt;安全–&gt;要求数据加密(没有就断开) 前面的勾取消</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -601,68 +779,6 @@ code snippet
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/29/setup-custom-octopress/">个性化octopress设置</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-29T00:08:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/11/29/setup-custom-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>1. Octopress个性化设置文件</h3>
-
-<p>主要文件都在source/_includes/文件夹中，其中</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/asides/ #包含侧边栏的项目
-</span><span class='line'>/custom/ #包含个性化头部、导航栏，footer以及侧边栏等</span></code></pre></td></tr></table></div></figure>
-
-
-<p>/custom中包含的都是个性化的页面，其中也包含</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/asides/ #包含个性化的侧边栏项目
-</span><span class='line'>/*.html  #个性化的页面，可以在这里设置自己个性化的页面</span></code></pre></td></tr></table></div></figure>
-
-
-<p>那么，设置自己个性化的页面，主要修改的是source/<em>incledes/中的内容。
-此外，修改了文件内容之后，还需要修改</em>config.yml中的部分内容才能生效，具体见后面的设置。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/29/setup-custom-octopress/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -682,6 +798,10 @@ code snippet
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/25/js-cross-domain/">js_cross_domain</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/02/call-java-in-nodejs/">call java in nodejs</a>
@@ -717,10 +837,6 @@ code snippet
     
       <li class="post">
         <a href="/blog/2013/04/02/email-user-reputation/">email_user_reputation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/02/java-jti/">java_jti</a>
       </li>
     
   </ul>

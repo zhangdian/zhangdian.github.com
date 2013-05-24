@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-05-02T22:53:40+08:00</updated>
+  <updated>2013-05-25T01:14:04+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,112 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[js_cross_domain]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/05/25/js-cross-domain/"/>
+    <updated>2013-05-25T00:14:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/05/25/js-cross-domain</id>
+    <content type="html"><![CDATA[<h4>什么是跨域</h4>
+
+<p>在JavaScript中，有一个很重要的安全性限制，被称为“Same-Origin Policy”（同源策略）。这一策略对于JavaScript代码能够访问的页面内容做了很重要的限制，即JavaScript只能访问与包含它的文档在同一域下的内容。</p>
+
+<p>所谓同源是指，<strong>域名，协议，端口</strong>相同。</p>
+
+<h4>JSONP解决跨域的问题</h4>
+
+<p>JSON(JavaScript Object Notation), JSONP(JSON with Padding)</p>
+
+<p>在同源策略下，在某个服务器下的页面是无法获取到该服务器以外的数据的。</p>
+
+<p><strong>但img、iframe、script等标签是个例外，这些标签可以通过src属性请求到其他服务器上的数据。利用script标签的开放策略，我们可以实现跨域请求数据，当然，也需要服务端的配合。</strong></p>
+
+<p>当我们正常地请求一个JSON数据的时候，服务端返回的是一串JSON类型的数据，而我们使用JSONP模式来请求数据的时候，服务端返回的是一段可执行的JavaScript代码。</p>
+
+<h5>请求JSON数据</h5>
+
+<p>URL     http://lifeblog.bd17kaka.net/json?id=123
+返回数据    {&#8220;id&#8221;: 123, &#8220;name&#8221; : &#8220;json&#8221;}</p>
+
+<h5>请求JSONP数据</h5>
+
+<p>URL     http://lifeblog.bd17kaka.net/json?id=123&amp;callback=cb
+返回数据    cb({&#8220;id&#8221;: 123, &#8220;name&#8221; : &#8220;json&#8221;});</p>
+
+<p>上述返回数据包含一段可以执行的代码，客户端应该有cb这个函数。当然，更好返回值写法应该是：
+try{cb({&#8220;id&#8221;: 123, &#8220;name&#8221; : &#8220;json&#8221;});}catch(e){}</p>
+
+<h4>解决方案</h4>
+
+<p>动态创建一个script标签，src地址是要访问的地址：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script type="text/javascript" src="http://lifeblog.bd17kaka.net/json?id=123&callback=cb"&gt;&lt;/script&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>服务器接收到请求，返回如下格式的字符串，包含一段可执行的JS代码：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>try{cb({"id": 123, "name" : "json"});}catch(e){}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>客户端创建一个cb函数，接收参数，进行相应的处理。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function cb(data) {alert(data);}</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>JQUERY解决方案</h4>
+
+<h5>在AJAX中，将dataType设置为“jsonp”</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$.ajax({
+</span><span class='line'>        dataType: 'jsonp',
+</span><span class='line'>        url: 'http://lifeblog.bd17kaka.net/json?id=123',
+</span><span class='line'>        success: function(data){
+</span><span class='line'>          
+</span><span class='line'>        }
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>使用getJson方法，在地址中加上callback参数，客户端需要有这个callback的实现</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$.getJSON('http://lifeblog.bd17kaka.net/json?id=123&callback=cb', function(data){
+</span><span class='line'>  cb(data);
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>使用getScript方法</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function foo(data){
+</span><span class='line'>        //处理data数据
+</span><span class='line'>}
+</span><span class='line'>$.getScript('http://lifeblog.bd17kaka.net/json?id=123&callback=cb');</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="http://www.clanfei.com/2012/08/1637.html">jQuery中利用JSONP解决AJAX跨域问题</a></li>
+<li><a href="http://www.cnblogs.com/chopper/archive/2012/03/24/2403945.html">深入浅出JSONP&#8211;解决ajax跨域问题</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[call java in nodejs]]></title>
@@ -1080,154 +1186,6 @@ resolveClass(Class&lt;?> c)链接指定的 Java 类。</p>
 <li><a href="http://redis.io/">redis官网</a></li>
 <li><a href="http://redis.io/commands/#string">String 操作</a></li>
 </ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[设置VPN]]></title>
-    <link href="http://zhangdian.github.com/blog/2012/12/12/add-setup-vpn-server-and-client/"/>
-    <updated>2012-12-12T16:58:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2012/12/12/add-setup-vpn-server-and-client</id>
-    <content type="html"><![CDATA[<p>查找了半天的资料，终于在vps上设置好了vpn，在ubuntu中，ssh到服务器，在本地做一个代理，别的客户端就可以通过设置代理到这台机器翻墙了。</p>
-
-<h4>1. 在vps上设置，以允许vpn</h4>
-
-<h5>1.1 开启TUN-TAP</h5>
-
-<p>首先确认你的vps的TUN-TAP是否开启，通过以下命令验证：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cat /dev/net/tun</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果输出显示如下，那么说明你的是启用的。我的是没有启动的，然后去我的vps后台去enabled就好了。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cat: /dev/net/tun: File descriptor in bad state</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>1.2 升级系统，安装软件</h5>
-
-<p>下一步就是升级系统，安装ppp、iptables和pptp：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>yum update -y
-</span><span class='line'>yum install -y ppp iptables
-</span><span class='line'>rpm -ivh http://acelnmp.googlecode.com/files/pptpd-1.3.4-1.rhel5.1.i386.rpm</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>1.3 配置pptp</h5>
-
-<ul>
-<li>编辑/etc/pptpd.conf文件，把下面字段前面的#去掉即可：</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>localip 192.168.0.1
-</span><span class='line'>remoteip 192.168.0.234-238,192.168.0.245</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>接下来再编辑/etc/ppp/options.pptpd，去掉ms-dns前面的#，并使用Google的NS，修改成如下字段：</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ms-dns 8.8.8.8
-</span><span class='line'>ms-dns 8.8.4.4</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>设置pptp VPN账号密码，需要编辑/etc/ppp/chap-secrets这个文件。我的设置是：</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vpn pptpd vpn *</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>1.4 修改内核设置，使其支持转发</h5>
-
-<p>编辑/etc/sysctl.conf文件，将“net.ipv4.ip_forward”的值设为1，变成下面的形式：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>net.ipv4.ip_forward=1</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后保存退出。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sysctl -p</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>1.5 设置转发规则</h5>
-
-<p>经过前面的设置之后，我们vpn已经可以进行拨号了，但是还不能访问任何的网页，这里需要添加转发规则， 在命令行中输入：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意这里的192.168.0.0/24是根据前面1.3的localip的设置得来的。还有就是这里的eth0，如果你的外网网卡不是eth0的话，要设置为相应的外网网卡。</p>
-
-<p>然后保存iptables：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/init.d/iptables save</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>1.6 重启iptables和pptp</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/init.d/iptables restart
-</span><span class='line'>/etc/init.d/pptpd restart</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>1.7 设置为自启动</h5>
-
-<p>将pptp和iptables设置为开机自动运行，这样就不需要每次重启服务器后手动启动服务了：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig pptpd on
-</span><span class='line'>chkconfig iptables on</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>2. 客户端设置</h4>
-
-<p>在一个机器上使用如下代码ssh到vps上，然后就可以把他当成一个代理了，然后任何计算机都可以设置代理到这个机器，就可以成功翻墙了。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -qTfnN -D :7070 -g user@youdomain.com</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>3. 错误处理</h4>
-
-<h5>3.1 错误619</h5>
-
-<p>出现错误619的话，则输入以下命令</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mknod /dev/ppp c 108 0</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>3.2 错误734</h5>
-
-<p>出现“错误734：ppp链接控制协议终止”解决的方法是：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/ppp/options.pptpd
-</span><span class='line'>require-mppe-128 -&gt; # require-mppe-128
-</span><span class='line'>拨号连接–&gt;安全–&gt;要求数据加密(没有就断开) 前面的勾取消</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>

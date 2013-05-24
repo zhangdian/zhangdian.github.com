@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "js_cross_domain"
+title: "JS跨域"
 date: 2013-05-25 00:14
 comments: true
 categories: [javascript,js,jquery]

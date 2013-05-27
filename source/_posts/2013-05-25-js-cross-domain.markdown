@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JS跨域"
+title: "JS跨域(Get)"
 date: 2013-05-25 00:14
 comments: true
 categories: [javascript,js,jquery]

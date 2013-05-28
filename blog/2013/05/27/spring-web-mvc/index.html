@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>spring web mvc - bd17kaka's blog</title>
+  <title>Spring WEB MVC总结 - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="用了这么久的spring web，终于把官方的文档看了看，总结出来下面的文档。 Spring WEB MVC的特性 角色分明：controller、validator、command object、form object、model object、DispatcherServlet、handler &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,7 +67,7 @@
   
   <header>
     
-      <h1 class="entry-title">Spring Web Mvc</h1>
+      <h1 class="entry-title">Spring WEB MVC总结</h1>
     
     
       <p class="meta">
@@ -93,7 +92,107 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p>用了这么久的spring web，终于把官方的文档看了看，总结出来下面的文档。</p>
+
+<!-- more -->
+
+
+<h4>Spring WEB MVC的特性</h4>
+
+<ul>
+<li>角色分明：controller、validator、command object、form object、model object、DispatcherServlet、handler mapping、view resolver等等，每个角色都可以由一个专门的对象来实现；</li>
+<li>框架和类似JavaBean应用类的强大而简单的配置；</li>
+<li>适配性、非侵入性以及灵活性。可以任意定义controller方法的前面，对于指定的场景，可以使用@RequestParam、@RequestHeader、@PathVariable其中的一个；</li>
+<li>可重用的业务代码；</li>
+<li>可定制话的绑定和验证；</li>
+<li>类型匹配错误作为应用层的验证错误，取代手动将传进来的String-Only对象parse and convert成为业务对象；</li>
+<li>个性化handler mapping以及view resolution；</li>
+<li>灵活的model解析。利用name/value Map，可以利用任意一种view技术解析model；</li>
+<li>个性化的locale以及theme resolution。支持JSPs，包不包含Spring tag lib，JSTL都行；</li>
+<li>等等</li>
+</ul>
+
+
+<h4>其他MVC实现的可插入性</h4>
+
+<p>如果不想使用Spring web MVC，而是想在其他类似struts、WebWork的框架中使用Spring的某些特性，这也是可以的，具体的可以查看相关文档。</p>
+
+<h4>DispatcherServlet类</h4>
+
+<p>和其他的MVC框架一样，Spring web MVC也是基于<strong>请求驱动</strong>的模型，围绕一个核心的servlet，将所有的请求分发到Controllers，同时提供丰富的功能，来帮助web应用程序的开发。Spring完全集成Spring IoC容器，允许你使用Spring所拥有的任何特性。</p>
+
+<p>下图是Spring web MVC中的请求处理流程图：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/99113526/blog.bd17kaka.net/spring-web-mvc.png"></p>
+
+<p>DispatcherServlet是Servlet类的一个子类，继承自HttpServlet，它在web.xml文件中进行定义。需要通过使用URL映射，来将需要其处理的请求映射到这个Servlet。下面是一个标准的servlet配置：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- web.xml --&gt;
+</span><span class='line'>&lt;web-app&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;servlet&gt;
+</span><span class='line'>        &lt;servlet-name&gt;example&lt;/servlet-name&gt;
+</span><span class='line'>        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+</span><span class='line'>        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+</span><span class='line'>    &lt;/servlet&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;servlet-mapping&gt;
+</span><span class='line'>        &lt;servlet-name&gt;example&lt;/servlet-name&gt;
+</span><span class='line'>        &lt;url-pattern&gt;*.form&lt;/url-pattern&gt;
+</span><span class='line'>    &lt;/servlet-mapping&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;/web-app&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在这个例子中，所有满足表达式“*.form”的请求，都将有servlet-name为“example”的这个servlet来进行处理。</p>
+
+<p>在Spring中，ApplicationContext实例是有作用域的。在Web MVC架构中，每一个DispatcherServlet类都有它自己的WebApplicationContext，这个WebApplicationContext继承所有已经在根部的WebApplicationContext中所定义的beans。这些beans是可以被在servlet中定义的beans所覆盖的。（不太懂，得看看Spring Ioc）</p>
+
+<p>在DispatcherServlet初始化的时候，Spring在文件夹WEB-INF中查找文件名为[servlet-name]-servlet.xml的文件，并且创建那个文件里面定义的所有beans。将在全局作用域中，有相同名称的bean全覆盖掉。</p>
+
+<p>考虑上面的那个web.xml定义，那么需要在WEB-INF文件夹中，创建一个名为example-servlet.xml的文件，这个里面包含所有Spring WEB MVC所拥有的beans。</p>
+
+<p><strong>我的理解是：一个web.xml文件中可以定义多个servlet；一个servlet对应一个example-servlet.xml文件；一个example-servlet.xml文件就是一个WebApplicationContext。</strong></p>
+
+<p>在WebApplicationContext中，包含下面这些类型的beans：</p>
+
+<ul>
+<li>controllers</li>
+<li>handler mappings</li>
+<li>view resolvers</li>
+<li>locale resolvers</li>
+<li>theme resolver</li>
+<li>multipart file resolver</li>
+<li>handler exception resolvers</li>
+</ul>
+
+
+<p>当有一个请求到来的时候，DispatcherServlet是按照以下的顺序来处理这个请求的：</p>
+
+<ul>
+<li>搜索WebApplicationContext，并且将其作为一个attribute绑定到request中，这样，在这个过程中，controller和其他的元素都可以使用。默认情况下，它被绑定在DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE里面；</li>
+<li>locale resolver绑定到request中，这样，其他的元素可以解析并使用locale（呈现view、准备数据等等）。如果你不需要locale resolving，那么就不需要他它；</li>
+<li>theme resolver绑定到request中，允许views等元素决定使用哪个theme。如果不需要themes，可以忽略它；</li>
+<li>如果指定了一个multipart file resolver，那么这个请求就被看做multipart。如果找到了multipart，就会将这个请求包装成一个MultipartHttpServletRequest，再由其它元素进行进一步的处理；</li>
+<li>搜索一个合适的handler。如果找到了，那个和这个handler相关的执行链（preprocessors, postprocessors, and controllers）会被执行，以准备model以及呈现；</li>
+<li>如果返回了一个model，那么会呈现一个view；如果没有model返回，那么不会呈现任何view，因为请求以及被执行完毕了。</li>
+</ul>
+
 </div>
 
 
@@ -118,6 +217,12 @@
 
 <time datetime="2013-05-27T00:26:00+08:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/mvc/'>mvc</a>, <a class='category' href='/blog/categories/spring/'>spring</a>, <a class='category' href='/blog/categories/web/'>web</a>
+  
+</span>
 
 
     </p>
@@ -158,6 +263,8 @@
         <a class="basic-alignment left" href="/blog/2013/05/27/spring-ioc/" title="Previous Post: spring ioc">&laquo; spring ioc</a>
       
       
+        <a class="basic-alignment right" href="/blog/2013/05/28/js-cross-domain-post/" title="Next Post: js cross domain post">js cross domain post &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -181,7 +288,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/05/27/spring-web-mvc/">spring web mvc</a>
+        <a href="/blog/2013/05/28/js-cross-domain-post/">js cross domain post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/27/spring-web-mvc/">Spring WEB MVC总结</a>
       </li>
     
       <li class="post">
@@ -189,7 +300,7 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2013/05/25/js-cross-domain/">JS跨域</a>
+        <a href="/blog/2013/05/25/js-cross-domain/">JS跨域(Get)</a>
       </li>
     
       <li class="post">
@@ -214,10 +325,6 @@
     
       <li class="post">
         <a href="/blog/2013/04/07/email-authentation/">邮件验证</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/05/email-from-name-reputation/">关注From Name信誉度</a>
       </li>
     
   </ul>

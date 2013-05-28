@@ -144,7 +144,7 @@
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2013/05/25/js-cross-domain/</loc>
-        <lastmod>2013-05-25T01:20:52+08:00</lastmod>
+        <lastmod>2013-05-28T00:47:04+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2013/05/27/spring-ioc/</loc>
@@ -152,14 +152,18 @@
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2013/05/27/spring-web-mvc/</loc>
-        <lastmod>2013-05-27T00:26:27+08:00</lastmod>
+        <lastmod>2013-05-29T00:31:30+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://zhangdian.github.com/blog/2013/05/28/js-cross-domain-post/</loc>
+        <lastmod>2013-05-28T00:47:52+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/archives/</loc>
-        <lastmod>2013-05-27T00:26:51+08:00</lastmod>
+        <lastmod>2013-05-29T00:31:30+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/</loc>
-        <lastmod>2013-05-27T00:26:51+08:00</lastmod>
+        <lastmod>2013-05-29T00:31:30+08:00</lastmod>
     </url>
 </urlset>

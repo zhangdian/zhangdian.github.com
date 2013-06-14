@@ -9,7 +9,7 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="在看了redis replication的官方文档之后，有必要亲自实践一下。下面就在同一个机器上开两个实例，两个不同的端口6379和6380，一个master一个slave。 ">
+  <meta name="description" content="1 类加载器基本概念 一般来说，Java 应用的开发人员不需要直接同类加载器进行交互。Java 虚拟机默认的行为就已经足够满足大多数情况的需求了。不过如果遇到了需要与类加载器进行交互的情况，而对类加载器的机制又不是很了解的话，就很容易花大量的时间去调试 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/27/java-class-loader/">Java类加载器</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-27T13:37:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/03/27/java-class-loader/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h4>1 类加载器基本概念</h4>
+
+<p>一般来说，Java 应用的开发人员不需要直接同类加载器进行交互。Java 虚拟机默认的行为就已经足够满足大多数情况的需求了。不过如果遇到了需要与类加载器进行交互的情况，而对类加载器的机制又不是很了解的话，<strong>就很容易花大量的时间去调试 ClassNotFoundException和 NoClassDefFoundError等异常</strong>。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/03/27/java-class-loader/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -649,49 +694,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/07/js-basic-concept-with-example/">借助几个例子加深对js的理解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-07T11:13:00+08:00" pubdate data-updated="true">Dec 7<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/12/07/js-basic-concept-with-example/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>最近在weibo上看到一个关于js的帖子<a href="http://dmitry.baranovskiy.com/post/91403200">So, you think you know JavaScript?</a>，正好在<a href="http://julying.com/blog/so-you-think-you-know-javascript/">这里</a>看到了关于这几个题目的参考，看完之后总结如下。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/12/07/js-basic-concept-with-example/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -711,6 +713,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/14/java-schedule-task/">Java定时任务</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/28/js-cross-domain-post/">js cross domain post</a>
@@ -746,10 +752,6 @@
     
       <li class="post">
         <a href="/blog/2013/04/07/how-to-improve-email-reputation/">how to improve email reputation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/07/email-authentation/">邮件验证</a>
       </li>
     
   </ul>

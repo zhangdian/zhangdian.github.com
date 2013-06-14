@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>redis replication实践 - bd17kaka's blog</title>
+  <title>Java定时任务 - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="在看了redis replication的官方文档之后，有必要亲自实践一下。下面就在同一个机器上开两个实例，两个不同的端口6379和6380，一个master一个slave。 首先配置master，bind ip 127.0.0.1，开启master，监听在127.0.0.1:6379， &hellip;">
+  <meta name="description" content="定时任务 关于定时任务 定时任务有两种： 固定延时的定时任务，即一个任务结束等待固定时间后再执行下一个；
+固定频率的定时任务，即任务在固定时常后开始执行。 前者的意思是，任务完成之后，等待固定的诗句再执行下一个；而后者的意思是在固定的时间执行任务， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice/">
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2013/06/14/java-schedule-task/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">Redis Replication实践</h1>
+      <h1 class="entry-title">Java定时任务</h1>
     
     
       <p class="meta">
@@ -83,7 +84,7 @@
   
 
 
-<time datetime="2013-01-08T00:39:00+08:00" pubdate data-updated="true">Jan 8<span>th</span>, 2013</time>
+<time datetime="2013-06-14T21:56:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -92,30 +93,98 @@
   </header>
 
 
-<div class="entry-content"><p>在看了redis replication的官方文档之后，有必要亲自实践一下。下面就在同一个机器上开两个实例，两个不同的端口6379和6380，一个master一个slave。</p>
+<div class="entry-content"><h2>定时任务</h2>
 
-<!-- more -->
+<h3>关于定时任务</h3>
 
+<p>定时任务有两种：</p>
 
-<p>首先配置master，bind ip 127.0.0.1，开启master，监听在127.0.0.1:6379，默认master是可读写的。</p>
-
-<p>然后配置slave，需要将以下配置的注释删掉：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#slaveof &lt;masterip&gt; &lt;masterport&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后将masterip修改为127.0.0.1，masterport修改为6379。此外还需要将修改以下两行：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bind 127.0.0.1
-</span><span class='line'>port 6380</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li>固定延时的定时任务，即一个任务结束等待固定时间后再执行下一个；</li>
+<li>固定频率的定时任务，即任务在固定时常后开始执行。</li>
+</ul>
 
 
-<p>启动slave，这样slave就监听在6380端口，同时它是127.0.0.1::6379的slave。默认情况下slave是只读不写的，可以写数据进行确认。</p>
+<p>前者的意思是，任务完成之后，等待固定的诗句再执行下一个；而后者的意思是在固定的时间执行任务，如果前一次任务的结束时间已经超过了下一次任务开始的时间，那么就会立即执行。</p>
 
-<p>注意如果master配置了auth的话，也需要配置slave的auth密码，配置成和master一样。</p>
+<h3>定时任务实现方案</h3>
+
+<p>Timer和ScheduledThreadPoolExecutor都可以完成定时任务的工作，也都支持上面的两种方式。</p>
+
+<p>下面分别给出两个类的示例：</p>
+
+<pre><code>package com.concurrent.basic;
+import java.util.Timer;
+import java.util.TimerTask;
+public class TimerTest {
+    private Timer timer = new Timer();
+
+    // 启动计时器
+    public void lanuchTimer() {
+        timer.schedule(new TimerTask() {
+            public void run() {
+                // do sth...
+            }
+        }, 1000 * 3, 500);
+    }
+
+    public static void main(String[] args) throws Exception {
+        TimerTest test = new TimerTest();
+        test.lanuchTimer();
+    }
+}
+</code></pre>
+
+<p>这个例子是固定延时的任务，详细文档见<a href="http://docs.oracle.com/javase/7/docs/api/">Timer</a>，文档中，也有scheduleAtFixedRate方法来调用固定频率的任务。</p>
+
+<pre><code>package com.concurrent.basic;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+public class ScheduledExecutorTest {
+
+    public ScheduledExecutorService scheduExec = Executors
+            .newScheduledThreadPool(1);
+
+    // 启动计时器
+    public void lanuchTimer() {
+        Runnable task = new Runnable() {
+            public void run() {
+                // do sth...
+            }
+        };
+        scheduExec.scheduleWithFixedDelay(task, 1000 * 5, 1000 * 10,
+                TimeUnit.MILLISECONDS);
+    }
+
+    public static void main(String[] args) throws Exception {
+        ScheduledExecutorTest test = new ScheduledExecutorTest();
+        test.lanuchTimer();
+    }
+}
+</code></pre>
+
+<p>这个例子是固定延时的任务示例，也可以调用scheduleAtFixedRate方法来启用固定频率的任务。</p>
+
+<h3>比较</h3>
+
+<ul>
+<li>Timer对系统时钟是敏感的，而ScheduledThreadPoolExecutor不是；</li>
+<li>Timer只有一个执行线程，所以如果一个线程延时太久了，会影响其他的固定延时任务。而ScheduledThreadPoolExecutor可以配置任意数量的线程，并且你可以完成控制你所创建的这些线程；</li>
+<li><em>在Timer中，运行时错误会直接杀死线程，也就会导致线程挂掉，后面计划的任务也不会执行。ScheduledThreadPoolExecutor不仅可以给你catch住运行时异常，还可以对它们进行处理。抛出异常的任务会挂掉，但是其他的定时任务会继续执行。</em></li>
+</ul>
+
+
+<h3>相关链接</h3>
+
+<ul>
+<li><a href="http://marshal.easymorse.com/archives/3136">通过java concurrent实现定时任务</a></li>
+<li><a href="http://batitan.iteye.com/blog/253483">定时任务:Java中Timer和TimerTask的使用</a></li>
+<li><a href="http://stackoverflow.com/questions/409932/java-timer-vs-executorservice">Java Timer vs ExecutorService?</a></li>
+</ul>
+
 </div>
 
 
@@ -138,12 +207,12 @@
   
 
 
-<time datetime="2013-01-08T00:39:00+08:00" pubdate data-updated="true">Jan 8<span>th</span>, 2013</time>
+<time datetime="2013-06-14T21:56:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/redis/'>redis</a>
+    <a class='category' href='/blog/categories/java/'>java</a>
   
 </span>
 
@@ -161,7 +230,7 @@
 (function(){
   var _w = 72 , _h = 16;
   var param = {
-    url:'http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice/',
+    url:'http://zhangdian.github.com/blog/2013/06/14/java-schedule-task/',
     type:'3',
     count:'1', /**是否显示分享数，1显示(可选)*/
     appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
@@ -183,10 +252,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/01/07/solve-the-problem-of-bad-file-number-where-ssh-on-port-22/" title="Previous Post: 解决当rake deploy的时候，报Bad file number:22的错误">&laquo; 解决当rake deploy的时候，报Bad file number:22的错误</a>
+        <a class="basic-alignment left" href="/blog/2013/05/28/js-cross-domain-post/" title="Previous Post: js cross domain post">&laquo; js cross domain post</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/03/27/java-class-loader/" title="Next Post: java类加载器">java类加载器 &raquo;</a>
       
     </p>
   </footer>
@@ -260,7 +327,7 @@
     height="16" 
     frameborder="0" 
     src=
-      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2013/06/14/java-schedule-task/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
   </iframe>
   </span>
 <html xmlns:wb=“http://open.weibo.com/wb”>
@@ -295,8 +362,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice/';
-        var disqus_url = 'http://zhangdian.github.com/blog/2013/01/08/redis-replication-in-practice/';
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2013/06/14/java-schedule-task/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2013/06/14/java-schedule-task/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -9,8 +9,8 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="定时任务 关于定时任务 定时任务有两种： 固定延时的定时任务，即一个任务结束等待固定时间后再执行下一个；
+固定频率的定时任务，即任务在固定时常后开始执行。 前者的意思是，任务完成之后，等待固定的诗句再执行下一个；而后者的意思是在固定的时间执行任务， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,135 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/14/java-schedule-task/">Java定时任务</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-14T21:56:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/14/java-schedule-task/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>定时任务</h2>
+
+<h3>关于定时任务</h3>
+
+<p>定时任务有两种：</p>
+
+<ul>
+<li>固定延时的定时任务，即一个任务结束等待固定时间后再执行下一个；</li>
+<li>固定频率的定时任务，即任务在固定时常后开始执行。</li>
+</ul>
+
+
+<p>前者的意思是，任务完成之后，等待固定的诗句再执行下一个；而后者的意思是在固定的时间执行任务，如果前一次任务的结束时间已经超过了下一次任务开始的时间，那么就会立即执行。</p>
+
+<h3>定时任务实现方案</h3>
+
+<p>Timer和ScheduledThreadPoolExecutor都可以完成定时任务的工作，也都支持上面的两种方式。</p>
+
+<p>下面分别给出两个类的示例：</p>
+
+<pre><code>package com.concurrent.basic;
+import java.util.Timer;
+import java.util.TimerTask;
+public class TimerTest {
+    private Timer timer = new Timer();
+
+    // 启动计时器
+    public void lanuchTimer() {
+        timer.schedule(new TimerTask() {
+            public void run() {
+                // do sth...
+            }
+        }, 1000 * 3, 500);
+    }
+
+    public static void main(String[] args) throws Exception {
+        TimerTest test = new TimerTest();
+        test.lanuchTimer();
+    }
+}
+</code></pre>
+
+<p>这个例子是固定延时的任务，详细文档见<a href="http://docs.oracle.com/javase/7/docs/api/">Timer</a>，文档中，也有scheduleAtFixedRate方法来调用固定频率的任务。</p>
+
+<pre><code>package com.concurrent.basic;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+public class ScheduledExecutorTest {
+
+    public ScheduledExecutorService scheduExec = Executors
+            .newScheduledThreadPool(1);
+
+    // 启动计时器
+    public void lanuchTimer() {
+        Runnable task = new Runnable() {
+            public void run() {
+                // do sth...
+            }
+        };
+        scheduExec.scheduleWithFixedDelay(task, 1000 * 5, 1000 * 10,
+                TimeUnit.MILLISECONDS);
+    }
+
+    public static void main(String[] args) throws Exception {
+        ScheduledExecutorTest test = new ScheduledExecutorTest();
+        test.lanuchTimer();
+    }
+}
+</code></pre>
+
+<p>这个例子是固定延时的任务示例，也可以调用scheduleAtFixedRate方法来启用固定频率的任务。</p>
+
+<h3>比较</h3>
+
+<ul>
+<li>Timer对系统时钟是敏感的，而ScheduledThreadPoolExecutor不是；</li>
+<li>Timer只有一个执行线程，所以如果一个线程延时太久了，会影响其他的固定延时任务。而ScheduledThreadPoolExecutor可以配置任意数量的线程，并且你可以完成控制你所创建的这些线程；</li>
+<li><em>在Timer中，运行时错误会直接杀死线程，也就会导致线程挂掉，后面计划的任务也不会执行。ScheduledThreadPoolExecutor不仅可以给你catch住运行时异常，还可以对它们进行处理。抛出异常的任务会挂掉，但是其他的定时任务会继续执行。</em></li>
+</ul>
+
+
+<h3>相关链接</h3>
+
+<ul>
+<li><a href="http://marshal.easymorse.com/archives/3136">通过java concurrent实现定时任务</a></li>
+<li><a href="http://batitan.iteye.com/blog/253483">定时任务:Java中Timer和TimerTask的使用</a></li>
+<li><a href="http://stackoverflow.com/questions/409932/java-timer-vs-executorservice">Java Timer vs ExecutorService?</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -445,49 +574,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/07/email-authentation/">邮件验证</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-07T22:04:00+08:00" pubdate data-updated="true">Apr 7<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/07/email-authentation/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>要想让邮件准确的到达目标客户的收件箱，最好的方法就是满足ISPs的需要，其中对邮件信息进行验证是很重要的部分。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/04/07/email-authentation/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -505,6 +591,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/14/java-schedule-task/">Java定时任务</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/28/js-cross-domain-post/">js cross domain post</a>
@@ -540,10 +630,6 @@
     
       <li class="post">
         <a href="/blog/2013/04/07/how-to-improve-email-reputation/">how to improve email reputation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/07/email-authentation/">邮件验证</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="定时任务 关于定时任务 定时任务有两种： 固定延时的定时任务，即一个任务结束等待固定时间后再执行下一个；
-固定频率的定时任务，即任务在固定时常后开始执行。 前者的意思是，任务完成之后，等待固定的诗句再执行下一个；而后者的意思是在固定的时间执行任务， &hellip;">
+  <meta name="description" content="HashMap、TreeMap、HashTable、LinkedHashMap、ConcurrentHashMap 经常用到HashMap，也经常听到HashTable和HashMap之间的故事，故google了一番，总结一下常用的各种Map。 概述 HashMap：实现上和HashTable相似 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +70,63 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/06/14/java-hashtable-hashmap/">JAVA HashTable & HashMap & &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-14T22:05:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/14/java-hashtable-hashmap/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>HashMap、TreeMap、HashTable、LinkedHashMap、ConcurrentHashMap</h2>
+
+<p>经常用到HashMap，也经常听到HashTable和HashMap之间的故事，故google了一番，总结一下常用的各种Map。</p>
+
+<h3>概述</h3>
+
+<p>HashMap：实现上和HashTable相似，并且keys和values是无序的</p>
+
+<p>TreeMap：基于红黑树结构实现，并且key是排好序的</p>
+
+<p>LinkedHashMap：保持插入时的顺序</p>
+
+<p>HashTable：和HashMap相比，是线程安全的</p>
+
+<p>ConcurrentHashMap：相比HashMap，是线程安全的，但是推荐使用它来替代HashTable，因为性能更高，具体见后面</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/06/14/java-hashtable-hashmap/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/06/14/java-schedule-task/">Java定时任务</a></h1>
     
     
@@ -110,86 +166,12 @@
 
 <p>前者的意思是，任务完成之后，等待固定的诗句再执行下一个；而后者的意思是在固定的时间执行任务，如果前一次任务的结束时间已经超过了下一次任务开始的时间，那么就会立即执行。</p>
 
-<h3>定时任务实现方案</h3>
-
-<p>Timer和ScheduledThreadPoolExecutor都可以完成定时任务的工作，也都支持上面的两种方式。</p>
-
-<p>下面分别给出两个类的示例：</p>
-
-<pre><code>package com.concurrent.basic;
-import java.util.Timer;
-import java.util.TimerTask;
-public class TimerTest {
-    private Timer timer = new Timer();
-
-    // 启动计时器
-    public void lanuchTimer() {
-        timer.schedule(new TimerTask() {
-            public void run() {
-                // do sth...
-            }
-        }, 1000 * 3, 500);
-    }
-
-    public static void main(String[] args) throws Exception {
-        TimerTest test = new TimerTest();
-        test.lanuchTimer();
-    }
-}
-</code></pre>
-
-<p>这个例子是固定延时的任务，详细文档见<a href="http://docs.oracle.com/javase/7/docs/api/">Timer</a>，文档中，也有scheduleAtFixedRate方法来调用固定频率的任务。</p>
-
-<pre><code>package com.concurrent.basic;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-public class ScheduledExecutorTest {
-
-    public ScheduledExecutorService scheduExec = Executors
-            .newScheduledThreadPool(1);
-
-    // 启动计时器
-    public void lanuchTimer() {
-        Runnable task = new Runnable() {
-            public void run() {
-                // do sth...
-            }
-        };
-        scheduExec.scheduleWithFixedDelay(task, 1000 * 5, 1000 * 10,
-                TimeUnit.MILLISECONDS);
-    }
-
-    public static void main(String[] args) throws Exception {
-        ScheduledExecutorTest test = new ScheduledExecutorTest();
-        test.lanuchTimer();
-    }
-}
-</code></pre>
-
-<p>这个例子是固定延时的任务示例，也可以调用scheduleAtFixedRate方法来启用固定频率的任务。</p>
-
-<h3>比较</h3>
-
-<ul>
-<li>Timer对系统时钟是敏感的，而ScheduledThreadPoolExecutor不是；</li>
-<li>Timer只有一个执行线程，所以如果一个线程延时太久了，会影响其他的固定延时任务。而ScheduledThreadPoolExecutor可以配置任意数量的线程，并且你可以完成控制你所创建的这些线程；</li>
-<li><em>在Timer中，运行时错误会直接杀死线程，也就会导致线程挂掉，后面计划的任务也不会执行。ScheduledThreadPoolExecutor不仅可以给你catch住运行时异常，还可以对它们进行处理。抛出异常的任务会挂掉，但是其他的定时任务会继续执行。</em></li>
-</ul>
-
-
-<h3>相关链接</h3>
-
-<ul>
-<li><a href="http://marshal.easymorse.com/archives/3136">通过java concurrent实现定时任务</a></li>
-<li><a href="http://batitan.iteye.com/blog/253483">定时任务:Java中Timer和TimerTask的使用</a></li>
-<li><a href="http://stackoverflow.com/questions/409932/java-timer-vs-executorservice">Java Timer vs ExecutorService?</a></li>
-</ul>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/06/14/java-schedule-task/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -536,44 +518,6 @@ public class ScheduledExecutorTest {
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/07/how-to-improve-email-reputation/">How to Improve Email Reputation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-07T22:05:00+08:00" pubdate data-updated="true">Apr 7<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/07/how-to-improve-email-reputation/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -591,6 +535,10 @@ public class ScheduledExecutorTest {
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/14/java-hashtable-hashmap/">JAVA HashTable & HashMap & &#8230;</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/06/14/java-schedule-task/">Java定时任务</a>
@@ -626,10 +574,6 @@ public class ScheduledExecutorTest {
     
       <li class="post">
         <a href="/blog/2013/04/08/linux-crontab/">linux crontab</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/07/how-to-improve-email-reputation/">how to improve email reputation</a>
       </li>
     
   </ul>

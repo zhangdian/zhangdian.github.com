@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-06-14T22:02:30+08:00</updated>
+  <updated>2013-06-18T00:47:33+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,87 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JAVA HashTable & HashMap & ...]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/06/14/java-hashtable-hashmap/"/>
+    <updated>2013-06-14T22:05:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/06/14/java-hashtable-hashmap</id>
+    <content type="html"><![CDATA[<h2>HashMap、TreeMap、HashTable、LinkedHashMap、ConcurrentHashMap</h2>
+
+<p>经常用到HashMap，也经常听到HashTable和HashMap之间的故事，故google了一番，总结一下常用的各种Map。</p>
+
+<h3>概述</h3>
+
+<p>HashMap：实现上和HashTable相似，并且keys和values是无序的</p>
+
+<p>TreeMap：基于红黑树结构实现，并且key是排好序的</p>
+
+<p>LinkedHashMap：保持插入时的顺序</p>
+
+<p>HashTable：和HashMap相比，是线程安全的</p>
+
+<p>ConcurrentHashMap：相比HashMap，是线程安全的，但是推荐使用它来替代HashTable，因为性能更高，具体见后面</p>
+
+<!-- more -->
+
+
+<h3>HashMap</h3>
+
+<p>如果HashMap的key是自定义的话，需要重载hashcode和equals方法。因为在HashMap中，不允许有两个完全相同的元素的存在。默认情况下，会使用Object类的hashcode和equals方法。其中，hashcode方法中，不同的对象返回不一样的整数，equals方法只在两个对象引用同一个对象时返回true。</p>
+
+<p>在<a href="http://www.programcreek.com/2011/07/java-equals-and-hashcode-contract/">参考2</a>中，详细讲解了hashcode和equals的原理：</p>
+
+<pre><code>在一个HashMap中查找一个元素的时候，
+首先会调用HashCode方法，寻找相应的桶位，
+然后在这个桶对应的array中，线性寻找，调用equals方法进行比较，
+直到遍历完这个array，或者找到待查的元素。
+另外，在该示例中，详细给出了equals和hashcode方法是实现示例。
+</code></pre>
+
+<h3>HashMap vs HashTable</h3>
+
+<p>经常听到关于HashMap和HashTable的言论，Java Doc上说：</p>
+
+<pre><code>From Java Doc:  The HashMap class is roughly equivalent to Hashtable, 
+except that it is unsynchronized and permits nulls.
+</code></pre>
+
+<p>也就是说，两者几乎是一样的一样的，只是HashMap不是线程安全的，并且允许在keys和values中出现null值。</p>
+
+<p>而java5中，也用ConcurrentHashMap来替代了HashTable，两者使用的锁机制是不一样的。</p>
+
+<p>Hashtable中采用的锁机制是一次锁住整个hash表，从而同一时刻只能由一个线程对其进行操作；而ConcurrentHashMap中则是一次锁住一个桶。ConcurrentHashMap默认将hash表分为16个桶，诸如get,put,remove等常用操作只锁当前需要用到的桶。这样，原来只能一个线程进入，现在却能同时有16个写线程执行，并发性能的提升是显而易见的。上面说到的16个线程指的是写线程，而读操作大部分时候都不需要用到锁。只有在size等操作时才需要锁住整个hash表。</p>
+
+<h3>TreeMap</h3>
+
+<p>TreeMap是根据key来进行排序的，必须实现Comparable接口，实现其中的方法：</p>
+
+<pre><code>@Override
+public int compareTo(Dog o) {
+    return  o.size - this.size;
+}
+</code></pre>
+
+<p>具体事例见<a href="http://java.dzone.com/articles/hashmap-vs-treemap-vs">参考1</a>。</p>
+
+<h3>LinkedHashMap</h3>
+
+<p>LinkedHashMap是HashMap的子类，意味着它继承了HashMap的属性。除此之外，它保存了元素插入的顺序。</p>
+
+<h3>参考</h3>
+
+<ol>
+<li><a href="http://java.dzone.com/articles/hashmap-vs-treemap-vs">HashMap vs. TreeMap vs. HashTable vs. LinkedHashMap</a></li>
+<li><a href="http://www.programcreek.com/2011/07/java-equals-and-hashcode-contract/">Java equals() and hashCode() Contract – Code Example</a></li>
+<li><a href="http://developer.51cto.com/art/201102/246431.htm">Hashtable和HashMap引发的血案</a></li>
+<li><a href="http://stackoverflow.com/questions/40471/differences-between-hashmap-and-hashtable">Differences between HashMap and Hashtable?</a></li>
+<li><a href="http://blog.csdn.net/itm_hadf/article/details/7506529">java集合框架【3】 java1.5新特性 ConcurrentHashMap、Collections.synchronizedMap、Hashtable讨论</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_5157093c0100hm3y.html">SynchronizedMap和ConcurrentHashMap的深入分析</a></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java定时任务]]></title>
@@ -31,6 +112,9 @@
 
 
 <p>前者的意思是，任务完成之后，等待固定的诗句再执行下一个；而后者的意思是在固定的时间执行任务，如果前一次任务的结束时间已经超过了下一次任务开始的时间，那么就会立即执行。</p>
+
+<!-- more -->
+
 
 <h3>定时任务实现方案</h3>
 
@@ -644,49 +728,6 @@ try {
 <h4>7 相关链接</h4>
 
 <p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/">Java 类加载器</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[java spring的一些best practice]]></title>
-    <link href="http://zhangdian.github.com/blog/2012/12/11/java-spring-some-best-practices/"/>
-    <updated>2012-12-11T15:06:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2012/12/11/java-spring-some-best-practices</id>
-    <content type="html"><![CDATA[<p>一些没写过java，现在一直主要写java，刚才向公司的java大牛请教了一些关于java spring的一些观点，现在总结如下，作为自己的一些best practice。</p>
-
-<!-- more -->
-
-
-<h4>1. 异常处理</h4>
-
-<h5>1.1 什么是异常</h5>
-
-<p>异常分为两种，一种是checked异常，比如IOException、SQLException，一种是unchecked异常。这两种Exception的区别主要是CheckedException需要用try...catch...显示的捕获，而UncheckedException不需要捕获。通常UncheckedException又叫做RuntimeException。</p>
-
-<ul>
-<li>我们常见的RuntimeExcepiton有IllegalArgumentException、IllegalStateException、NullPointerException、IndexOutOfBoundsException等等。</li>
-<li>对于那些CheckedException就不胜枚举了，我们在编写程序过程中try...catch...捕捉的异常都是CheckedException。io包中的IOException及其子类，这些都是CheckedException。</li>
-</ul>
-
-
-<h5>1.2 异常best practice</h5>
-
-<ul>
-<li>如果逻辑比较核心的话，那么就创建一个专门的异常，继承runtimeexception，在这个异常中需要记录能够标示这个异常的一些必要的信息，比如用户id以及基本信息等，来替代日志；</li>
-<li>如果逻辑不是太核心的话，创建通用的异常类，同样继承runtimeexception，在这个异常里记录一些常用的信息；</li>
-</ul>
-
-
-<p>总之，我们自己创建的异常都是继承自runtimeexception的。定义特殊的类是为了记录特殊的信息，而如果没有特殊的信息，那么就使用通用的异常类就行。</p>
-
-<h4>2. spring框架内service和dao调用</h4>
-
-<ul>
-<li>service和dao之间，service和service之间的调用其实没有什么限制，都是可以调用的；</li>
-<li>一般在一个service函数中，通常是调用dao来完成这个函数的功能；</li>
-<li>如果另外一个service中的一个函数，完成了我们现在要完成的一个业务，也可以直接去调用哪个函数即可，而不是去调用dao，然后把那个函数的逻辑重新走一遍，这样做的目的就是省事方便。</li>
-</ul>
-
 ]]></content>
   </entry>
   

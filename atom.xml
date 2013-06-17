@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-06-14T22:02:30+08:00</updated>
+  <updated>2013-06-18T00:47:33+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,87 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JAVA HashTable & HashMap & ...]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/06/14/java-hashtable-hashmap/"/>
+    <updated>2013-06-14T22:05:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/06/14/java-hashtable-hashmap</id>
+    <content type="html"><![CDATA[<h2>HashMap、TreeMap、HashTable、LinkedHashMap、ConcurrentHashMap</h2>
+
+<p>经常用到HashMap，也经常听到HashTable和HashMap之间的故事，故google了一番，总结一下常用的各种Map。</p>
+
+<h3>概述</h3>
+
+<p>HashMap：实现上和HashTable相似，并且keys和values是无序的</p>
+
+<p>TreeMap：基于红黑树结构实现，并且key是排好序的</p>
+
+<p>LinkedHashMap：保持插入时的顺序</p>
+
+<p>HashTable：和HashMap相比，是线程安全的</p>
+
+<p>ConcurrentHashMap：相比HashMap，是线程安全的，但是推荐使用它来替代HashTable，因为性能更高，具体见后面</p>
+
+<!-- more -->
+
+
+<h3>HashMap</h3>
+
+<p>如果HashMap的key是自定义的话，需要重载hashcode和equals方法。因为在HashMap中，不允许有两个完全相同的元素的存在。默认情况下，会使用Object类的hashcode和equals方法。其中，hashcode方法中，不同的对象返回不一样的整数，equals方法只在两个对象引用同一个对象时返回true。</p>
+
+<p>在<a href="http://www.programcreek.com/2011/07/java-equals-and-hashcode-contract/">参考2</a>中，详细讲解了hashcode和equals的原理：</p>
+
+<pre><code>在一个HashMap中查找一个元素的时候，
+首先会调用HashCode方法，寻找相应的桶位，
+然后在这个桶对应的array中，线性寻找，调用equals方法进行比较，
+直到遍历完这个array，或者找到待查的元素。
+另外，在该示例中，详细给出了equals和hashcode方法是实现示例。
+</code></pre>
+
+<h3>HashMap vs HashTable</h3>
+
+<p>经常听到关于HashMap和HashTable的言论，Java Doc上说：</p>
+
+<pre><code>From Java Doc:  The HashMap class is roughly equivalent to Hashtable, 
+except that it is unsynchronized and permits nulls.
+</code></pre>
+
+<p>也就是说，两者几乎是一样的一样的，只是HashMap不是线程安全的，并且允许在keys和values中出现null值。</p>
+
+<p>而java5中，也用ConcurrentHashMap来替代了HashTable，两者使用的锁机制是不一样的。</p>
+
+<p>Hashtable中采用的锁机制是一次锁住整个hash表，从而同一时刻只能由一个线程对其进行操作；而ConcurrentHashMap中则是一次锁住一个桶。ConcurrentHashMap默认将hash表分为16个桶，诸如get,put,remove等常用操作只锁当前需要用到的桶。这样，原来只能一个线程进入，现在却能同时有16个写线程执行，并发性能的提升是显而易见的。上面说到的16个线程指的是写线程，而读操作大部分时候都不需要用到锁。只有在size等操作时才需要锁住整个hash表。</p>
+
+<h3>TreeMap</h3>
+
+<p>TreeMap是根据key来进行排序的，必须实现Comparable接口，实现其中的方法：</p>
+
+<pre><code>@Override
+public int compareTo(Dog o) {
+    return  o.size - this.size;
+}
+</code></pre>
+
+<p>具体事例见<a href="http://java.dzone.com/articles/hashmap-vs-treemap-vs">参考1</a>。</p>
+
+<h3>LinkedHashMap</h3>
+
+<p>LinkedHashMap是HashMap的子类，意味着它继承了HashMap的属性。除此之外，它保存了元素插入的顺序。</p>
+
+<h3>参考</h3>
+
+<ol>
+<li><a href="http://java.dzone.com/articles/hashmap-vs-treemap-vs">HashMap vs. TreeMap vs. HashTable vs. LinkedHashMap</a></li>
+<li><a href="http://www.programcreek.com/2011/07/java-equals-and-hashcode-contract/">Java equals() and hashCode() Contract – Code Example</a></li>
+<li><a href="http://developer.51cto.com/art/201102/246431.htm">Hashtable和HashMap引发的血案</a></li>
+<li><a href="http://stackoverflow.com/questions/40471/differences-between-hashmap-and-hashtable">Differences between HashMap and Hashtable?</a></li>
+<li><a href="http://blog.csdn.net/itm_hadf/article/details/7506529">java集合框架【3】 java1.5新特性 ConcurrentHashMap、Collections.synchronizedMap、Hashtable讨论</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_5157093c0100hm3y.html">SynchronizedMap和ConcurrentHashMap的深入分析</a></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java定时任务]]></title>
@@ -31,6 +112,9 @@
 
 
 <p>前者的意思是，任务完成之后，等待固定的诗句再执行下一个；而后者的意思是在固定的时间执行任务，如果前一次任务的结束时间已经超过了下一次任务开始的时间，那么就会立即执行。</p>
+
+<!-- more -->
+
 
 <h3>定时任务实现方案</h3>
 
@@ -1205,85 +1289,6 @@ SPF和SenderID的区别是获取Sender的算法不同。</p>
 
 
 <p>continue&#8230;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[java共享类]]></title>
-    <link href="http://zhangdian.github.com/blog/2013/03/27/java-shared-class/"/>
-    <updated>2013-03-27T17:02:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2013/03/27/java-shared-class</id>
-    <content type="html"><![CDATA[<p>共享类特性是从头设计的，它是一个可以打开和关闭的选项，可以减少虚拟内存占用并改进 JVM 启动时间。因此，<strong>它非常适合多个 JVM 运行相似代码的环境或者 JVM 常常重新启动的环境。</strong></p>
-
-<h5>1 类缓存</h5>
-
-<p>类缓存是一个大小固定的共享内存区，它在使用它的 JVM 的生命周期之外仍然持久地存在。一个系统上可以有任意数量的共享类缓存，这只受操作系统设置的限制；<strong>但是一个 JVM 在它的生命周期中只能连接一个缓存。</strong></p>
-
-<!-- more -->
-
-
-<p>JVM 并不拥有缓存，也没有 主/从 JVM 的概念；实际上，任意数量的 JVM 都可以并行地读写缓存。在两种情况下会删除缓存：</p>
-
-<ul>
-<li>使用 JVM 实用程序显式地销毁它</li>
-<li>或者操作系统重新启动时（缓存无法在操作系统重新启动时持久存在）。</li>
-</ul>
-
-
-<p>缓存的大小无法增长，当它被填满时，JVM 仍然可以从其中装载类，但是不能再向其中添加任何类。</p>
-
-<h5>2 如何缓存类</h5>
-
-<p>当 JVM 装载一个类时，它先查看需要的类是否已经在缓存中存在。如果是这样，那么它从缓存装载这个类。否则，它从文件系统装载这个类并将其写到缓存中（在 defineClass() 调用中进行这一操作）。</p>
-
-<p>不进行共享的 JVM 采用以下类装载器查找次序：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>类装载器缓存
-</span><span class='line'>父类装载器
-</span><span class='line'>文件系统</span></code></pre></td></tr></table></div></figure>
-
-
-<p>进行共享的 JVM 采用以下次序：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>__类装载器缓存__
-</span><span class='line'>父类装载器
-</span><span class='line'>__共享缓存__
-</span><span class='line'>文件系统</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>3 缓存类的哪些部分</h5>
-
-<p>在 JVM 的 IBM 实现中，Java 类分成两个部分：</p>
-
-<ul>
-<li>一个称为 ROMClass 的只读部分，其中包含不可变的所有类数据；</li>
-<li>一个 RAMClass 部分，其中包含可变的数据，比如静态类变量。</li>
-</ul>
-
-
-<p>RAMClass 指向 ROMClass 中的数据，但是这两部分是完全分开的，这意味着 ROMClass 可以十分安全地在 JVM 之间共享，甚至在同一个 JVM 中的 RAMClass 之间共享。</p>
-
-<h5>4 共享类好处</h5>
-
-<ul>
-<li>因为大部分类数据存储在 ROMClass 中，因此可以节省虚拟内存；</li>
-<li>已经填充的缓存还会显著改进 JVM 启动时间，因为每个缓存的类的一部分定义工作已经完成了，而且会从内存装载类而不是从文件系统装载；</li>
-<li>填充新缓存导致的启动时间开销并不显著，因为每个类只需在定义时重新定位到缓存中；</li>
-</ul>
-
-
-<h5>5 如果文件系统中的类发生变化</h5>
-
-<p>因为缓存是无限期持久存在的，文件系统更新可能会使缓存中的类失效。因此，当类装载器请求一个共享的类时，缓存代码要负责确保返回的类总是与从文件系统装载的类完全一样。当装载类时这一检查会透明地进行，所以用户可以在共享类缓存的生命周期内修改和更新任意类，系统总会装载正确的类。</p>
-
-<p>JVM 探测文件系统更新的方法是，将时间戳值存储在缓存中并在装载每个类时比较缓存的值和实际值。如果它探测到一个 JAR 文件已经更新了，那么它不知道哪些类已经更新了，所以缓存中所有从这个 JAR 装载的类都立即被标为过时的，不能再从缓存中装载它们。当从文件系统装载这个 JAR 中的类并重新添加到缓存中时，只添加实际修改过的类；那些没有修改的类实际上没有过时。</p>
 ]]></content>
   </entry>
   

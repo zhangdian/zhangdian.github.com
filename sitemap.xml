@@ -160,14 +160,18 @@
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/2013/06/14/java-schedule-task/</loc>
-        <lastmod>2013-06-14T22:01:47+08:00</lastmod>
+        <lastmod>2013-06-14T22:05:07+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://zhangdian.github.com/blog/2013/06/14/java-hashtable-hashmap/</loc>
+        <lastmod>2013-06-18T00:45:25+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/blog/archives/</loc>
-        <lastmod>2013-06-14T22:01:47+08:00</lastmod>
+        <lastmod>2013-06-18T00:45:25+08:00</lastmod>
     </url>
     <url>
         <loc>http://zhangdian.github.com/</loc>
-        <lastmod>2013-06-14T22:01:47+08:00</lastmod>
+        <lastmod>2013-06-18T00:45:25+08:00</lastmod>
     </url>
 </urlset>

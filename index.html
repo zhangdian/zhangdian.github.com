@@ -9,7 +9,7 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="HashMap、TreeMap、HashTable、LinkedHashMap、ConcurrentHashMap 经常用到HashMap，也经常听到HashTable和HashMap之间的故事，故google了一番，总结一下常用的各种Map。 概述 HashMap：实现上和HashTable相似 &hellip;">
+  <meta name="description" content="JSP页面刷新 下面总结JSP页面中的三种刷新方法： 在html中设置 在 &lt;title&gt;bd17kaka&lt;/title&gt; 之後加入下面这一行即可： &lt;META HTTP-EQUIV="Refresh" content="10"&gt; 意思是每10秒钟刷新一次页面 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,239 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/25/html-page-refresh/">JSP页面刷新</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-25T21:33:00+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/25/html-page-refresh/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>JSP页面刷新</h2>
+
+<p>下面总结JSP页面中的三种刷新方法：</p>
+
+<h3>在html中设置</h3>
+
+<p>在</p>
+
+<pre><code>&lt;title&gt;bd17kaka&lt;/title&gt;
+</code></pre>
+
+<p>之後加入下面这一行即可：</p>
+
+<pre><code>&lt;META HTTP-EQUIV="Refresh" content="10"&gt;
+</code></pre>
+
+<p>意思是每10秒钟刷新一次页面。</p>
+
+<h3>在JSP页面中设置</h3>
+
+<p>加入</p>
+
+<pre><code>&lt;% response.setHeader("refresh","1"); %&gt;
+</code></pre>
+
+<p>即可，意思是每一秒钟刷新一次。</p>
+
+<p>也可以这样，使页面跳转到另外一个页面：</p>
+
+<pre><code>&lt;%  
+    response.setHeader("refresh","30;URL=http://www.sina.com");  
+%&gt;
+</code></pre>
+
+<h3>使用JS</h3>
+
+<p>加入如下JS代码：</p>
+
+<pre><code>&lt;script language="javascript"&gt;
+    setTimeout("self.location.reload();",1000);
+&lt;script&gt;
+</code></pre>
+
+<p>意思是每一秒钟刷新一次。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/25/java-deep-copy/">JAVA中的浅拷贝和深拷贝</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-25T21:32:00+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/25/java-deep-copy/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>JAVA中的浅拷贝和深拷贝(shallow copy and deep copy)</h2>
+
+<h3>一个示例</h3>
+
+<p>首先要区分&#8221;copy a value&#8221;和&#8221;copy an object&#8221;之间的区别：</p>
+
+<pre><code>// copy a value
+int val   = 1;
+int cpVal = val;
+
+// copy a value(the object reference for the array above)
+int[] val   = new int[]{42};
+int[] cpVal = val;
+
+// copy a object
+StringBuffer object   = new StringBuffer("I am a object");
+StringBuffer cpObject = new StringBuffer(object);
+</code></pre>
+
+<p>简单的说，赋值操作都是&#8221;copy a value&#8221;。如果想要&#8221;copy an object&#8221;，需要显式的或者在内部进行类似&#8221;new&#8221;的操作。</p>
+
+<h3>对象(object)的浅拷贝和深拷贝</h3>
+
+<p>浅拷贝意味着仅仅拷贝对象的一层，而深拷贝意味着拷贝对象对于一层的数据。那么问题就是，怎么去定义一层？</p>
+
+<p>考虑下面的例子：</p>
+
+<pre><code>public class Example {
+    public int foo;
+    public int[] bar;
+    public Example() { };
+    public Example(int foo, int[] bar) { this.foo = foo; this.bar = bar; };
+}
+
+Example eg1 = new Example(1, new int[]{1, 2});
+</code></pre>
+
+<p>下面两个例子分别执行了对eg1的<strong>浅拷贝和深拷贝</strong>：</p>
+
+<pre><code>Example eg2 = new Example(eg1.foo, eg1.bar);
+Example eg2 = new Example(eg1.foo, Arrays.copy(eg1.bar));
+</code></pre>
+
+<h3>clone方法</h3>
+
+<p>每一个类和array都包含这个方法，它的功能是创建目的对象的一个拷贝，然而要注意以下几点：</p>
+
+<ul>
+<li>deep无法确定到底是多少层？两层？三层？还是所有链接的对象</li>
+<li>实际上，文档并没有说明clone是否创建一个新的对象</li>
+</ul>
+
+
+<p>下面是javadoc对于clone的解释：</p>
+
+<pre><code>"Creates and returns a copy of this object. 
+The precise meaning of "copy" 
+may depend on the class of the object. 
+
+The general intent is that, for any object x, 
+the expression x.clone() != x will be true, 
+and that 
+the expression x.clone().getClass() == x.getClass() 
+will be true, 
+but these are not absolute requirements. 
+
+While it is typically the case that 
+x.clone().equals(x) will be true, 
+this is not an absolute requirement."
+</code></pre>
+
+<h3>Java List深拷贝实现</h3>
+
+<p>使用List的addAll方法就可以deep copy源列表中的所有元素(前提是list内部元素执行浅拷贝即可)：</p>
+
+<pre><code>public static void main(String[] args) {
+
+    List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+    list.add("1");
+    list.add("2");
+
+    // 创建dest list，将源list的所有值都拷贝过去
+    List&lt;String&gt; dest = new ArrayList&lt;String&gt;();
+    dest.addAll(list);
+
+    // 在dest list中添加一个元素，修改一个元素
+    dest.add("3");
+    dest.set(0, "2");
+
+    // 打印两个数组
+    for (String item : list) {
+        System.out.println(item);
+    }
+    System.out.println("--------------------------------");
+    for (String item : dest) {
+        System.out.println(item);
+    }
+    System.out.println("--------------------------------");
+}
+</code></pre>
+
+<p>输出：</p>
+
+<pre><code>1
+2
+--------------------------------
+2
+2
+3
+--------------------------------
+</code></pre>
+
+<h3>参考</h3>
+
+<p><a href="http://stackoverflow.com/questions/6182565/java-deep-copy-shallow-copy-clone">Java :deep copy, shallow copy, clone</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -427,97 +660,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/08/what-is-email-reputation/">什么是邮件信誉度</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-08T22:22:00+08:00" pubdate data-updated="true">Apr 8<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/08/what-is-email-reputation/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h5>什么是邮件信誉度</h5>
-
-<p>邮件信誉度就想信用卡积分一样，你有一个初始值，需要一段时间慢慢积攒成一个好的信誉度，也有可能一瞬间摧毁你的信誉度。所以，即使你有一个好的信誉度，也不意味着你可以做任意的事情。</p>
-
-<h5>什么会影响邮件信誉度</h5>
-
-<p>以下这些因素经常被反垃圾邮件工具用来作为标准：</p>
-
-<ul>
-<li>用户report spam的数量</li>
-<li>发往不存在邮箱地址的邮件比例</li>
-<li>命中spam trap的频率</li>
-<li>邮件发出去多长时间，邮件接收者就点击取消订阅</li>
-<li>容量，邮件发送频率已经邮件发送量</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/08/linux-crontab/">Linux Crontab</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-08T22:21:00+08:00" pubdate data-updated="true">Apr 8<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/08/linux-crontab/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -535,6 +677,14 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/html-page-refresh/">JSP页面刷新</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/java-deep-copy/">JAVA中的浅拷贝和深拷贝</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/06/14/java-hashtable-hashmap/">JAVA HashTable & HashMap & &#8230;</a>
@@ -566,14 +716,6 @@
     
       <li class="post">
         <a href="/blog/2013/04/16/dns-lookup-cmds-in-linux/">linux上常见DNS记录查询</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/08/what-is-email-reputation/">什么是邮件信誉度</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/08/linux-crontab/">linux crontab</a>
       </li>
     
   </ul>

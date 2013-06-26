@@ -9,7 +9,7 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="什么是邮件信誉度 邮件信誉度就想信用卡积分一样，你有一个初始值，需要一段时间慢慢积攒成一个好的信誉度，也有可能一瞬间摧毁你的信誉度。所以，即使你有一个好的信誉度，也不意味着你可以做任意的事情。 什么会影响邮件信誉度 以下这些因素经常被反垃圾邮件工具用来作为标准： 用户report spam的数量 &hellip;">
+  <meta name="description" content="首先介绍一个查询DNS记录很好的网站：MXToolBox 查询DKIM记录：dig TXT + short mail._domainkey.domain.com 查询SPF记录：dig TXT +short domain.com 查询MX记录：dig MX domain.com 查询A记录：dig &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/16/dns-lookup-cmds-in-linux/">linux上常见DNS记录查询</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-16T09:40:00+08:00" pubdate data-updated="true">Apr 16<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/16/dns-lookup-cmds-in-linux/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>首先介绍一个查询DNS记录很好的网站：<a href="http://mxtoolbox.com/SuperTool.aspx">MXToolBox</a></p>
+
+<p>查询DKIM记录：dig TXT + short mail._domainkey.domain.com</p>
+
+<p>查询SPF记录：dig TXT +short domain.com</p>
+
+<p>查询MX记录：dig MX domain.com</p>
+
+<p>查询A记录：dig A domain.com</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -432,44 +478,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/02/email-basic-concept/">Email_basic_concept</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-02T23:20:00+08:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/02/email-basic-concept/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -489,6 +497,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/learning-shell/">shell学习笔记</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/06/25/html-page-refresh/">JSP页面刷新</a>
@@ -524,10 +536,6 @@
     
       <li class="post">
         <a href="/blog/2013/05/02/call-java-in-nodejs/">call java in nodejs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/16/dns-lookup-cmds-in-linux/">linux上常见DNS记录查询</a>
       </li>
     
   </ul>

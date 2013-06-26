@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>bd17kaka's blog</title>
+  <title>shell学习笔记 - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
@@ -23,7 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zhangdian.github.com/">
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2013/06/25/learning-shell/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,15 +67,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/06/25/learning-shell/">Shell学习笔记</a></h1>
+      <h1 class="entry-title">Shell学习笔记</h1>
     
     
       <p class="meta">
@@ -93,14 +90,14 @@
 
 <time datetime="2013-06-25T21:46:00+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
         
-         | <a href="/blog/2013/06/25/learning-shell/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>shell学习笔记</h2>
+<div class="entry-content"><h2>shell学习笔记</h2>
 
 <h3>文本处理工具</h3>
 
@@ -280,103 +277,16 @@ tail -n25 -f /var/log/messages
 
 <h2>#</h2>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/25/html-page-refresh/">JSP页面刷新</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">bd17kaka</span></span>
 
-<time datetime="2013-06-25T21:33:00+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/25/html-page-refresh/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>JSP页面刷新</h2>
-
-<p>下面总结JSP页面中的三种刷新方法：</p>
-
-<h3>在html中设置</h3>
-
-<p>在</p>
-
-<pre><code>&lt;title&gt;bd17kaka&lt;/title&gt;
-</code></pre>
-
-<p>之後加入下面这一行即可：</p>
-
-<pre><code>&lt;META HTTP-EQUIV="Refresh" content="10"&gt;
-</code></pre>
-
-<p>意思是每10秒钟刷新一次页面。</p>
-
-<h3>在JSP页面中设置</h3>
-
-<p>加入</p>
-
-<pre><code>&lt;% response.setHeader("refresh","1"); %&gt;
-</code></pre>
-
-<p>即可，意思是每一秒钟刷新一次。</p>
-
-<p>也可以这样，使页面跳转到另外一个页面：</p>
-
-<pre><code>&lt;%  
-    response.setHeader("refresh","30;URL=http://www.sina.com");  
-%&gt;
-</code></pre>
-
-<h3>使用JS</h3>
-
-<p>加入如下JS代码：</p>
-
-<pre><code>&lt;script language="javascript"&gt;
-    setTimeout("self.location.reload();",1000);
-&lt;script&gt;
-</code></pre>
-
-<p>意思是每一秒钟刷新一次。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/25/java-deep-copy/">JAVA中的浅拷贝和深拷贝</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -388,371 +298,66 @@ tail -n25 -f /var/log/messages
   
 
 
-<time datetime="2013-06-25T21:32:00+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/25/java-deep-copy/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>JAVA中的浅拷贝和深拷贝(shallow copy and deep copy)</h2>
-
-<h3>一个示例</h3>
-
-<p>首先要区分&#8221;copy a value&#8221;和&#8221;copy an object&#8221;之间的区别：</p>
-
-<pre><code>// copy a value
-int val   = 1;
-int cpVal = val;
-
-// copy a value(the object reference for the array above)
-int[] val   = new int[]{42};
-int[] cpVal = val;
-
-// copy a object
-StringBuffer object   = new StringBuffer("I am a object");
-StringBuffer cpObject = new StringBuffer(object);
-</code></pre>
-
-<p>简单的说，赋值操作都是&#8221;copy a value&#8221;。如果想要&#8221;copy an object&#8221;，需要显式的或者在内部进行类似&#8221;new&#8221;的操作。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/25/java-deep-copy/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2013-06-25T21:46:00+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
       
-  <header>
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/shell/'>shell</a>
+  
+</span>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2013/06/14/java-hashtable-hashmap/">JAVA HashTable & HashMap & &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
   
 
-
-<time datetime="2013-06-14T22:05:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/14/java-hashtable-hashmap/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>HashMap、TreeMap、HashTable、LinkedHashMap、ConcurrentHashMap</h2>
-
-<p>经常用到HashMap，也经常听到HashTable和HashMap之间的故事，故google了一番，总结一下常用的各种Map。</p>
-
-<h3>概述</h3>
-
-<p>HashMap：实现上和HashTable相似，并且keys和values是无序的</p>
-
-<p>TreeMap：基于红黑树结构实现，并且key是排好序的</p>
-
-<p>LinkedHashMap：保持插入时的顺序</p>
-
-<p>HashTable：和HashMap相比，是线程安全的</p>
-
-<p>ConcurrentHashMap：相比HashMap，是线程安全的，但是推荐使用它来替代HashTable，因为性能更高，具体见后面</p>
-
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'http://zhangdian.github.com/blog/2013/06/25/learning-shell/',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'1930318973', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/14/java-hashtable-hashmap/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/14/java-schedule-task/">Java定时任务</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-14T21:56:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/14/java-schedule-task/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>定时任务</h2>
-
-<h3>关于定时任务</h3>
-
-<p>定时任务有两种：</p>
-
-<ul>
-<li>固定延时的定时任务，即一个任务结束等待固定时间后再执行下一个；</li>
-<li>固定频率的定时任务，即任务在固定时常后开始执行。</li>
-</ul>
-
-
-<p>前者的意思是，任务完成之后，等待固定的诗句再执行下一个；而后者的意思是在固定的时间执行任务，如果前一次任务的结束时间已经超过了下一次任务开始的时间，那么就会立即执行。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/14/java-schedule-task/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment left" href="/blog/2013/06/25/html-page-refresh/" title="Previous Post: JSP页面刷新">&laquo; JSP页面刷新</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/28/js-cross-domain-post/">Js Cross Domain Post</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-28T00:47:00+08:00" pubdate data-updated="true">May 28<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/28/js-cross-domain-post/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/27/spring-web-mvc/">Spring WEB MVC总结</a></h1>
-    
-    
-      <p class="meta">
-        
+    </p>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-27T00:26:00+08:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/27/spring-web-mvc/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>用了这么久的spring web，终于把官方的文档看了看，总结出来下面的文档。</p>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/27/spring-web-mvc/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/27/spring-ioc/">Spring Ioc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-27T00:26:00+08:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/27/spring-ioc/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/25/js-cross-domain/">JS跨域(Get)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-25T00:14:00+08:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/25/js-cross-domain/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h4>什么是跨域</h4>
-
-<p>在JavaScript中，有一个很重要的安全性限制，被称为“Same-Origin Policy”（同源策略）。这一策略对于JavaScript代码能够访问的页面内容做了很重要的限制，即JavaScript只能访问与包含它的文档在同一域下的内容。</p>
-
-<p>所谓同源是指，<strong>域名，协议，端口</strong>相同。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/25/js-cross-domain/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/02/call-java-in-nodejs/">Call Java in Nodejs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-02T22:43:00+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/02/call-java-in-nodejs/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     ﻿<section>
@@ -776,7 +381,7 @@ StringBuffer cpObject = new StringBuffer(object);
       </li>
     
       <li class="post">
-        <a href="/blog/2013/06/14/java-hashtable-hashmap/">JAVA HashTable & HashMap & &#8230;</a>
+        <a href="/blog/2013/06/14/java-hashtable-hashmap/">JAVA HashTable & HashMap & ...</a>
       </li>
     
       <li class="post">
@@ -813,7 +418,7 @@ StringBuffer cpObject = new StringBuffer(object);
     height="16" 
     frameborder="0" 
     src=
-      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/index.html&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2013/06/25/learning-shell/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
   </iframe>
   </span>
 <html xmlns:wb=“http://open.weibo.com/wb”>
@@ -832,6 +437,7 @@ StringBuffer cpObject = new StringBuffer(object);
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -846,7 +452,10 @@ StringBuffer cpObject = new StringBuffer(object);
       var disqus_shortname = 'bd17kakablog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2013/06/25/learning-shell/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2013/06/25/learning-shell/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

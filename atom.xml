@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-07-10T21:57:55+08:00</updated>
+  <updated>2013-07-10T22:38:09+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,280 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ARF介绍]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/07/10/arf/"/>
+    <updated>2013-07-10T22:16:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/07/10/arf</id>
+    <content type="html"><![CDATA[<h2>ARF文件格式</h2>
+
+<p>ARF全称是Abuse Reporting Format。</p>
+
+<p>在feedback loop协议中，当用户点击了“report spam”之后，邮件服务器会给邮件发送方发送一封邮件，该邮件就是ARF格式的。</p>
+
+<!-- more -->
+
+
+<h3>格式要求</h3>
+
+<ul>
+<li>1.multipart/report的参数report-type必须是feedback-report（MUST）</li>
+<li>2.第一部分必须包含人类可读的部分（MUST）</li>
+<li>3.第二部分必须包含message/feedback-report。（MUST）</li>
+<li>4.第三部分的类型是message/rfc822或者text/rfc822-headers。（MUST）</li>
+<li>5.每一个feedback-report只能关联到单个邮件。（MUST）</li>
+<li>6.Subject字段必须和原始邮件的一样（SHOULD），如果不同，不同之处应该仅仅是一个典型的“转发前缀”，比如“FW：”。（MUST）</li>
+<li>7.应该首先使用第三部分，其次是第二部分，第一部分只是解释说明性的东西，它本身不能算是报告的一部分；如果他和其他部分有冲突的话，SHOULD NOT被使用。</li>
+</ul>
+
+
+<h3>message/feedback-report部分的作用</h3>
+
+<p>提供那些从原始邮件中不能轻易得到的信息，但是接受者不能假设这里的信息都是正确的。</p>
+
+<h3>字段</h3>
+
+<p>协议中定义了很多字段，有的字段必须出现，有的字段可选但只能出现一次，有的字段可选且可以出现多次。</p>
+
+<h4>Required Fields</h4>
+
+<ul>
+<li>Feedback-Type</li>
+<li>User-Agent</li>
+<li>Version</li>
+</ul>
+
+
+<h4>Optional Fields Appering Once</h4>
+
+<ul>
+<li>Original-Envelope-Id</li>
+<li>Original-Mail-From</li>
+<li>Arrival-Date</li>
+<li>Reporting-MTA</li>
+<li>Source-IP</li>
+<li>Incidents</li>
+</ul>
+
+
+<h4>Optional Fields Appering Multiple Times</h4>
+
+<ul>
+<li>Authentication-Results</li>
+<li>Original-Rcpt-To</li>
+<li>Reported-Domain</li>
+<li>Reported-URI</li>
+</ul>
+
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://tools.ietf.org/html/rfc5965#section-3.1">RFC5965</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Smtp协议中的各种‘Froms’]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/07/10/some-froms-in-smtp-protocol/"/>
+    <updated>2013-07-10T22:13:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/07/10/some-froms-in-smtp-protocol</id>
+    <content type="html"><![CDATA[<h2>Smtp协议中的各种‘Froms’</h2>
+
+<p>这里主要对Return-Path、From以及Reply-To进行一下区分。</p>
+
+<!-- more -->
+
+
+<h3>Return-Path</h3>
+
+<p>Return-Path通常也被称作Reverse-Path或Envelope-FROM。</p>
+
+<p>Return-Path是在Smtp session期间使用的。只有接受者的邮件服务器会在邮件的头部添加一个Return-Path头部。</p>
+
+<p>Return-Path是Smtp session期间的真实sender，实际上也就是mailfrom命令对应的地址。</p>
+
+<p>如果在邮件头部以及存在了Return-Path头部，那么旧的Return-Path会被删掉，邮件接收服务器会新添加一个Return-Path头部。</p>
+
+<p>session期间产生的任何bounce，都会发送到Return-Path对应的地址。</p>
+
+<p><strong>有的邮件服务器会接收所有的邮件，然后缓存在本地，直到有一个空闲的进程发送这些邮件到接收者的收件箱。如果某个收件人不存在，那么就会发送一个bounce消息到Return-Path对应的地址。</strong></p>
+
+<p>注意，并不是所有的邮件服务器都遵循这样的规则，有些邮件服务器发送bounce消息到From地址。</p>
+
+<h3>From</h3>
+
+<p>From地址也就是在邮件客户端中，进行邮件展示时可以看到发信人地址。如果邮件中没有Reply-To地址，那么所有的人为的邮件回复都会发往From地址。</p>
+
+<h3>Reply-To</h3>
+
+<p>Reply-To由发送者添加，或者是发送者的软件。</p>
+
+<p>所有人为的回复都会回复到这个地址。当邮件客户端用户点击“回复”按钮时，Reply-To地址用于接收人的地址。</p>
+
+<p>任何的服务器都不应该使用Reply-To地址，它是供客户端使用的。</p>
+
+<h3>总结</h3>
+
+<p>当邮件接收服务器要退信的时候，如果设置了Return-Path，那么就会退到这个地址；没有设置的话，退到From地址；</p>
+
+<p>回复的信件会发送到Reply-To，没有设置的话，会回复到From地址。</p>
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/1235534/what-is-the-behavior-difference-between-return-path-reply-to-and-from">difference between return-path, reply-to and from? - Stack Overflow</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用nodejs获取本机内网和外网IP地址]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/07/10/get-ip-addrs-using-nodejs/"/>
+    <updated>2013-07-10T22:10:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/07/10/get-ip-addrs-using-nodejs</id>
+    <content type="html"><![CDATA[<h2>使用nodejs获取内网和外网ip地址</h2>
+
+<!-- more -->
+
+
+<h3>直接上代码</h3>
+
+<pre><code>var os = require('os');
+function getLocalIP() {
+    var map = [];
+    var ifaces = os.networkInterfaces();
+    console.log(ifaces);
+
+    for (var dev in ifaces) {
+        if (dev.indexOf('eth0') != -1) {
+            var tokens = dev.split(':');
+            var dev2 = null;
+            if (tokens.length == 2) {
+                dev2 = 'eth1:' + tokens[1];
+            } else if (tokens.length == 1) {
+                dev2 = 'eth1';
+            }
+            if (null == ifaces[dev2]) {
+                continue;
+            }
+
+            // 找到eth0和eth1分别的ip
+            var ip = null, ip2 = null;
+            ifaces[dev].forEach(function(details) {
+                if (details.family == 'IPv4') {
+                    ip = details.address;
+                }
+            });
+            ifaces[dev2].forEach(function(details) {
+                if (details.family == 'IPv4') {
+                    ip2 = details.address;
+                }
+            });
+            if (null == ip || null == ip2) {
+                continue;
+            }
+
+            // 将记录添加到map中去
+            if (ip.indexOf('10.') == 0 ||
+                ip.indexOf('172.') == 0 ||
+                ip.indexOf('192.') == 0) {
+                map.push({"intranet_ip" : ip, "internet_ip" : ip2});
+            } else {
+                map.push({"intranet_ip" : ip2, "internet_ip" : ip});
+            }
+        }
+    }  
+    return map;
+}
+
+console.log(getLocalIP());
+</code></pre>
+
+<h3>参考</h3>
+
+<p><a href="http://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js/3742915#3742915">nodejs获取本地IP地址</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[java.util.date 和 java.sql.date]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/07/10/java-dot-util-dot-date-and-java-dot-sql-dot-date/"/>
+    <updated>2013-07-10T22:04:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/07/10/java-dot-util-dot-date-and-java-dot-sql-dot-date</id>
+    <content type="html"><![CDATA[<h2>java.util.date 和 java.sql.date</h2>
+
+<h3>java doc解释</h3>
+
+<h4>java.sql.date</h4>
+
+<p>A thin wrapper around a millisecond value that allows JDBC to identify this as an SQL DATE value. A milliseconds value represents the number of milliseconds that have passed since January 1, 1970 00:00:00.000 GMT.</p>
+
+<p>To conform with the definition of SQL DATE, the millisecond values wrapped by a java.sql.Date instance must be &#8216;normalized&#8217; by setting the hours, minutes, seconds, and milliseconds to zero in the particular time zone with which the instance is associated.</p>
+
+<p>java.sql.date是对毫秒时间的简单包装。毫秒时间表示从‘January 1, 1970 00:00:00.000 GMT’到现在的毫秒数。</p>
+
+<p>java.sql.date通过在指定的时区将hours、minutes、seconds、milliseconds设置为0来进行归一化。</p>
+
+<!-- more -->
+
+
+<h4>java.util.date</h4>
+
+<p>The class Date represents a specific instant in time, with millisecond precision.</p>
+
+<p>Although the Date class is intended to reflect coordinated universal time (UTC), it may not do so exactly, depending on the host environment of the Java Virtual Machine. Nearly all modern operating systems assume that 1 day = 24 × 60 × 60 = 86400 seconds in all cases. In UTC, however, about once every year or two there is an extra second, called a &#8220;leap second.&#8221; The leap second is always added as the last second of the day, and always on December 31 or June 30. For example, the last minute of the year 1995 was 61 seconds long, thanks to an added leap second. Most computer clocks are not accurate enough to be able to reflect the leap-second distinction.</p>
+
+<p>java.util.date代表某一特定时刻的时间，精确到毫秒。</p>
+
+<h3>关键区别</h3>
+
+<ul>
+<li>java.util.Date是java中的日期类型，而java.sql.date是JDBC中用于SQL dates的包装类；</li>
+<li>java.util.date表示一天的日期和时间，而java.sql.date仅仅表示日期，sql中用于表示时间的类是java.sql.time，另java.sql.Timestamp代表时间戳，精确到纳秒；</li>
+<li>java.util.date是java.sql.util的父类；</li>
+</ul>
+
+
+<h3>如何使用</h3>
+
+<p>正常情况下用java.util.date，当涉及到处理JDBC的相关操作时，使用java.sql.date。</p>
+
+<p>在PreparedStatement的setter方法中，对于<code>setDate()</code>方法，使用sql.Date对象，对于<code>setTime()</code>方法，使用sql.Time对象，对于<code>setTimestamp()</code>方法，使用sql.Timestamp对象。</p>
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date">java.util.Date vs java.sql.Date - Stack Overflow</a></li>
+<li><a href="http://stackoverflow.com/questions/5298450/difference-between-date-class-in-package-java-util-package-java-sql">Difference between Date class in Package java.util &amp; Package java.sql - Stack Overflow</a></li>
+<li><a href="http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date">java.util.Date vs java.sql.Date - Stack Overflow</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RFCs中的关键词]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/07/10/key-words-in-rfcs/"/>
+    <updated>2013-07-10T22:02:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/07/10/key-words-in-rfcs</id>
+    <content type="html"><![CDATA[<h2>RFC文档中的关键词</h2>
+
+<p>MUST | REQUIRED | SHALL</p>
+
+<p>MUST NOT | SHALL NOT</p>
+
+<p>SHOULD | RECOMMENDED</p>
+
+<p>SHOULD NOT | NOT RECOMMENDED</p>
+
+<p>MAY | OPTIONAL</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[spf介绍]]></title>
@@ -33,6 +307,9 @@
 <p>邮件服务器使用这个DNS来检测来自一个domain(smtp会话的mailfrom的domain)的邮件是否通过一个由domain的管理员认可的host发出。</p>
 
 <p>也就是在DNS上，为一个域名指定几个ip，凡是发送到该域名上的，必须是这几个ip发来的，才被认为是合法的，其他的都是违法的。</p>
+
+<!-- more -->
+
 
 <h3>工作原理</h3>
 
@@ -1231,150 +1508,6 @@ try{cb({&#8220;id&#8221;: 123, &#8220;name&#8221; : &#8220;json&#8221;});}catch(
     <link href="http://zhangdian.github.com/blog/2013/04/07/how-to-improve-email-reputation/"/>
     <updated>2013-04-07T22:05:00+08:00</updated>
     <id>http://zhangdian.github.com/blog/2013/04/07/how-to-improve-email-reputation</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[邮件验证]]></title>
-    <link href="http://zhangdian.github.com/blog/2013/04/07/email-authentation/"/>
-    <updated>2013-04-07T22:04:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2013/04/07/email-authentation</id>
-    <content type="html"><![CDATA[<p>要想让邮件准确的到达目标客户的收件箱，最好的方法就是满足ISPs的需要，其中对邮件信息进行验证是很重要的部分。</p>
-
-<!-- more -->
-
-
-<h4>什么是邮件验证</h4>
-
-<p>主要有三个部分的邮件验证：</p>
-
-<h5>IP反解</h5>
-
-<p>对于设置了反向解析的IP认为是固定IP，可以追查到使用人。如果发了大量垃圾邮件可以通知IP管理单位协助封停。而对于没有反向解的IP被认为是动态IP，或不可信IP，被大量用来发送垃圾邮件。</p>
-
-<h5>SenderID / SPF</h5>
-
-<p>SenderID和SPF是基于IP的验证。在这种验证机制中，Sender指定哪些IP是属于一个指定的域名的（Sender的域名）。</p>
-
-<p>当一个Sender请求一个到ISP得连接的时候，这个ISP使用这个技术，到 DNS上查询这个IP是否在这个域名的SPF记录下面，也就是这个IP有没有使用这个域名发送邮件的权限。</p>
-
-<p>Gmail和Yahoo会验证SPF，Hotmail会验证SenderID。
-SPF和SenderID的区别是获取Sender的算法不同。</p>
-
-<h5>Domain Keys / DKIM</h5>
-
-<p>Domain Keys/DKIM是加密的邮件内容加密算法。在这种机制中，sender在邮件原文中添加一个DKIM-Signature字段，用于ISPs对接收到得内容进行验证。</p>
-
-<p>ISP获取发送域名（DKIM-Signature中的h字段）和DKIM-Signature数字签名，执行一次DNS查询获取到公钥，然后进行邮件正文内容验证。</p>
-
-<p>Gmail和Hotmail验证DKIM，yahoo验证Domain keys</p>
-
-<h4>是否一定需要进行验证？</h4>
-
-<p>如果你的消息没有进行任何验证，那么ISPs<strong>可能会</strong>拒绝连接。所以使用所有的验证机制是比较好的。</p>
-
-<h4>使用了验证机制后，邮件就不会被拒绝了吗？</h4>
-
-<p>ISPs主要还是使用你的IP和域名的<strong>信誉度</strong>来决定是否接受或者拒绝你的邮件，或者将邮件发送到收件箱还是垃圾箱。</p>
-
-<p>验证机制可以帮助ISP来验证你的身份或者邮件内容，但是他并不能提高你的信誉度。</p>
-
-<p>换句话说，验证不一定能提高你的邮件到达率。但是如果没有验证的话，即使你有一个很好的信誉度，也会影响到邮件的到达率。</p>
-
-<h4>信誉度和验证</h4>
-
-<p>上述的三种验证，只能验证IP是否是固定IP，IP是否有权限以声明为某域名发送邮件，邮件内容是否被纂改，但是不能确保你发送的邮件不是垃圾邮件等等。<strong>所以IP和域名的信誉度才是邮件到达率更关键的因素。</strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[关注From Name信誉度]]></title>
-    <link href="http://zhangdian.github.com/blog/2013/04/05/email-from-name-reputation/"/>
-    <updated>2013-04-05T20:44:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2013/04/05/email-from-name-reputation</id>
-    <content type="html"><![CDATA[<p>下面是对<a href="http://www.adstation.com/a-new-years-resolution-monitor-your-from-name-from-address-reputation/">A New Year’s Resolution: Monitor Your “From Name” (From Address) Reputation</a>的翻译和总结，是关于“关注From Name信誉度”的一篇文章。</p>
-
-<!-- more -->
-
-
-<p>在去年12月中旬，发现Yahoo开始将一些在白名单中的Sender发送的邮件，发送到垃圾箱中。通过分析了解到，Yahoo的这个策略几乎会影响使用多个“From Name”发送邮件的发送者。</p>
-
-<ul>
-<li>注意这里的“From Name”和“Friendly From Name”的区别：以发送地址“reputation &lt; bd17kaka@gmail.com > ”为例，“Friendly From Name”指的是“reputation”，“From Name”指的是bd17kaka。而Yahoo的这个变化时针对“From Name”的。</li>
-</ul>
-
-
-<h5>Yahoo做了什么改变</h5>
-
-<p>Yahoo的信誉度规则发生了改变，从去年12月开始，Yahoo使用“From Name”+“Domain Name”+“IP”的组合来确定信誉度：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>“From Name + Domain Name + IP”</span></code></pre></td></tr></table></div></figure>
-
-
-<p>同时也确定“Friendly From Name”和信誉度以及邮件是进入收件箱还是垃圾箱没有什么关系。</p>
-
-<h5>影响了谁，谁需要改变</h5>
-
-<ul>
-<li>最近改变了From Name，并且没有为新的From Name建立信誉度；</li>
-<li>使用多个From Name，并且任何一个From Name组合的信誉度都不满足Yahoo的需求；</li>
-</ul>
-
-
-<p>在以前，如果某一域名下的所有From Name的所有组合的平均信誉度是可以接受的话，邮件就会被发送到收件箱。经过这个改变之后，如果任何一个From Name的组合不是被接受的，那么这个组合发出来的邮件将不会被发送到收件箱。</p>
-
-<p>考虑下面三个From Name：</p>
-
-<ul>
-<li>fromname_1@bd17kaka.net</li>
-<li>fromname_2@bd17kaka.net</li>
-<li>fromname_3@bd17kaka.net</li>
-</ul>
-
-
-<p>假设前两个From Name的组合满足Yahoo的要求，但是第三个FromName是不满足的，那么前两个From Name发出来的邮件会发送到收件箱，第三个From Name发出来的邮件会进入垃圾箱。</p>
-
-<h5>如果From Name的信誉度很差，那么修改From Name会有帮助吗？</h5>
-
-<p>直到新的From Name建立一个好的信誉度之前，修改From Name都没有什么帮助。如果你不提升你发送邮件的策略，那么新的FromName也不会有一个好的信誉度。</p>
-
-<h5>Yahoo为什么做这个改变？</h5>
-
-<p>发送者对于不同收件人列表，使用不同的FromName和相同的IP来发送邮件。对于建立了好的信誉度的部分，会给予奖励，相反会给予惩罚。</p>
-
-<p>在以前，忽略FromName不管，如果一个发送者的平均信誉度满足Yahoo的要求，那么它是可以被接受的。可是现在不再是这样的了。</p>
-
-<h5>原文链接</h5>
-
-<p><a href="http://www.adstation.com/a-new-years-resolution-monitor-your-from-name-from-address-reputation/">Monitor Your “From Name” (From Address) Reputation</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[]]></title>
-    <link href="http://zhangdian.github.com/blog/2013/04/02/mail-dkim-spf-ptr/"/>
-    <updated>2013-04-02T23:36:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2013/04/02/mail-dkim-spf-ptr</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[email_user_reputation]]></title>
-    <link href="http://zhangdian.github.com/blog/2013/04/02/email-user-reputation/"/>
-    <updated>2013-04-02T23:27:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2013/04/02/email-user-reputation</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[java_jti]]></title>
-    <link href="http://zhangdian.github.com/blog/2013/04/02/java-jti/"/>
-    <updated>2013-04-02T23:21:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2013/04/02/java-jti</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>

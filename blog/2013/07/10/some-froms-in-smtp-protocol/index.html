@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Smtp协议中的各种‘Froms’ - bd17kaka's blog</title>
+  <meta name="author" content="bd17kaka">
+
+  
+  <meta name="description" content="Smtp协议中的各种‘Froms’ 这里主要对Return-Path、From以及Reply-To进行一下区分。 Return-Path Return-Path通常也被称作Reverse-Path或Envelope-FROM。 Return-Path是在Smtp session期间使用的。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2013/07/10/some-froms-in-smtp-protocol/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="bd17kaka's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">bd17kaka's blog</a></h1>
+  
+    <h2>I belong to Moon.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zhangdian.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">博客</a></li>
+  <li><a href="/blog/archives">分类</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Smtp协议中的各种‘Froms’</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-10T22:13:00+08:00" pubdate data-updated="true">Jul 10<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Smtp协议中的各种‘Froms’</h2>
+
+<p>这里主要对Return-Path、From以及Reply-To进行一下区分。</p>
+
+<!-- more -->
+
+
+<h3>Return-Path</h3>
+
+<p>Return-Path通常也被称作Reverse-Path或Envelope-FROM。</p>
+
+<p>Return-Path是在Smtp session期间使用的。只有接受者的邮件服务器会在邮件的头部添加一个Return-Path头部。</p>
+
+<p>Return-Path是Smtp session期间的真实sender，实际上也就是mailfrom命令对应的地址。</p>
+
+<p>如果在邮件头部以及存在了Return-Path头部，那么旧的Return-Path会被删掉，邮件接收服务器会新添加一个Return-Path头部。</p>
+
+<p>session期间产生的任何bounce，都会发送到Return-Path对应的地址。</p>
+
+<p><strong>有的邮件服务器会接收所有的邮件，然后缓存在本地，直到有一个空闲的进程发送这些邮件到接收者的收件箱。如果某个收件人不存在，那么就会发送一个bounce消息到Return-Path对应的地址。</strong></p>
+
+<p>注意，并不是所有的邮件服务器都遵循这样的规则，有些邮件服务器发送bounce消息到From地址。</p>
+
+<h3>From</h3>
+
+<p>From地址也就是在邮件客户端中，进行邮件展示时可以看到发信人地址。如果邮件中没有Reply-To地址，那么所有的人为的邮件回复都会发往From地址。</p>
+
+<h3>Reply-To</h3>
+
+<p>Reply-To由发送者添加，或者是发送者的软件。</p>
+
+<p>所有人为的回复都会回复到这个地址。当邮件客户端用户点击“回复”按钮时，Reply-To地址用于接收人的地址。</p>
+
+<p>任何的服务器都不应该使用Reply-To地址，它是供客户端使用的。</p>
+
+<h3>总结</h3>
+
+<p>当邮件接收服务器要退信的时候，如果设置了Return-Path，那么就会退到这个地址；没有设置的话，退到From地址；</p>
+
+<p>回复的信件会发送到Reply-To，没有设置的话，会回复到From地址。</p>
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/1235534/what-is-the-behavior-difference-between-return-path-reply-to-and-from">difference between return-path, reply-to and from? - Stack Overflow</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">bd17kaka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-10T22:13:00+08:00" pubdate data-updated="true">Jul 10<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/email/'>email</a>, <a class='category' href='/blog/categories/smtp/'>smtp</a>, <a class='category' href='/blog/categories/邮件/'>邮件</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 72 , _h = 16;
+  var param = {
+    url:'http://zhangdian.github.com/blog/2013/07/10/some-froms-in-smtp-protocol/',
+    type:'3',
+    count:'1', /**是否显示分享数，1显示(可选)*/
+    appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+    pic:'', /**分享图片的路径(可选)*/
+    ralateUid:'1930318973', /**关联用户的UID，分享微博会@该用户(可选)*/
+	language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/10/get-ip-addrs-using-nodejs/" title="Previous Post: 使用nodejs获取本机内网和外网IP地址">&laquo; 使用nodejs获取本机内网和外网IP地址</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/07/10/arf/" title="Next Post: ARF介绍">ARF介绍 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    ﻿<section>
+  <h1>About Me</h1>
+  <p>屌丝一枚，技术新人，服务于互联网，忠诚于AC米兰</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/10/arf/">ARF介绍</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/10/some-froms-in-smtp-protocol/">Smtp协议中的各种‘Froms’</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/10/get-ip-addrs-using-nodejs/">使用nodejs获取本机内网和外网IP地址</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/10/java-dot-util-dot-date-and-java-dot-sql-dot-date/">java.util.date 和 java.sql.date</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/10/key-words-in-rfcs/">RFCs中的关键词</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/10/spf/">spf介绍</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/learning-shell/">shell学习笔记——文本处理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/html-page-refresh/">JSP页面刷新</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/java-deep-copy/">JAVA中的浅拷贝和深拷贝</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/14/java-hashtable-hashmap/">JAVA HashTable & HashMap & ...</a>
+      </li>
+    
+  </ul>
+</section>
+
+  <span>
+  <iframe 
+    width="86" 
+    scrolling="no" 
+    height="16" 
+    frameborder="0" 
+    src=
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2013/07/10/some-froms-in-smtp-protocol/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+  </iframe>
+  </span>
+<html xmlns:wb=“http://open.weibo.com/wb”>
+<head>
+	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<wb:follow-button uid="1930318973" type="red_4" width="100%" height="64" >
+</wb:follow-button>
+</body>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - bd17kaka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  ﻿
+
+<script type="text/javascript">
+      var disqus_shortname = 'bd17kakablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2013/07/10/some-froms-in-smtp-protocol/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2013/07/10/some-froms-in-smtp-protocol/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script language="javascript" type="text/javascript" src="http://js.users.51.la/15203840.js"></script>
+<noscript><a href="http://www.51.la/?15203840" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/15203840.asp" style="border:none" /></a></noscript>
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ffd0f472a43d352b6df98e70648b4bef9' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+
+
+</body>
+</html>

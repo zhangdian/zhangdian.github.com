@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: smtp | bd17kaka's blog]]></title>
+  <link href="http://zhangdian.github.com/blog/categories/smtp/atom.xml" rel="self"/>
+  <link href="http://zhangdian.github.com/"/>
+  <updated>2013-07-10T22:38:09+08:00</updated>
+  <id>http://zhangdian.github.com/</id>
+  <author>
+    <name><![CDATA[bd17kaka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Smtp协议中的各种‘Froms’]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/07/10/some-froms-in-smtp-protocol/"/>
+    <updated>2013-07-10T22:13:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/07/10/some-froms-in-smtp-protocol</id>
+    <content type="html"><![CDATA[<h2>Smtp协议中的各种‘Froms’</h2>
+
+<p>这里主要对Return-Path、From以及Reply-To进行一下区分。</p>
+
+<!-- more -->
+
+
+<h3>Return-Path</h3>
+
+<p>Return-Path通常也被称作Reverse-Path或Envelope-FROM。</p>
+
+<p>Return-Path是在Smtp session期间使用的。只有接受者的邮件服务器会在邮件的头部添加一个Return-Path头部。</p>
+
+<p>Return-Path是Smtp session期间的真实sender，实际上也就是mailfrom命令对应的地址。</p>
+
+<p>如果在邮件头部以及存在了Return-Path头部，那么旧的Return-Path会被删掉，邮件接收服务器会新添加一个Return-Path头部。</p>
+
+<p>session期间产生的任何bounce，都会发送到Return-Path对应的地址。</p>
+
+<p><strong>有的邮件服务器会接收所有的邮件，然后缓存在本地，直到有一个空闲的进程发送这些邮件到接收者的收件箱。如果某个收件人不存在，那么就会发送一个bounce消息到Return-Path对应的地址。</strong></p>
+
+<p>注意，并不是所有的邮件服务器都遵循这样的规则，有些邮件服务器发送bounce消息到From地址。</p>
+
+<h3>From</h3>
+
+<p>From地址也就是在邮件客户端中，进行邮件展示时可以看到发信人地址。如果邮件中没有Reply-To地址，那么所有的人为的邮件回复都会发往From地址。</p>
+
+<h3>Reply-To</h3>
+
+<p>Reply-To由发送者添加，或者是发送者的软件。</p>
+
+<p>所有人为的回复都会回复到这个地址。当邮件客户端用户点击“回复”按钮时，Reply-To地址用于接收人的地址。</p>
+
+<p>任何的服务器都不应该使用Reply-To地址，它是供客户端使用的。</p>
+
+<h3>总结</h3>
+
+<p>当邮件接收服务器要退信的时候，如果设置了Return-Path，那么就会退到这个地址；没有设置的话，退到From地址；</p>
+
+<p>回复的信件会发送到Reply-To，没有设置的话，会回复到From地址。</p>
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/1235534/what-is-the-behavior-difference-between-return-path-reply-to-and-from">difference between return-path, reply-to and from? - Stack Overflow</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

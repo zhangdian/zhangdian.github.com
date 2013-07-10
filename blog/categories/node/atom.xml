@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: node | bd17kaka's blog]]></title>
+  <link href="http://zhangdian.github.com/blog/categories/node/atom.xml" rel="self"/>
+  <link href="http://zhangdian.github.com/"/>
+  <updated>2013-07-10T22:38:09+08:00</updated>
+  <id>http://zhangdian.github.com/</id>
+  <author>
+    <name><![CDATA[bd17kaka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用nodejs获取本机内网和外网IP地址]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/07/10/get-ip-addrs-using-nodejs/"/>
+    <updated>2013-07-10T22:10:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/07/10/get-ip-addrs-using-nodejs</id>
+    <content type="html"><![CDATA[<h2>使用nodejs获取内网和外网ip地址</h2>
+
+<!-- more -->
+
+
+<h3>直接上代码</h3>
+
+<pre><code>var os = require('os');
+function getLocalIP() {
+    var map = [];
+    var ifaces = os.networkInterfaces();
+    console.log(ifaces);
+
+    for (var dev in ifaces) {
+        if (dev.indexOf('eth0') != -1) {
+            var tokens = dev.split(':');
+            var dev2 = null;
+            if (tokens.length == 2) {
+                dev2 = 'eth1:' + tokens[1];
+            } else if (tokens.length == 1) {
+                dev2 = 'eth1';
+            }
+            if (null == ifaces[dev2]) {
+                continue;
+            }
+
+            // 找到eth0和eth1分别的ip
+            var ip = null, ip2 = null;
+            ifaces[dev].forEach(function(details) {
+                if (details.family == 'IPv4') {
+                    ip = details.address;
+                }
+            });
+            ifaces[dev2].forEach(function(details) {
+                if (details.family == 'IPv4') {
+                    ip2 = details.address;
+                }
+            });
+            if (null == ip || null == ip2) {
+                continue;
+            }
+
+            // 将记录添加到map中去
+            if (ip.indexOf('10.') == 0 ||
+                ip.indexOf('172.') == 0 ||
+                ip.indexOf('192.') == 0) {
+                map.push({"intranet_ip" : ip, "internet_ip" : ip2});
+            } else {
+                map.push({"intranet_ip" : ip2, "internet_ip" : ip});
+            }
+        }
+    }  
+    return map;
+}
+
+console.log(getLocalIP());
+</code></pre>
+
+<h3>参考</h3>
+
+<p><a href="http://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js/3742915#3742915">nodejs获取本地IP地址</a></p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -5,28 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>一个关于sql语句的问题 - bd17kaka's blog</title>
+  <title>spf介绍 - bd17kaka's blog</title>
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="看到一个问题，据说很多大牛都搞不出来，看了看，问题虽然不是很难，但是一句sql确实包含了很多的sql知识的，mark下来，回忆一下丢失已久的sql知识。 问题 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-数据表结构
-user_name product_id
-1 A
-2 B
-1 B
-3 C
-4 C
-1 &hellip;">
+  <meta name="description" content="SPF RFC SPF在RFC4408中定义。 概述 SPF是一个邮件验证系统，通过检测邮件欺诈，通过验证发送者的ip地址，来防止垃圾邮件。 SPF允许管理员通过在DNS上指定一个SPF record（or TXT record）来指定允许哪些机器可以通过一个指定的域名发送邮件。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -35,7 +18,7 @@ user_name product_id
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zhangdian.github.com/blog/2012/12/11/a-sql-question/">
+  <link rel="canonical" href="http://zhangdian.github.com/blog/2013/07/10/spf/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -84,7 +67,7 @@ user_name product_id
   
   <header>
     
-      <h1 class="entry-title">一个关于sql语句的问题</h1>
+      <h1 class="entry-title">Spf介绍</h1>
     
     
       <p class="meta">
@@ -100,7 +83,7 @@ user_name product_id
   
 
 
-<time datetime="2012-12-11T15:29:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+<time datetime="2013-07-10T21:53:00+08:00" pubdate data-updated="true">Jul 10<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -109,53 +92,53 @@ user_name product_id
   </header>
 
 
-<div class="entry-content"><p>看到一个问题，据说很多大牛都搞不出来，看了看，问题虽然不是很难，但是一句sql确实包含了很多的sql知识的，mark下来，回忆一下丢失已久的sql知识。</p>
+<div class="entry-content"><h2>SPF</h2>
 
-<!-- more -->
+<h3>RFC</h3>
 
+<p>SPF在RFC4408中定义。</p>
 
-<h4>问题</h4>
+<h3>概述</h3>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>数据表结构
-</span><span class='line'>user_name product_id
-</span><span class='line'>1            A
-</span><span class='line'>2            B
-</span><span class='line'>1            B
-</span><span class='line'>3            C
-</span><span class='line'>4            C
-</span><span class='line'>1            C
-</span><span class='line'>需求：哪些用户同时购买了 A，C，D？（或者说，同时购买A，C，D的用户都是那些？）
-</span><span class='line'>A,C,D是用户临时输入的，每次都确定、但不固定。</span></code></pre></td></tr></table></div></figure>
+<p>SPF是一个邮件验证系统，通过检测邮件欺诈，通过验证发送者的ip地址，来防止垃圾邮件。</p>
 
+<p>SPF允许管理员通过在DNS上指定一个SPF record（or TXT record）来指定允许哪些机器可以通过一个指定的域名发送邮件。</p>
 
-<h4>解答</h4>
+<p>邮件服务器使用这个DNS来检测来自一个domain(smtp会话的mailfrom的domain)的邮件是否通过一个由domain的管理员认可的host发出。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>SELECT user_name
-</span><span class='line'>FROM product_buy
-</span><span class='line'>WHERE product_id in( A, C, D )
-</span><span class='line'>GROUP BY user_name
-</span><span class='line'>HAVING COUNT( DISTINCT product_id ) = 3 ;</span></code></pre></td></tr></table></div></figure>
+<p>也就是在DNS上，为一个域名指定几个ip，凡是发送到该域名上的，必须是这几个ip发来的，才被认为是合法的，其他的都是违法的。</p>
 
+<h3>工作原理</h3>
 
-<h4>参考</h4>
+<p>SMTP协议允许任何计算机发送被声明为任意mailfrom的邮件。这被那些经常使用伪造邮件地址的spammers充分利用，导致很难跟踪到邮件发送者，并且很容易使spammers隐藏自己的身份，从而达到避开责任的目的。很多人相信，在现代的SMTP中，任何人都可以随意伪造发送地址是一个安全漏洞。</p>
+
+<p>SPF允许一个domain的拥有者通过使用指定的DNS记录（SPF, type99），来授权哪些机器（ip）使用带有那个domain的发送地址来发送邮件。</p>
+
+<p>接受者在接收消息体的时候，首先验证SPF记录，从而阻止来自未被认证的发送地址的消息。</p>
+
+<p>在新的record类型普遍使用到DNS软件中之前，早期的实现都使用TXT records实现。为SPF使用TXT records是一个过渡措施。当然，如果在DNS上同时指定两种记录的话，两者的记录值必须是一样的。</p>
+
+<p>发送者的ip地址在SMTP对象开始的时候传输，如果服务者器拒绝发送，那么这个未被验证的客户端会接收到一个拒绝消息，如果这个客户端是一个MTA，那么会有一个bounce message会被发送到原始的发送地址。</p>
+
+<p>如果服务器接收发送者，接下来会接收recipients以及body of message，然后会插入一个Return-Path到message header，来保存发送地址。这个Return-Path通常和原始发送者的FROM或者SENDER相匹配，然后这个并不是必须的，SPF也不阻止伪造这个地址。</p>
+
+<h3>实现</h3>
+
+<p>SPF包含三个相关的工作：</p>
 
 <ul>
-<li>问题来源：<a href="http://julying.com/blog/mysql-and-problem-sets/">一个 MYSQL 并集 的问题</a></li>
+<li><p>1.发布一个policy，在DNS信息中添加记录；类似</p>
+
+<p>  example.com.          TXT &#8220;v=spf1 +mx a:colo.example.com/28 -all&#8221;</p></li>
+<li><p>2.检查并且使用SPF信息；</p></li>
+<li>3.修改邮件转发</li>
+</ul>
+
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://www.ietf.org/rfc/rfc4408.txt">RFC4408</a></li>
 </ul>
 
 </div>
@@ -180,12 +163,12 @@ user_name product_id
   
 
 
-<time datetime="2012-12-11T15:29:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2012</time>
+<time datetime="2013-07-10T21:53:00+08:00" pubdate data-updated="true">Jul 10<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/sql/'>sql</a>
+    <a class='category' href='/blog/categories/email/'>email</a>, <a class='category' href='/blog/categories/邮件/'>邮件</a>
   
 </span>
 
@@ -203,7 +186,7 @@ user_name product_id
 (function(){
   var _w = 72 , _h = 16;
   var param = {
-    url:'http://zhangdian.github.com/blog/2012/12/11/a-sql-question/',
+    url:'http://zhangdian.github.com/blog/2013/07/10/spf/',
     type:'3',
     count:'1', /**是否显示分享数，1显示(可选)*/
     appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
@@ -225,10 +208,8 @@ user_name product_id
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/12/11/java-spring-some-best-practices/" title="Previous Post: java spring的一些best practice">&laquo; java spring的一些best practice</a>
+        <a class="basic-alignment left" href="/blog/2013/06/25/learning-shell/" title="Previous Post: shell学习笔记——文本处理工具">&laquo; shell学习笔记——文本处理工具</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/12/11/add-51-stat/" title="Next Post: 使用51.la统计网站流量">使用51.la统计网站流量 &raquo;</a>
       
     </p>
   </footer>
@@ -302,7 +283,7 @@ user_name product_id
     height="16" 
     frameborder="0" 
     src=
-      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2012/12/11/a-sql-question/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
+      "http://hits.sinajs.cn/A1/weiboshare.html?url=http://zhangdian.github.com/blog/2013/07/10/spf/&amp;type=6&amp;ralateUid=1930318973&amp;language=zh_cn" allowtransparency="true">
   </iframe>
   </span>
 <html xmlns:wb=“http://open.weibo.com/wb”>
@@ -337,8 +318,8 @@ user_name product_id
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://zhangdian.github.com/blog/2012/12/11/a-sql-question/';
-        var disqus_url = 'http://zhangdian.github.com/blog/2012/12/11/a-sql-question/';
+        var disqus_identifier = 'http://zhangdian.github.com/blog/2013/07/10/spf/';
+        var disqus_url = 'http://zhangdian.github.com/blog/2013/07/10/spf/';
         var disqus_script = 'embed.js';
       
     (function () {

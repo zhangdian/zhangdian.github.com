@@ -9,13 +9,7 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="文本处理工具 排序工具 sort sort将输入看做有多条记录的数据流。 记录是由可变宽度的字段组成；
-记录是以换行字符为定界符；
-字段的定界符则是空白字符或者是用户指定的单个字符； 常用选项 -b 忽略开头的空白
--f 忽略大小写
--i 忽略无法打印的字符
--k 定义进行排序的键值字段
--m &hellip;">
+  <meta name="description" content="SPF RFC SPF在RFC4408中定义。 概述 SPF是一个邮件验证系统，通过检测邮件欺诈，通过验证发送者的ip地址，来防止垃圾邮件。 SPF允许管理员通过在DNS上指定一个SPF record（or TXT record）来指定允许哪些机器可以通过一个指定的域名发送邮件。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +64,92 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/10/spf/">Spf介绍</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-10T21:53:00+08:00" pubdate data-updated="true">Jul 10<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/10/spf/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>SPF</h2>
+
+<h3>RFC</h3>
+
+<p>SPF在RFC4408中定义。</p>
+
+<h3>概述</h3>
+
+<p>SPF是一个邮件验证系统，通过检测邮件欺诈，通过验证发送者的ip地址，来防止垃圾邮件。</p>
+
+<p>SPF允许管理员通过在DNS上指定一个SPF record（or TXT record）来指定允许哪些机器可以通过一个指定的域名发送邮件。</p>
+
+<p>邮件服务器使用这个DNS来检测来自一个domain(smtp会话的mailfrom的domain)的邮件是否通过一个由domain的管理员认可的host发出。</p>
+
+<p>也就是在DNS上，为一个域名指定几个ip，凡是发送到该域名上的，必须是这几个ip发来的，才被认为是合法的，其他的都是违法的。</p>
+
+<h3>工作原理</h3>
+
+<p>SMTP协议允许任何计算机发送被声明为任意mailfrom的邮件。这被那些经常使用伪造邮件地址的spammers充分利用，导致很难跟踪到邮件发送者，并且很容易使spammers隐藏自己的身份，从而达到避开责任的目的。很多人相信，在现代的SMTP中，任何人都可以随意伪造发送地址是一个安全漏洞。</p>
+
+<p>SPF允许一个domain的拥有者通过使用指定的DNS记录（SPF, type99），来授权哪些机器（ip）使用带有那个domain的发送地址来发送邮件。</p>
+
+<p>接受者在接收消息体的时候，首先验证SPF记录，从而阻止来自未被认证的发送地址的消息。</p>
+
+<p>在新的record类型普遍使用到DNS软件中之前，早期的实现都使用TXT records实现。为SPF使用TXT records是一个过渡措施。当然，如果在DNS上同时指定两种记录的话，两者的记录值必须是一样的。</p>
+
+<p>发送者的ip地址在SMTP对象开始的时候传输，如果服务者器拒绝发送，那么这个未被验证的客户端会接收到一个拒绝消息，如果这个客户端是一个MTA，那么会有一个bounce message会被发送到原始的发送地址。</p>
+
+<p>如果服务器接收发送者，接下来会接收recipients以及body of message，然后会插入一个Return-Path到message header，来保存发送地址。这个Return-Path通常和原始发送者的FROM或者SENDER相匹配，然后这个并不是必须的，SPF也不阻止伪造这个地址。</p>
+
+<h3>实现</h3>
+
+<p>SPF包含三个相关的工作：</p>
+
+<ul>
+<li><p>1.发布一个policy，在DNS信息中添加记录；类似</p>
+
+<p>  example.com.          TXT &#8220;v=spf1 +mx a:colo.example.com/28 -all&#8221;</p></li>
+<li><p>2.检查并且使用SPF信息；</p></li>
+<li>3.修改邮件转发</li>
+</ul>
+
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://www.ietf.org/rfc/rfc4408.txt">RFC4408</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -564,44 +644,6 @@ StringBuffer cpObject = new StringBuffer(object);
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/02/call-java-in-nodejs/">Call Java in Nodejs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-02T22:43:00+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/02/call-java-in-nodejs/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -619,6 +661,10 @@ StringBuffer cpObject = new StringBuffer(object);
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/10/spf/">spf介绍</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/06/25/learning-shell/">shell学习笔记——文本处理工具</a>
@@ -654,10 +700,6 @@ StringBuffer cpObject = new StringBuffer(object);
     
       <li class="post">
         <a href="/blog/2013/05/25/js-cross-domain/">JS跨域(Get)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/02/call-java-in-nodejs/">call java in nodejs</a>
       </li>
     
   </ul>

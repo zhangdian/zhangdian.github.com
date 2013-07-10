@@ -4,7 +4,7 @@
   <title><![CDATA[bd17kaka's blog]]></title>
   <link href="http://zhangdian.github.com/atom.xml" rel="self"/>
   <link href="http://zhangdian.github.com/"/>
-  <updated>2013-06-26T23:42:03+08:00</updated>
+  <updated>2013-07-10T21:57:55+08:00</updated>
   <id>http://zhangdian.github.com/</id>
   <author>
     <name><![CDATA[bd17kaka]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[spf介绍]]></title>
+    <link href="http://zhangdian.github.com/blog/2013/07/10/spf/"/>
+    <updated>2013-07-10T21:53:00+08:00</updated>
+    <id>http://zhangdian.github.com/blog/2013/07/10/spf</id>
+    <content type="html"><![CDATA[<h2>SPF</h2>
+
+<h3>RFC</h3>
+
+<p>SPF在RFC4408中定义。</p>
+
+<h3>概述</h3>
+
+<p>SPF是一个邮件验证系统，通过检测邮件欺诈，通过验证发送者的ip地址，来防止垃圾邮件。</p>
+
+<p>SPF允许管理员通过在DNS上指定一个SPF record（or TXT record）来指定允许哪些机器可以通过一个指定的域名发送邮件。</p>
+
+<p>邮件服务器使用这个DNS来检测来自一个domain(smtp会话的mailfrom的domain)的邮件是否通过一个由domain的管理员认可的host发出。</p>
+
+<p>也就是在DNS上，为一个域名指定几个ip，凡是发送到该域名上的，必须是这几个ip发来的，才被认为是合法的，其他的都是违法的。</p>
+
+<h3>工作原理</h3>
+
+<p>SMTP协议允许任何计算机发送被声明为任意mailfrom的邮件。这被那些经常使用伪造邮件地址的spammers充分利用，导致很难跟踪到邮件发送者，并且很容易使spammers隐藏自己的身份，从而达到避开责任的目的。很多人相信，在现代的SMTP中，任何人都可以随意伪造发送地址是一个安全漏洞。</p>
+
+<p>SPF允许一个domain的拥有者通过使用指定的DNS记录（SPF, type99），来授权哪些机器（ip）使用带有那个domain的发送地址来发送邮件。</p>
+
+<p>接受者在接收消息体的时候，首先验证SPF记录，从而阻止来自未被认证的发送地址的消息。</p>
+
+<p>在新的record类型普遍使用到DNS软件中之前，早期的实现都使用TXT records实现。为SPF使用TXT records是一个过渡措施。当然，如果在DNS上同时指定两种记录的话，两者的记录值必须是一样的。</p>
+
+<p>发送者的ip地址在SMTP对象开始的时候传输，如果服务者器拒绝发送，那么这个未被验证的客户端会接收到一个拒绝消息，如果这个客户端是一个MTA，那么会有一个bounce message会被发送到原始的发送地址。</p>
+
+<p>如果服务器接收发送者，接下来会接收recipients以及body of message，然后会插入一个Return-Path到message header，来保存发送地址。这个Return-Path通常和原始发送者的FROM或者SENDER相匹配，然后这个并不是必须的，SPF也不阻止伪造这个地址。</p>
+
+<h3>实现</h3>
+
+<p>SPF包含三个相关的工作：</p>
+
+<ul>
+<li><p>1.发布一个policy，在DNS信息中添加记录；类似</p>
+
+<p>  example.com.          TXT &#8220;v=spf1 +mx a:colo.example.com/28 -all&#8221;</p></li>
+<li><p>2.检查并且使用SPF信息；</p></li>
+<li>3.修改邮件转发</li>
+</ul>
+
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://www.ietf.org/rfc/rfc4408.txt">RFC4408</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[shell学习笔记——文本处理工具]]></title>
@@ -1318,15 +1375,6 @@ SPF和SenderID的区别是获取Sender的算法不同。</p>
     <link href="http://zhangdian.github.com/blog/2013/04/02/java-jti/"/>
     <updated>2013-04-02T23:21:00+08:00</updated>
     <id>http://zhangdian.github.com/blog/2013/04/02/java-jti</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[java_aot]]></title>
-    <link href="http://zhangdian.github.com/blog/2013/04/02/java-aot/"/>
-    <updated>2013-04-02T23:20:00+08:00</updated>
-    <id>http://zhangdian.github.com/blog/2013/04/02/java-aot</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>

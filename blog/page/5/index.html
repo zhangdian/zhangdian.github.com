@@ -9,7 +9,18 @@
   <meta name="author" content="bd17kaka">
 
   
-  <meta name="description" content="Dropbox是一款资料同步软件，只要把资料存在云端，就可以无处不在的访问到这些资料。今天在Ubuntu12.04下安装了Dropbox，把安装过程和遇到的问题写下来。 ">
+  <meta name="description" content="使用git进行版本管理，经常需要敲各种命令，比如 1
+2
+3
+4
+git checkout
+git status
+git commit
+git branch 等等，可以在git中进行全局配置，让这些命令更加短一些： 1
+2
+3
+4
+git config --global alias.co &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +75,68 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/27/git-config/">Git配置</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-27T19:08:00+08:00" pubdate data-updated="true">Nov 27<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/11/27/git-config/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>使用git进行版本管理，经常需要敲各种命令，比如</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout
+</span><span class='line'>git status
+</span><span class='line'>git commit
+</span><span class='line'>git branch</span></code></pre></td></tr></table></div></figure>
+
+
+<p>等等，可以在git中进行全局配置，让这些命令更加短一些：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global alias.co chekcout
+</span><span class='line'>git config --global alias.st status
+</span><span class='line'>git config --global alias.ci commit
+</span><span class='line'>git config --global alias.br branch</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样，以后就可以敲比较短的命令了。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -271,6 +344,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/07/10/spf/">spf介绍</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/25/learning-shell/">shell学习笔记——文本处理工具</a>
       </li>
     
@@ -304,10 +381,6 @@
     
       <li class="post">
         <a href="/blog/2013/05/25/js-cross-domain/">JS跨域(Get)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/02/call-java-in-nodejs/">call java in nodejs</a>
       </li>
     
   </ul>
